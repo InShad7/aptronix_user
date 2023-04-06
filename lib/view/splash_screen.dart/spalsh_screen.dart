@@ -32,6 +32,15 @@ class _SplashScreenState extends State<SplashScreen> {
           'aptronix.',
           style: GoogleFonts.roboto(
             textStyle: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+            // shadows: [
+            //   Shadow(
+            //     offset: Offset(3.0, 3.0),
+            //     blurRadius: 6.0,
+            //     color: Color.fromARGB(255, 142, 141, 141)
+            //         .withOpacity(0.8),
+            //   ),
+
+            // ]
           ),
         ),
       ),

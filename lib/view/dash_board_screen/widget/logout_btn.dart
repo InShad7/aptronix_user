@@ -6,7 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Widget customBtn({context, required Widget navigateTo, required String title}) {
+// bool logout = false;
+
+Widget customBtn({
+  context,
+  required Widget navigateTo,
+  required String title,
+  // required bool logout
+}) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: SizedBox(
@@ -20,17 +27,18 @@ Widget customBtn({context, required Widget navigateTo, required String title}) {
           ),
         ),
         onPressed: () {
+          // logout?
           alertBox(context);
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => navigateTo,
-          //   ),
-          // );
+          // : Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => navigateTo,
+          //     ),
+          //     (route) => false);
         },
         child: Text(
           title,
-          style: GoogleFonts.ubuntu(
+          style: GoogleFonts.roboto(
             textStyle: TextStyle(fontSize: 30),
           ),
         ),
@@ -45,7 +53,7 @@ void alertBox(context) {
     builder: (context) => AlertDialog(
       content: Text(
         'Are you sure want to LogOut.!',
-        style: GoogleFonts.ubuntu(fontSize: 20),
+        style: GoogleFonts.roboto(fontSize: 20),
       ),
       actions: [
         TextButton(
@@ -53,7 +61,6 @@ void alertBox(context) {
             final sharedPrefer = await SharedPreferences.getInstance();
             await sharedPrefer.setBool('isLoggedIn', false);
 
-            
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => LoginScreen(),
@@ -62,7 +69,7 @@ void alertBox(context) {
           },
           child: Text(
             'LOGOUT',
-            style: GoogleFonts.ubuntu(color: Colors.teal, fontSize: 18),
+            style: GoogleFonts.roboto(color: Colors.teal, fontSize: 18),
           ),
         ),
         TextButton(
@@ -71,7 +78,7 @@ void alertBox(context) {
           },
           child: Text(
             'DISMISS',
-            style: GoogleFonts.ubuntu(color: red, fontSize: 18),
+            style: GoogleFonts.roboto(color: red, fontSize: 18),
           ),
         ),
       ],

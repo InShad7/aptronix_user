@@ -1,3 +1,4 @@
+import 'package:aaptronix/view/order_summary_screen/address_screen/address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -10,22 +11,59 @@ Widget customTextField(
     required bool num,
     required int max,
     required String content,
-    required bool readOnly}) {
+    required bool readOnly,
+    bool btn = false,
+    String btnName='',
+    context}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kHeight,
-        Text(
-          " $label",
-          style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              " $label",
+              style: GoogleFonts.roboto(
+                  textStyle:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ),
+            Visibility(
+              visible: btn,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  foregroundColor: grey1,
+                  backgroundColor: cardClr2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddressScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  btnName,
+                  style: GoogleFonts.roboto(
+                    textStyle:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         kHeight5,
         Container(
           decoration: BoxDecoration(
-            color: grey,
+            color: cardClr2,
             borderRadius: BorderRadius.circular(18),
           ),
           height: ht,

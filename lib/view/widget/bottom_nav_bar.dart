@@ -1,4 +1,3 @@
-
 import 'package:aaptronix/view/cart_screen/cart_screen.dart';
 import 'package:aaptronix/view/category_screen/category_screen.dart';
 import 'package:aaptronix/view/dash_board_screen/dash_board_screen.dart';
@@ -9,7 +8,10 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key, this.state = false});
+  BottomNavBar({
+    super.key,
+    this.state = false,
+  });
 
   final bool state;
   late int currentIndex = 0;
@@ -19,7 +21,7 @@ class BottomNavBar extends StatefulWidget {
     const CategoryScreen(),
     const CartScreen(),
     const WishListScreen(),
-     DashBoardScreen()
+    DashBoardScreen()
   ];
 
   @override

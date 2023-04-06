@@ -1,5 +1,6 @@
 import 'package:aaptronix/view/cart_screen/widget/cart_card.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
+import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,18 @@ class CartScreen extends StatelessWidget {
           itemCount: 8,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => cartCard(index),
+          itemBuilder: (context, index) => cartCard(),
         ),
         kHeight100,
       ]),
-      bottomSheet: placeOrderBtn(),
+      bottomSheet: placeOrderBtn(
+        context: context,
+        label: 'Place Order',
+        ht: 140,
+        botomSpace: 58,
+        clr: false,
+        navigateTo: OrderSummaryScreen(),
+      ),
     );
   }
 }

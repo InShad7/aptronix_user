@@ -1,11 +1,9 @@
-
-import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget cartCard(int index) {
+Widget cartCard() {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
     child: Container(
@@ -25,10 +23,10 @@ Widget cartCard(int index) {
                 borderRadius: BorderRadius.circular(8),
                 color: white,
                 image: DecorationImage(
-                  image: AssetImage(
-                    img[index],
-                  ),
-                ),
+                    image: NetworkImage(
+                      'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1656712888128',
+                    ),
+                    fit: BoxFit.cover),
               ),
             ),
             kWidth,
@@ -39,7 +37,7 @@ Widget cartCard(int index) {
                 Row(
                   children: [
                     Text(
-                      'iPhone 12',
+                      'iPhone 13',
                       style: GoogleFonts.roboto(
                           textStyle: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.w500)),

@@ -43,7 +43,9 @@ class MyTextField extends StatelessWidget {
                 obscureText: passChar,
                 controller: myControler,
                 cursorColor: blue,
-                style: TextStyle(color: black),
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(color: black),
+                ),
                 decoration: InputDecoration(
                   prefixIcon: Icon(icon, size: 28, color: blue),
                   border: const OutlineInputBorder(borderSide: BorderSide.none),

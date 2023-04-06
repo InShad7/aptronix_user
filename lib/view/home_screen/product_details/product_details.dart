@@ -37,7 +37,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
             kHeight20,
           ]),
-      bottomNavigationBar: addCartAndBuyNow(),
+      bottomNavigationBar: addCartAndBuyNow(context),
     );
   }
 }

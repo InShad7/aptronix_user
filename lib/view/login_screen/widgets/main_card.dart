@@ -15,7 +15,7 @@ class SignInText extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Aptronix',
+            'aptronix.',
             style: GoogleFonts.roboto(
               textStyle: TextStyle(fontSize: 33, color: black),
             ),
