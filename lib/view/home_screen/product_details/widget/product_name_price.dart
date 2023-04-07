@@ -35,13 +35,17 @@ Widget productNamePrice() {
           ),
         ),
         kHeight,
-        Text(
-          "₹ 99,900",
-          style: GoogleFonts.roboto(
-            textStyle: const TextStyle(
-              fontSize: 27,
+        Row(
+          children: [
+            Text(
+              "₹ 99,900",
+              style: GoogleFonts.roboto(
+                textStyle: const TextStyle(
+                  fontSize: 27,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ],
     ),

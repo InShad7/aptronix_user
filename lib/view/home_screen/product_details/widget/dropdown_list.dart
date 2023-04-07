@@ -31,7 +31,7 @@ class _DropDownListState extends State<DropDownList> {
             height: 65,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: grey,
+              color: cardClr,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
@@ -103,7 +103,7 @@ class _DropDownList2State extends State<DropDownList2> {
             height: 65,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: grey,
+              color: cardClr,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(

@@ -30,7 +30,7 @@ Widget categoryItemCard() {
           margin: const EdgeInsets.all(5),
           // width: 150,
           decoration: BoxDecoration(
-            color: grey,
+            color: cardClr,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -51,7 +51,8 @@ Widget categoryItemCard() {
               Text(
                 title[index],
                 style: GoogleFonts.roboto(
-                  textStyle: const TextStyle(fontSize: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),
               kWidth

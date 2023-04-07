@@ -13,7 +13,7 @@ Widget customTextField(
     required String content,
     required bool readOnly,
     bool btn = false,
-    String btnName='',
+    String btnName = '',
     context}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16),
@@ -36,7 +36,7 @@ Widget customTextField(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   foregroundColor: grey1,
-                  backgroundColor: cardClr2,
+                  backgroundColor: cardClr,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18),
                   ),
@@ -63,7 +63,7 @@ Widget customTextField(
         kHeight5,
         Container(
           decoration: BoxDecoration(
-            color: cardClr2,
+            color: cardClr,
             borderRadius: BorderRadius.circular(18),
           ),
           height: ht,

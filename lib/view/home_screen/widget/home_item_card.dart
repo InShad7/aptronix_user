@@ -38,7 +38,7 @@ Widget homeItemCards(BuildContext context) {
               // width: 200,
               decoration: BoxDecoration(
                 color: cardClr,
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Column(children: [
                 InkWell(

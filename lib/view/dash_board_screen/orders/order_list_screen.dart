@@ -17,7 +17,7 @@ class OrderListScreen extends StatelessWidget {
       appBar: myAppBar(context, title: "Orders"),
       body: ListView.builder(
         itemCount: orderItem.length,
-        itemBuilder: (context, index) => orderedItemTile(index),
+        itemBuilder: (context, index) => orderedItemTile(index,context),
       ),
     );
   }

@@ -36,6 +36,7 @@ class ProductDetailsScreen extends StatelessWidget {
               readOnly: true,
             ),
             kHeight20,
+            
           ]),
       bottomNavigationBar: addCartAndBuyNow(context),
     );

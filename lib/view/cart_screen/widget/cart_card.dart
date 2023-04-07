@@ -3,13 +3,14 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget cartCard() {
+Widget cartCard({bool quantity = true}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
     child: Container(
       height: 110,
       decoration: BoxDecoration(
-        color: cardClr2,
+        // border: Border.all(width: 0),
+        color: cardClr,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Padding(
@@ -55,39 +56,42 @@ Widget cartCard() {
                       style: GoogleFonts.roboto(
                           textStyle: TextStyle(fontSize: 20)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 96.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              print('remove');
-                            },
-                            icon: Icon(Icons.remove),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 8, top: 2),
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                              color: blue,
-                              borderRadius: BorderRadius.circular(12),
+                    Visibility(
+                      visible: quantity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 96.0),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                print('remove');
+                              },
+                              icon: Icon(Icons.remove),
                             ),
-                            child: Text(
-                              '1',
-                              style: GoogleFonts.roboto(
-                                textStyle:
-                                    TextStyle(fontSize: 18, color: white),
+                            Container(
+                              padding: EdgeInsets.only(left: 8, top: 2),
+                              height: 25,
+                              width: 25,
+                              decoration: BoxDecoration(
+                                color: blue,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                '1',
+                                style: GoogleFonts.roboto(
+                                  textStyle:
+                                      TextStyle(fontSize: 18, color: white),
+                                ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              print('add');
-                            },
-                            icon: Icon(Icons.add),
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () {
+                                print('add');
+                              },
+                              icon: Icon(Icons.add),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],

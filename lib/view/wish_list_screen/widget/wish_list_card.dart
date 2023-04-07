@@ -11,7 +11,7 @@ Widget wishListCard(int index) {
     child: Container(
       height: 110,
       decoration: BoxDecoration(
-        color: cardClr2,
+        color: cardClr,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Padding(

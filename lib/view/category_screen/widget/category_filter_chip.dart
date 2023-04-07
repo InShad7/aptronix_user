@@ -1,4 +1,3 @@
-
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +14,10 @@ class MyFilterChip extends StatefulWidget {
 class MyFilterChipState extends State<MyFilterChip> {
   bool selected = false;
   final List<ItemModel> _chipsList = [
-    ItemModel("iPhone", grey, false),
-    ItemModel("iPad", grey, false),
-    ItemModel("Macbook", grey, false),
-    ItemModel("iWatch", grey, false),
+    ItemModel("iPhone", cardClr2, false),
+    ItemModel("iPad", cardClr2, false),
+    ItemModel("Macbook", cardClr2, false),
+    ItemModel("iWatch", cardClr2, false),
   ];
 
   @override
