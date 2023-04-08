@@ -16,8 +16,12 @@ List img = [
 ];
 List title = ['iPhone', 'iPad', 'Mac Book', 'iWatch'];
 
-Widget categoryItemCard() {
-  return SizedBox(
+class CategoryItemCard extends StatelessWidget {
+  const CategoryItemCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  SizedBox(
     height: 85,
     child: ListView.builder(
       itemCount: 4,
@@ -67,4 +71,5 @@ Widget categoryItemCard() {
       ),
     ),
   );
+  }
 }

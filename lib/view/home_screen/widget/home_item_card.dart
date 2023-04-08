@@ -5,130 +5,139 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget homeItemCards(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "New Arrival",
-          style: GoogleFonts.roboto(
-            textStyle: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+class HomeItemCards extends StatelessWidget {
+  const HomeItemCards({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "New Arrival",
+            style: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        kHeight,
-        SizedBox(
-          height: 1030,
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: (2 / 2.6),
-            ),
-            itemCount: 8,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => Container(
-              // height: 200,
-              // width: 200,
-              decoration: BoxDecoration(
-                color: cardClr,
-                borderRadius: BorderRadius.circular(12),
+          kHeight,
+          SizedBox(
+            height: 1030,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: (2 / 2.6),
               ),
-              child: Column(children: [
-                InkWell(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 12),
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      // color: white,
-                      borderRadius: BorderRadius.circular(18),
-                      image: DecorationImage(
-                          image: AssetImage(img[index]), fit: BoxFit.contain),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetailsScreen(),
-                      ),
-                    );
-                  },
+              itemCount: 8,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => Container(
+                // height: 200,
+                // width: 200,
+                decoration: BoxDecoration(
+                  color: cardClr,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                kHeight15,
-                Container(
-                  height: 60,
-                  width: 170,
-                  decoration: BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.circular(12),
+                child: Column(children: [
+                  InkWell(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 12),
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        // color: white,
+                        borderRadius: BorderRadius.circular(18),
+                        image: DecorationImage(
+                            image: AssetImage(img[index]), fit: BoxFit.contain),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetailsScreen(),
+                        ),
+                      );
+                    },
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        kHeight,
-                        Row(
-                          children: [
-                            InkWell(
-                              child: Text(
-                                'iPhone 15 Pro',
-                                style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500),
+                  kHeight15,
+                  Container(
+                    height: 60,
+                    width: 170,
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          kHeight,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                child: InkWell(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    'iPhone 14 Pro',
+                                    style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailsScreen(),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductDetailsScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            kWidth,
-                            kWidth5,
-                            FavIcon()
-                          ],
-                        ),
-                        InkWell(
-                          child: Text(
-                            '₹ 119,990',
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(fontSize: 18),
-                            ),
+                              kWidth,
+                              kWidth5,
+                              FavIcon()
+                            ],
                           ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetailsScreen(),
+                          InkWell(
+                            child: Text(
+                              '₹ 119,990',
+                              style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(fontSize: 18),
                               ),
-                            );
-                          },
-                        )
-                      ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailsScreen(),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ]),
+                  )
+                ]),
+              ),
             ),
-          ),
-        )
-      ],
-    ),
-  );
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class FavIcon extends StatefulWidget {

@@ -3,8 +3,13 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget cartCard({bool quantity = true}) {
-  return Padding(
+class CartCard extends StatelessWidget {
+  const CartCard({super.key , this.quantity=true});
+  final bool quantity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
     child: Container(
       height: 110,
@@ -56,26 +61,38 @@ Widget cartCard({bool quantity = true}) {
                       style: GoogleFonts.roboto(
                           textStyle: TextStyle(fontSize: 20)),
                     ),
-                    Visibility(
-                      visible: quantity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 96.0),
-                        child: Row(
-                          children: [
-                            IconButton(
+                    Padding(
+                      padding: quantity
+                          ? const EdgeInsets.only(left: 86.5)
+                          : EdgeInsets.only(left: 150),
+                      child: Row(
+                        children: [
+                          quantity
+                              ? Text('')
+                              : Text(
+                                  'Qty:',
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(fontSize: 17),
+                                  ),
+                                ),
+                          kWidth,
+                          Visibility(
+                            visible: quantity,
+                            child: IconButton(
                               onPressed: () {
                                 print('remove');
                               },
                               icon: Icon(Icons.remove),
                             ),
-                            Container(
-                              padding: EdgeInsets.only(left: 8, top: 2),
-                              height: 25,
-                              width: 25,
-                              decoration: BoxDecoration(
-                                color: blue,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
+                          ),
+                          Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                              color: blue,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
                               child: Text(
                                 '1',
                                 style: GoogleFonts.roboto(
@@ -84,14 +101,17 @@ Widget cartCard({bool quantity = true}) {
                                 ),
                               ),
                             ),
-                            IconButton(
+                          ),
+                          Visibility(
+                            visible: quantity,
+                            child: IconButton(
                               onPressed: () {
                                 print('add');
                               },
                               icon: Icon(Icons.add),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     )
                   ],
@@ -103,4 +123,7 @@ Widget cartCard({bool quantity = true}) {
       ),
     ),
   );
+  }
 }
+
+

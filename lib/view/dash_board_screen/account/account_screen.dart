@@ -11,14 +11,14 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Profile'),
+      appBar: MyAppBar( title: 'Profile'),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            dpImg(),
-            customTextField(
+           const DpImg(),
+            CustomTextField(
               label: 'Name',
               ht: 70,
               width: mWidth!,
@@ -27,7 +27,7 @@ class AccountScreen extends StatelessWidget {
               content: 'admin',
               readOnly: false,
             ),
-            customTextField(
+            CustomTextField(
               label: "Email",
               ht: 70,
               width: mWidth!,
@@ -36,7 +36,7 @@ class AccountScreen extends StatelessWidget {
               content: 'admin@gmail.com',
               readOnly: false,
             ),
-            customTextField(
+            CustomTextField(
               label: 'Phone',
               ht: 70,
               width: mWidth!,
@@ -46,17 +46,26 @@ class AccountScreen extends StatelessWidget {
               readOnly: false,
             ),
             kHeight100,
-            updateBtn(
+           const UpdateBtn(
               title: 'Update',
-              context: context,
             ),
           ],
         ),
       ),
     );
   }
+}
 
-  Column dpImg() {
+class DpImg extends StatefulWidget {
+  const DpImg({super.key});
+
+  @override
+  State<DpImg> createState() => _DpImgState();
+}
+
+class _DpImgState extends State<DpImg> {
+  @override
+  Widget build(BuildContext context) {
     return Column(children: [
       kHeight,
       const Center(

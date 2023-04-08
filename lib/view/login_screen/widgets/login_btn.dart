@@ -37,16 +37,16 @@ class LoginBtn extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 290),
-            child: Text(
-              'Aptronix Welcomes You',
-              style: GoogleFonts.roboto(
-                textStyle: TextStyle(
-                    fontSize: 22, color: grey, fontWeight: FontWeight.bold),
-              ),
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 290),
+          //   child: Text(
+          //     'Aptronix Welcomes You',
+          //     style: GoogleFonts.roboto(
+          //       textStyle: TextStyle(
+          //           fontSize: 22, color: grey, fontWeight: FontWeight.bold),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

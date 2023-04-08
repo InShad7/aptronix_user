@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Padding userImgAndName() {
-  return Padding(
+class UserImgAndName extends StatelessWidget {
+  const UserImgAndName({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Padding(
     padding: const EdgeInsets.all(16.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -21,4 +25,5 @@ Padding userImgAndName() {
       ],
     ),
   );
+  }
 }

@@ -8,13 +8,13 @@ class WishListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navScreenAppBar(title: 'Wishlist'),
+      appBar: NavScreenAppBar(title: 'Wishlist'),
       body: ListView(physics: const BouncingScrollPhysics(), children: [
         ListView.builder(
           itemCount: 8,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => wishListCard(index),
+          itemBuilder: (context, index) => WishListCard(index: index),
         ),
       ]),
     );

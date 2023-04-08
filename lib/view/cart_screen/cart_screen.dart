@@ -11,18 +11,17 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navScreenAppBar(title: 'Cart'),
+      appBar: NavScreenAppBar(title: 'Cart'),
       body: ListView(physics: const BouncingScrollPhysics(), children: [
         ListView.builder(
           itemCount: 8,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => cartCard(),
+          itemBuilder: (context, index) => CartCard(),
         ),
         kHeight100,
       ]),
-      bottomSheet: placeOrderBtn(
-        context: context,
+      bottomSheet: PlaceOrderBtn(
         label: 'Place Order',
         ht: 140,
         botomSpace: 58,

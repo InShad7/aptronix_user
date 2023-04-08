@@ -1,6 +1,6 @@
-import 'package:aaptronix/view/widget/custom_app_bar.dart';
+import 'package:aaptronix/view/dash_board_screen/orders/order_details_screen/widget/order_tracker.dart';
 import 'package:flutter/material.dart';
-import 'package:order_tracker/order_tracker.dart';
+// import 'package:order_tracker/order_tracker.dart';
 
 class StatusPage extends StatefulWidget {
   const StatusPage({Key? key}) : super(key: key);
@@ -34,23 +34,17 @@ class _StatusPageState extends State<StatusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: OrderTracker(
-            status: Status.delivered,
-            activeColor: Colors.green,
-            inActiveColor: Colors.grey[300],
-            orderTitleAndDateList: orderList,
-            shippedTitleAndDateList: shippedList,
-            outOfDeliveryTitleAndDateList: outOfDeliveryList,
-            deliveredTitleAndDateList: deliveredList,
-          ),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: OrderTracker(
+        status: Status.delivered,
+        activeColor: Colors.green,
+        inActiveColor: Colors.grey[300],
+        orderTitleAndDateList: orderList,
+        shippedTitleAndDateList: shippedList,
+        outOfDeliveryTitleAndDateList: outOfDeliveryList,
+        deliveredTitleAndDateList: deliveredList,
+      ),
     );
   }
 }

@@ -23,11 +23,11 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Address'),
+      appBar: MyAppBar( title: 'Address'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          titleAndBtn(context),
+          TitleAndBtn(),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

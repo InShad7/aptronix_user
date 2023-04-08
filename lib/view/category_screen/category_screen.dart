@@ -10,12 +10,12 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navScreenAppBar(title: 'Category'),
+      appBar: NavScreenAppBar(title: 'Category'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: [
-          const MyFilterChip(),
-          itemCards(context),
+        children:const [
+           MyFilterChip(),
+          ItemCards(),
         ],
       ),
     );

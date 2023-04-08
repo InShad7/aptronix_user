@@ -6,26 +6,25 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:aaptronix/view/widget/text_filed.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  ProductDetailsScreen({super.key});
+ const ProductDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Product Details'),
+      appBar: MyAppBar( title: 'Product Details'),
       body: ListView(
           // shrinkWrap: true,
           physics: BouncingScrollPhysics(),
           children: [
             ProductCurosel(),
-            productNamePrice(),
+            ProductNamePrice(),
             kHeight,
             DropDownList(),
             kHeight5,
             DropDownList2(),
-            customTextField(
+           const CustomTextField(
               label: 'Description',
               ht: 200,
               width: double.infinity,
@@ -38,7 +37,7 @@ class ProductDetailsScreen extends StatelessWidget {
             kHeight20,
             
           ]),
-      bottomNavigationBar: addCartAndBuyNow(context),
+      bottomNavigationBar:const AddCartAndBuyNow(),
     );
   }
 }

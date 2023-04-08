@@ -1,11 +1,14 @@
 import 'package:aaptronix/view/order_summary_screen/add_address_screen/add_address_screen.dart';
-import 'package:aaptronix/view/order_summary_screen/address_screen/address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Padding titleAndBtn(BuildContext context) {
-  return Padding(
+class TitleAndBtn extends StatelessWidget {
+  const TitleAndBtn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,4 +49,5 @@ Padding titleAndBtn(BuildContext context) {
       ],
     ),
   );
+  }
 }

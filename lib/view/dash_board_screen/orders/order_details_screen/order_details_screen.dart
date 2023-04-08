@@ -12,17 +12,27 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: "Order Details"),
+      appBar: MyAppBar( title: "Order Details"),
       body: ListView(children: [
         kHeight20,
-        cartCard(quantity: false),
+        CartCard(quantity: false),
         kHeight,
-        customTextField(
+        CustomTextField(
+          label: 'Address',
+          ht: 200,
+          width: mWidth!,
+          num: false,
+          max: 10,
+          content:
+              'address 1\nadmin house /Building /appartment\nArea,street,village\nLandmark\npincode\nPhone number',
+          readOnly: true,
+        ),
+        CustomTextField(
           label: 'Payment',
           ht: 65,
           width: mWidth!,
           num: false,
-          max: 2,
+          max: 1,
           content: 'Credit / Debit Card',
           readOnly: true,
         ),

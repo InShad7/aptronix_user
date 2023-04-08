@@ -12,12 +12,12 @@ class AddAddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Add address'),
+      appBar: MyAppBar( title: 'Add address'),
       body: Padding(
         padding: const EdgeInsets.all(6.0),
         child: ListView(
           children: [
-            customTextField(
+            CustomTextField(
               label: 'Name',
               ht: 60,
               width: mWidth!,
@@ -26,7 +26,7 @@ class AddAddressScreen extends StatelessWidget {
               content: '',
               readOnly: false,
             ),
-            customTextField(
+            CustomTextField(
               label: 'Phone number',
               ht: 60,
               width: mWidth!,
@@ -37,7 +37,7 @@ class AddAddressScreen extends StatelessWidget {
             ),
             Row(
               children: [
-                customTextField(
+                CustomTextField(
                   label: 'Pincode',
                   ht: 60,
                   width: mWidth! / 2.5,
@@ -46,7 +46,7 @@ class AddAddressScreen extends StatelessWidget {
                   content: '',
                   readOnly: false,
                 ),
-                customTextField(
+                CustomTextField(
                   label: 'City',
                   ht: 60,
                   width: mWidth! / 2.4,
@@ -57,7 +57,7 @@ class AddAddressScreen extends StatelessWidget {
                 ),
               ],
             ),
-            customTextField(
+            CustomTextField(
               label: 'State',
               ht: 60,
               width: mWidth!,
@@ -66,7 +66,7 @@ class AddAddressScreen extends StatelessWidget {
               content: '',
               readOnly: false,
             ),
-            customTextField(
+            CustomTextField(
               label: 'House no: / building no:',
               ht: 60,
               width: mWidth!,
@@ -75,7 +75,7 @@ class AddAddressScreen extends StatelessWidget {
               content: '',
               readOnly: false,
             ),
-            customTextField(
+            CustomTextField(
               label: 'Area ,street',
               ht: 60,
               width: mWidth!,
@@ -86,7 +86,7 @@ class AddAddressScreen extends StatelessWidget {
             ),
             kHeight100,
             kHeight20,
-            updateBtn(title: 'Save ', context: context),
+            UpdateBtn(title: 'Save '),
           ],
         ),
       ),

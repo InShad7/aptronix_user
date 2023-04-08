@@ -14,11 +14,11 @@ class OrderSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Order Summary'),
+      appBar: MyAppBar( title: 'Order Summary'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          customTextField(
+          CustomTextField(
             label: 'Deliver to:',
             ht: 250,
             width: mWidth!,
@@ -28,7 +28,6 @@ class OrderSummaryScreen extends StatelessWidget {
                 'address :\nadmin house /Building /appartment\nArea,street,village\nLandmark\npincode\ncity\nstate\nPhone number',
             readOnly: true,
             btn: true,
-            context: context,
             btnName: 'Change Address',
           ),
           kHeight20,
@@ -42,11 +41,10 @@ class OrderSummaryScreen extends StatelessWidget {
             ),
           ),
           kHeight,
-          cartCard(),
+          CartCard(),
         ],
       ),
-      bottomNavigationBar: placeOrderBtn(
-        context: context,
+      bottomNavigationBar: PlaceOrderBtn(
         label: 'Continue',
         ht: 90,
         clr: true,

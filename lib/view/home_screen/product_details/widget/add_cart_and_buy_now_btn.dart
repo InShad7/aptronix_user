@@ -3,8 +3,13 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget addCartAndBuyNow(context) {
-  return Container(
+
+class AddCartAndBuyNow extends StatelessWidget {
+  const AddCartAndBuyNow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
     height: 80,
     decoration: BoxDecoration(
       borderRadius: const BorderRadius.only(
@@ -57,4 +62,5 @@ Widget addCartAndBuyNow(context) {
       ],
     ),
   );
+  }
 }

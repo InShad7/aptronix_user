@@ -8,32 +8,29 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:flutter/material.dart';
 
-
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navScreenAppBar(title: 'Dashboard'),
-      body: ListView(children: [
-        userImgAndName(),
-        dashboardList(
-          context: context,
+      appBar: NavScreenAppBar(title: 'Dashboard'),
+      body: ListView(children: const [
+        UserImgAndName(),
+        DashboardList(
           label: 'Your Order',
           navigateTo: OrderListScreen(),
         ),
-        dashboardList(
-            label: "Your Account",
-            navigateTo: AccountScreen(),
-            context: context),
-        dashboardList(
-            label: "Privacy Policy",
-            navigateTo: OrderListScreen(),
-            context: context),
+        DashboardList(
+          label: "Your Account",
+          navigateTo: AccountScreen(),
+        ),
+        DashboardList(
+          label: "Privacy Policy",
+          navigateTo: OrderListScreen(),
+        ),
         kHeight100,
-        customBtn(
-          context: context,
+        CustomBtn(
           title: 'Log Out',
           navigateTo: LoginScreen(),
         ),

@@ -24,7 +24,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(context, title: 'Payments'),
+      appBar: MyAppBar(title: 'Payments'),
       body: ListView(
         children: [
           kHeight,
@@ -70,8 +70,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: placeOrderBtn(
-        context: context,
+      bottomNavigationBar: PlaceOrderBtn(
         label: 'Continue',
         ht: 90,
         clr: true,

@@ -8,43 +8,45 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // bool logout = false;
 
-Widget customBtn({
-  context,
-  required Widget navigateTo,
-  required String title,
-  // required bool logout
-}) {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: SizedBox(
-      height: 55,
-      width: mWidth,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+class CustomBtn extends StatelessWidget {
+  const CustomBtn({super.key, required this.title, required this.navigateTo});
+  final String title;
+  final Widget navigateTo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        height: 55,
+        width: mWidth,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
           ),
-        ),
-        onPressed: () {
-          // logout?
-          alertBox(context);
-          // : Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => navigateTo,
-          //     ),
-          //     (route) => false);
-        },
-        child: Text(
-          title,
-          style: GoogleFonts.roboto(
-            textStyle: TextStyle(fontSize: 30),
+          onPressed: () {
+            // logout?
+            alertBox(context);
+            // : Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => navigateTo,
+            //     ),
+            //     (route) => false);
+          },
+          child: Text(
+            title,
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(fontSize: 30),
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 void alertBox(context) {

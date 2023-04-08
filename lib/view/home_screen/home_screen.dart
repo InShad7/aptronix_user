@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+ const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +40,13 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: [
+        children:const [
           kHeight20,
-          const customCurosel(),
+           customCurosel(),
           kHeight20,
-          categoryItemCard(),
+          CategoryItemCard(),
           kHeight5,
-          homeItemCards(context),
+          HomeItemCards(),
         ],
       ),
     );

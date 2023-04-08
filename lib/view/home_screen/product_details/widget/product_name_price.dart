@@ -3,8 +3,13 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget productNamePrice() {
-  return Padding(
+
+class ProductNamePrice extends StatelessWidget {
+  const ProductNamePrice({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
     padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
     child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -50,4 +55,5 @@ Widget productNamePrice() {
       ],
     ),
   );
+  }
 }
