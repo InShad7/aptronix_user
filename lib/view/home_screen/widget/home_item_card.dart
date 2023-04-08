@@ -80,7 +80,7 @@ Widget homeItemCards(BuildContext context) {
                           children: [
                             InkWell(
                               child: Text(
-                                'iPhone 14 Pro',
+                                'iPhone 15 Pro',
                                 style: GoogleFonts.roboto(
                                   textStyle: const TextStyle(
                                       fontSize: 20,
