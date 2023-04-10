@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/order_summary_screen/address_screen/widget/title_and_btn.dart';
+import 'package:aaptronix/view/order_summary_screen/edit_address_screen/edit_address.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  
   String? selectedAddress;
   List address = [
     'address 1\nadmin house /Building /appartment\nArea,street,village\nLandmark\npincode\nPhone number',
@@ -23,11 +23,11 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar( title: 'Address'),
+      appBar: MyAppBar(title: 'Address'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          TitleAndBtn(),
+          const TitleAndBtn(),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -43,11 +43,30 @@ class _AddressScreenState extends State<AddressScreen> {
                     color: cardClr2,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Text(
-                    address[index],
-                    style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          address[index],
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditAddressScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.edit_outlined),
+                      ),
+                    ],
                   ),
                 ),
                 value: address[index],
@@ -64,5 +83,4 @@ class _AddressScreenState extends State<AddressScreen> {
       ),
     );
   }
-
 }

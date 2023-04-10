@@ -1,10 +1,10 @@
 import 'package:aaptronix/view/login_screen/widgets/login_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/main_card.dart';
+import 'package:aaptronix/view/login_screen/widgets/google_signup_btn.dart';
+import 'package:aaptronix/view/login_screen/widgets/signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
-import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 // double? mWidth;
 // double? mHeight;
@@ -19,8 +19,8 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Form(
         key: formKey,
-        child: ListView(physics: BouncingScrollPhysics(), children: [
-          const SignInText(),
+        child: ListView(physics: const BouncingScrollPhysics(), children: [
+          const SignInText(title: 'Sign In'),
           kHeight20,
           MyTextField(
             ht: 60,
@@ -42,22 +42,10 @@ class LoginScreen extends StatelessWidget {
           kHeight,
           kHeight20,
           const LoginBtn(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "New user? ",
-                style: GoogleFonts.roboto(fontSize: 18),
-              ),
-              InkWell(
-                child: Text(
-                  "Sign Up ",
-                  style: GoogleFonts.roboto(fontSize: 18, color: blue),
-                ),
-                onTap: () {},
-              ),
-            ],
-          ),
+          const GoogleSignUpBtn(),
+          kHeight20,
+          kHeight,
+          const SignUpBtn(),
         ]),
       ),
     );

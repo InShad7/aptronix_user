@@ -27,7 +27,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         title,
         style: GoogleFonts.roboto(
           textStyle: TextStyle(
-              fontSize: 36, color: black, fontWeight: FontWeight.w400),
+              fontSize: 28, color: black, fontWeight: FontWeight.w500),
         ),
       ),
     );

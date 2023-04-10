@@ -1,14 +1,14 @@
-
 import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/custom_curosel.dart';
 import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
+import 'package:aaptronix/view/search_screen/search_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
- const HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,14 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 9.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchScreen(),
+                  ),
+                );
+              },
               icon: Icon(
                 Icons.search_rounded,
                 color: black,
@@ -40,9 +47,9 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children:const [
+        children: const [
           kHeight20,
-           customCurosel(),
+          customCurosel(),
           kHeight20,
           CategoryItemCard(),
           kHeight5,

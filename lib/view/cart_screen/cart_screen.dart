@@ -4,6 +4,7 @@ import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -17,7 +18,20 @@ class CartScreen extends StatelessWidget {
           itemCount: 8,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => CartCard(),
+          itemBuilder: (context, index) => Slidable(
+            endActionPane: ActionPane(
+              motion:const BehindMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: (context) {},
+                  backgroundColor:const Color.fromARGB(255, 213, 78, 68),
+                  icon: Icons.close_rounded,
+                  label: 'Delete',
+                ),
+              ],
+            ),
+            child:const CartCard(),
+          ),
         ),
         kHeight100,
       ]),
@@ -26,7 +40,7 @@ class CartScreen extends StatelessWidget {
         ht: 140,
         botomSpace: 58,
         clr: false,
-        navigateTo: OrderSummaryScreen(),
+        navigateTo:const OrderSummaryScreen(),
       ),
     );
   }

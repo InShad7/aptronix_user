@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
+import 'package:aaptronix/view/order_confirmation_screen/order_confirmation_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
@@ -74,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         label: 'Continue',
         ht: 90,
         clr: true,
-        navigateTo: BottomNavBar(state: false),
+        navigateTo:const OrderConfirmationScreen(),
       ),
     );
   }
