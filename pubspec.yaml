@@ -30,7 +30,12 @@ environment:
 dependencies:
   awesome_bottom_bar: ^1.2.2
   carousel_slider: ^4.2.1
+  cloud_firestore: ^4.5.0
   cupertino_icons: ^1.0.2
+  email_validator: ^2.1.17
+  firebase_auth: ^4.4.1
+  firebase_core: ^2.9.0
+  firebase_storage: ^11.1.0
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
@@ -38,6 +43,7 @@ dependencies:
   fluttertoast: ^8.2.1
   google_fonts: ^4.0.3
   liquid_swipe: ^3.1.0
+  loading_animation_widget: ^1.2.0+4
   shared_preferences: ^2.1.0
   smooth_page_indicator: ^1.0.1
 

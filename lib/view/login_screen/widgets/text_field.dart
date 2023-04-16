@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/utils/colors.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,6 +7,7 @@ var formKey = GlobalKey<FormState>();
 
 TextEditingController userNameController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
+TextEditingController nameController = TextEditingController();
 
 class MyTextField extends StatelessWidget {
   String title;
@@ -35,7 +37,7 @@ class MyTextField extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(border),
-              color: grey,
+              color: cardClr,
             ),
             child: Padding(
               padding: const EdgeInsets.all(6.0),
@@ -55,12 +57,16 @@ class MyTextField extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 22),
                   ),
                 ),
-                // validator: (value) {
-                //   if (value == null || value.isEmpty || value.trim() == '') {
-                //     return 'Please Enter Credential';
-                //   }
-                //   return null;
-                // },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (email) {
+                  email != null && !EmailValidator.validate(email)
+                      ? 'Enter a valid email'
+                      : null;
+
+                  // email != null && email.length < 6
+                  //     ? 'enter a minimum of 6 characters'
+                  //     : null;
+                },
               ),
             ),
           ),

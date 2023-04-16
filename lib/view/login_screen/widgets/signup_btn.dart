@@ -3,30 +3,42 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpBtn extends StatelessWidget {
-  const SignUpBtn({
-    super.key,
-  });
+class SignUpTxtBtn extends StatelessWidget {
+  const SignUpTxtBtn({super.key, this.signUp = true, required this.navigateTo});
+  final signUp;
+  final navigateTo;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          "New user? ",
-          style: GoogleFonts.roboto(fontSize: 20),
-        ),
+        signUp
+            ? Text(
+                "New user? ",
+                style: GoogleFonts.roboto(fontSize: 20),
+              )
+            : Text(
+                "Already have an account ! ",
+                style: GoogleFonts.roboto(fontSize: 20),
+              ),
         InkWell(
-          child: Text(
-            "Sign Up ",
-            style: GoogleFonts.roboto(fontSize: 20, color: blue),
-          ),
+          child: signUp
+              ? Text(
+                  "Sign Up ",
+                  style: GoogleFonts.roboto(
+                      fontSize: 22, color: blue, fontWeight: FontWeight.bold),
+                )
+              : Text(
+                  "Login",
+                  style: GoogleFonts.roboto(
+                      fontSize: 22, color: blue, fontWeight: FontWeight.bold),
+                ),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => SignUpScreen(),
+                builder: (context) => navigateTo,
               ),
             );
           },

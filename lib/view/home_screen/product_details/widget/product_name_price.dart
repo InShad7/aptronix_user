@@ -4,57 +4,54 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class ProductNamePrice extends StatelessWidget {
-  const ProductNamePrice({super.key});
+  const ProductNamePrice({super.key, this.product});
+  final product;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-    padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          child: Row(
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                overflow: TextOverflow.ellipsis,
-                "iPhone 14 (128GB)-Product Red",
-                style: GoogleFonts.roboto(
-                  textStyle: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.w500),
+              SizedBox(
+                width: 340,
+                child: Text(
+                  product['name'],
+                  // overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: GoogleFonts.roboto(
+                    height: 1.6,
+                    textStyle: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
-              FavIcon()
-              // IconButton(
-              //   onPressed: () {},
-              //   icon: Icon(
-              //     Icons.favorite_border,
-              //     color: grey,
-              //     size: 30,
-              //   ),
-              // ),
+              kWidth,
+              FavIcon(),
+              kWidth,
             ],
           ),
-        ),
-        kHeight,
-        Row(
-          children: [
-            Text(
-              "₹ 99,900",
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(
-                  fontSize: 27,
+          kHeight20,
+          Row(
+            children: [
+              Text(
+                "₹ ${product['price']}",
+                style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                    fontSize: 27,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

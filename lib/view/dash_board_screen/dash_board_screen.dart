@@ -32,7 +32,7 @@ class DashBoardScreen extends StatelessWidget {
         kHeight100,
         CustomBtn(
           title: 'Log Out',
-          navigateTo: LoginScreen(),
+          // navigateTo: LoginScreen(),
         ),
       ]),
     );

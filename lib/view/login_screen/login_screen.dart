@@ -3,19 +3,15 @@ import 'package:aaptronix/view/login_screen/widgets/main_card.dart';
 import 'package:aaptronix/view/login_screen/widgets/google_signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
+import 'package:aaptronix/view/signup_screen.dart/signup_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
-
-// double? mWidth;
-// double? mHeight;
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // mWidth = MediaQuery.of(context).size.width;
-    // mHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Form(
         key: formKey,
@@ -25,7 +21,7 @@ class LoginScreen extends StatelessWidget {
           MyTextField(
             ht: 60,
             border: 20,
-            title: 'Email Or Phone',
+            title: 'Email',
             icon: Icons.mail,
             myControler: userNameController,
             passChar: false,
@@ -45,7 +41,7 @@ class LoginScreen extends StatelessWidget {
           const GoogleSignUpBtn(),
           kHeight20,
           kHeight,
-          const SignUpBtn(),
+          SignUpTxtBtn(navigateTo: SignUpScreen()),
         ]),
       ),
     );

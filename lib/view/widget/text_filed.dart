@@ -7,18 +7,18 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.ht,
-    required this.width,
+    this.ht,
+    this.width,
     required this.num,
     required this.max,
     required this.content,
     required this.readOnly,
-     required this.label,
-     this.btn = false,
+    required this.label,
+    this.btn = false,
     this.btnName = '',
   });
-  final double ht;
-  final double width;
+  final double? ht;
+  final double? width;
   final bool num;
   final int max;
   final String content;

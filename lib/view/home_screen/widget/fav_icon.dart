@@ -17,6 +17,7 @@ class _FavIconState extends State<FavIcon> {
       child: Icon(
         fav ? Icons.favorite : Icons.favorite_border,
         color: fav ? red : grey,
+        size: 29,
       ),
       onTap: () {
         alert();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdateBtn extends StatelessWidget {
- const UpdateBtn({super.key, required this.title});
+  const UpdateBtn({super.key, required this.title});
   final String title;
 
   @override
@@ -29,7 +29,7 @@ class UpdateBtn extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 30),
+              textStyle: TextStyle(fontSize: 26),
             ),
           ),
         ),

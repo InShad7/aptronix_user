@@ -2,6 +2,7 @@ import 'package:aaptronix/view/dash_board_screen/dash_board_screen.dart';
 import 'package:aaptronix/view/login_screen/login_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,9 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 // bool logout = false;
 
 class CustomBtn extends StatelessWidget {
-  const CustomBtn({super.key, required this.title, required this.navigateTo});
+  const CustomBtn({super.key, required this.title, });
   final String title;
-  final Widget navigateTo;
+  // final Widget navigateTo;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class CustomBtn extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 30),
+              textStyle: TextStyle(fontSize: 26),
             ),
           ),
         ),
@@ -60,14 +61,17 @@ void alertBox(context) {
       actions: [
         TextButton(
           onPressed: () async {
-            final sharedPrefer = await SharedPreferences.getInstance();
-            await sharedPrefer.setBool('isLoggedIn', false);
+            // final sharedPrefer = await SharedPreferences.getInstance();
+            // await sharedPrefer.setBool('isLoggedIn', false);
 
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-                (route) => false);
+            FirebaseAuth.instance.signOut();
+            Navigator.pop(context);
+
+            // Navigator.of(context).pushAndRemoveUntil(
+            //     MaterialPageRoute(
+            //       builder: (context) => LoginScreen(),
+            //     ),
+            //     (route) => false);
           },
           child: Text(
             'LOGOUT',

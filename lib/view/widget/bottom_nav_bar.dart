@@ -5,6 +5,7 @@ import 'package:aaptronix/view/home_screen/home_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/wish_list_screen/wish_list_screen.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -37,6 +38,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       extendBody: true,
       body: widget.pages[widget.currentIndex],

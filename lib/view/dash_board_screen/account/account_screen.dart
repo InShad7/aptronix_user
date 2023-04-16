@@ -1,8 +1,10 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/dash_board_screen/account/widget/update_btn.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:aaptronix/view/widget/text_filed.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -11,20 +13,20 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar( title: 'Profile'),
+      appBar: MyAppBar(title: 'Profile'),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-           const DpImg(),
+            const DpImg(),
             CustomTextField(
               label: 'Name',
               ht: 70,
               width: mWidth!,
               num: false,
               max: 2,
-              content: 'admin',
+              content: user.displayName.toString(),
               readOnly: false,
             ),
             CustomTextField(
@@ -33,7 +35,7 @@ class AccountScreen extends StatelessWidget {
               width: mWidth!,
               num: false,
               max: 1,
-              content: 'admin@gmail.com',
+              content: user.email.toString(),
               readOnly: false,
             ),
             CustomTextField(
@@ -46,7 +48,7 @@ class AccountScreen extends StatelessWidget {
               readOnly: false,
             ),
             kHeight100,
-           const UpdateBtn(
+            const UpdateBtn(
               title: 'Update',
             ),
           ],

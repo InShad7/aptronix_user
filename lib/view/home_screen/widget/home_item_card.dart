@@ -1,10 +1,11 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
-import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeItemCards extends StatelessWidget {
   const HomeItemCards({super.key});
@@ -26,115 +27,150 @@ class HomeItemCards extends StatelessWidget {
             ),
           ),
           kHeight,
-          SizedBox(
-            height: 1030,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: (2 / 2.6),
-              ),
-              itemCount: 8,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Container(
-                // height: 200,
-                // width: 200,
-                decoration: BoxDecoration(
-                  color: cardClr,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(children: [
-                  InkWell(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        // color: white,
-                        borderRadius: BorderRadius.circular(18),
-                        image: DecorationImage(
-                            image: AssetImage(img[index]), fit: BoxFit.contain),
-                      ),
+          StreamBuilder(
+              stream: getProducts(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: LoadingAnimationWidget.horizontalRotatingDots(
+                      color: blue,
+                      size: 30,
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailsScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  kHeight15,
-                  Container(
-                    height: 60,
-                    width: 170,
-                    decoration: BoxDecoration(
-                      color: white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          kHeight,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Flexible(
-                                child: InkWell(
-                                  child: Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    'iPhone 14 Pro',
-                                    style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProductDetailsScreen(),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              kWidth,
-                              kWidth5,
-                              FavIcon()
-                            ],
-                          ),
-                          InkWell(
-                            child: Text(
-                              '₹ 119,990',
-                              style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(fontSize: 18),
-                              ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.done ||
+                    snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data;
+                    return snapshot.data!.isEmpty
+                        ? const Center(child: Text('List empty'))
+                        : GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                              childAspectRatio: (2 / 2.6),
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDetailsScreen(),
-                                ),
+                            itemCount: data.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final product = data[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color: grey)),
+                                child: Column(children: [
+                                  InkWell(
+                                    child: Container(
+                                      margin: const EdgeInsets.only(top: 12),
+                                      height: 150,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        // color: white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                product['images'][0]),
+                                            fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailsScreen(
+                                                  product: product),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  kHeight15,
+                                  Container(
+                                    height: 60,
+                                    width: 170,
+                                    decoration: BoxDecoration(
+                                      color: white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          kHeight,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Flexible(
+                                                child: InkWell(
+                                                  child: Text(
+                                                    product['name'],
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: GoogleFonts.roboto(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProductDetailsScreen(
+                                                                product:
+                                                                    product),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth5,
+                                              FavIcon()
+                                            ],
+                                          ),
+                                          InkWell(
+                                            child: Text(
+                                              '₹ ${product['price']}',
+                                              style: GoogleFonts.roboto(
+                                                textStyle: const TextStyle(
+                                                    fontSize: 18),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProductDetailsScreen(
+                                                          product: product),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ]),
                               );
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ]),
-              ),
-            ),
-          )
+                            });
+                  }
+                }
+                return Text('Cant fetch data');
+              })
         ],
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:aaptronix/view/login_screen/login_screen.dart';
+import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 double? mHeight;
 double? mWidth;
@@ -32,15 +34,6 @@ class _SplashScreenState extends State<SplashScreen> {
           'aptronix.',
           style: GoogleFonts.roboto(
             textStyle: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
-            // shadows: [
-            //   Shadow(
-            //     offset: Offset(3.0, 3.0),
-            //     blurRadius: 6.0,
-            //     color: Color.fromARGB(255, 142, 141, 141)
-            //         .withOpacity(0.8),
-            //   ),
-
-            // ]
           ),
         ),
       ),
@@ -48,28 +41,47 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkLogin() async {
-    final sharedPrefer = await SharedPreferences.getInstance();
-    bool loggedIn = sharedPrefer.getBool('isLoggedIn') ?? false;
-    if (loggedIn == true) {
-      await Future.delayed(
-        const Duration(seconds: 2),
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => BottomNavBar(state: false),
-        ),
-      );
-    } else {
-      await Future.delayed(
-        const Duration(seconds: 2),
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
-    }
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckUserLogin(),
+      ),
+    );
+  }
+}
+
+class CheckUserLogin extends StatelessWidget {
+  const CheckUserLogin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: LoadingAnimationWidget.fourRotatingDots(
+                  color: blue, size: 30),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text(
+                'Something went wrong',
+                style: TextStyle(color: Colors.red),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            return BottomNavBar(state: false);
+          } else {
+            return  LoginScreen();
+          }
+        },
+      ),
+    );
   }
 }
