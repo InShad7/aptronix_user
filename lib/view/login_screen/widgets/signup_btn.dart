@@ -1,4 +1,4 @@
-import 'package:aaptronix/view/signup_screen.dart/signup_screen.dart';
+import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,6 +35,9 @@ class SignUpTxtBtn extends StatelessWidget {
                       fontSize: 22, color: blue, fontWeight: FontWeight.bold),
                 ),
           onTap: () {
+            nameController.clear();
+            userNameController.clear();
+            passwordController.clear();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(

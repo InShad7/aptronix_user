@@ -1,15 +1,17 @@
+import 'dart:developer';
+
 import 'package:aaptronix/main.dart';
-import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
+import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class SignUpBtn extends StatelessWidget {
-  const SignUpBtn({super.key, this.fromKey1});
-  final fromKey1;
+  const SignUpBtn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,12 @@ class SignUpBtn extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                signUp(context, fromKey1);
-                // if (formKey.currentState!.validate()) {
-                // checkLogin(context);
+                // if (formKey1.currentState!.validate()) {
+                signUp(context);
                 // }
-                userNameController.clear();
-                passwordController.clear();
+                // nameController.clear();
+                // userNameController.clear();
+                // passwordController.clear();
               },
               child: Text(
                 'Sign In',
@@ -47,49 +49,79 @@ class SignUpBtn extends StatelessWidget {
     );
   }
 
-  Future signUp(context, formKey1) async {
-    // final isValid = formKey1.currenState.validate();
-    // if (!isValid) {
-    //   return;
-    // }
+  Future<void> signUp(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: LoadingIndicator(
+            indicatorType: Indicator.circleStrokeSpin,
+            colors: [white],
+            strokeWidth: 2,
+          ),
+        ),
+      ),
+    );
 
-    if (nameController.text.isEmpty ||
-        passwordController.text.isEmpty ||
-        userNameController.text.isEmpty) {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: userNameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      final currentUser = FirebaseAuth.instance.currentUser;
+      await currentUser!.updateDisplayName(nameController.text.trim());
+      // log(currentUser.toString());
+
+      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Please enter valid Credentials',
+            'Sign-up successful',
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 20),
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CheckUserLogin(),
+        ),
+      );
+
+      userNameController.clear();
+      passwordController.clear();
+      nameController.clear();
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      String errorMessage = 'Enter valid Credentials';
+      if (e.code == 'invalid-email') {
+        errorMessage = 'The email address is not valid';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The email address is already in use';
+      } else if (e.code == 'weak-password') {
+        errorMessage = 'Please enter a minimum of 6 characters password';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            errorMessage,
+            style: GoogleFonts.roboto(
+              textStyle: const TextStyle(fontSize: 20),
             ),
           ),
           duration: const Duration(seconds: 2),
           backgroundColor: deleteRed,
         ),
       );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => Center(
-          child: LoadingAnimationWidget.inkDrop(color: white, size: 30),
-        ),
-      );
-
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: userNameController.text.trim(),
-          password: passwordController.text.trim(),
-        );
-        // Get the current user
-        final currentUser = FirebaseAuth.instance.currentUser;
-
-        // Update the display name
-        await currentUser!.updateDisplayName(nameController.text.trim());
-      } on FirebaseAuthException catch (e) {
-        print(e);
-      }
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
   }
 }

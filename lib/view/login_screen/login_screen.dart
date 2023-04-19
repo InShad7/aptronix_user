@@ -13,37 +13,34 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: formKey,
-        child: ListView(physics: const BouncingScrollPhysics(), children: [
-          const SignInText(title: 'Sign In'),
-          kHeight20,
-          MyTextField(
-            ht: 60,
-            border: 20,
-            title: 'Email',
-            icon: Icons.mail,
-            myControler: userNameController,
-            passChar: false,
-          ),
-          kHeight,
-          MyTextField(
-            ht: 60,
-            border: 20,
-            title: 'Password',
-            icon: Icons.lock,
-            myControler: passwordController,
-            passChar: true,
-          ),
-          kHeight,
-          kHeight20,
-          const LoginBtn(),
-          const GoogleSignUpBtn(),
-          kHeight20,
-          kHeight,
-          SignUpTxtBtn(navigateTo: SignUpScreen()),
-        ]),
-      ),
+      body: ListView(physics: const BouncingScrollPhysics(), children: [
+        const SignInText(title: 'Sign In'),
+        kHeight20,
+        MyTextField(
+          ht: 60,
+          border: 20,
+          title: 'Email',
+          icon: Icons.mail,
+          myControler: userNameController,
+          passChar: false,
+        ),
+        kHeight,
+        MyTextField(
+          ht: 60,
+          border: 20,
+          title: 'Password',
+          icon: Icons.lock,
+          myControler: passwordController,
+          passChar: true,
+        ),
+        kHeight,
+        kHeight20,
+        const LoginBtn(),
+        const GoogleSignUpBtn(),
+        kHeight20,
+        kHeight,
+        SignUpTxtBtn(navigateTo: SignUpScreen()),
+      ]),
     );
   }
 }

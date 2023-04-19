@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Stream getProducts() async* {
@@ -9,4 +8,6 @@ Stream getProducts() async* {
   yield docs;
 }
 
-final user = FirebaseAuth.instance.currentUser!;
+
+// User user = FirebaseAuth.instance.currentUser!;
+

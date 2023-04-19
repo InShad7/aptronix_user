@@ -1,7 +1,9 @@
+import 'package:aaptronix/controller/provider/google_signin.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class GoogleSignUpBtn extends StatelessWidget {
   const GoogleSignUpBtn({
@@ -23,14 +25,18 @@ class GoogleSignUpBtn extends StatelessWidget {
               side: BorderSide(color: blue, width: 1),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            final provider =
+                Provider.of<GoogleSignInProvider>(context, listen: false);
+            provider.googleLogin();
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               kWidth,
               Image.asset('assets/icons8-google-512.png', scale: 13.5),
               Text(
-                'Sign up with Google',
+                'Sign In with Google',
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(fontSize: 26, color: blue),
                 ),

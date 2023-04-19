@@ -5,7 +5,7 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeItemCards extends StatelessWidget {
   const HomeItemCards({super.key});
@@ -32,11 +32,15 @@ class HomeItemCards extends StatelessWidget {
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: LoadingAnimationWidget.horizontalRotatingDots(
-                      color: blue,
-                      size: 30,
+                      child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.circleStrokeSpin,
+                      colors: [blue],
+                      strokeWidth: 1,
                     ),
-                  );
+                  ));
                 }
                 if (snapshot.connectionState == ConnectionState.done ||
                     snapshot.connectionState == ConnectionState.active) {
@@ -71,10 +75,18 @@ class HomeItemCards extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         // color: white,
                                         borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                product['images'][0]),
-                                            fit: BoxFit.contain),
+                                        // image: DecorationImage(
+                                        //     image: NetworkImage(
+                                        //         product['images'][0],
+
+                                        //         ),
+
+                                        // fit: BoxFit.contain
+                                        // ),
+                                      ),
+                                      child: FadeInImage.assetNetwork(
+                                        placeholder: 'assets/APPRONIX.jpg',
+                                        image: product['images'][0],
                                       ),
                                     ),
                                     onTap: () {

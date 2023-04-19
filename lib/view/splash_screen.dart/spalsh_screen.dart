@@ -4,7 +4,7 @@ import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 double? mHeight;
 double? mWidth;
@@ -64,8 +64,11 @@ class CheckUserLogin extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: LoadingAnimationWidget.fourRotatingDots(
-                  color: blue, size: 30),
+              child: LoadingIndicator(
+                indicatorType: Indicator.circleStrokeSpin,
+                colors: [white],
+                strokeWidth: 2,
+              ),
             );
           } else if (snapshot.hasError) {
             return const Center(
@@ -78,7 +81,7 @@ class CheckUserLogin extends StatelessWidget {
           if (snapshot.hasData) {
             return BottomNavBar(state: false);
           } else {
-            return  LoginScreen();
+            return LoginScreen();
           }
         },
       ),

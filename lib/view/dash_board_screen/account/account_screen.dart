@@ -12,6 +12,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: MyAppBar(title: 'Profile'),
       body: Padding(
@@ -68,16 +69,24 @@ class DpImg extends StatefulWidget {
 class _DpImgState extends State<DpImg> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Column(children: [
       kHeight,
-      const Center(
-        child: CircleAvatar(
-          backgroundImage: NetworkImage(
-            'https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-712.jpg?w=740',
+      if (user.photoURL != null)
+        Center(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(user.photoURL!),
+            maxRadius: 80,
           ),
-          radius: 110,
+        )
+      else
+        const Center(
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+                'https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-712.jpg?w=740'),
+            maxRadius: 80,
+          ),
         ),
-      ),
       IconButton(
         onPressed: () {},
         icon: Icon(Icons.edit_outlined),
