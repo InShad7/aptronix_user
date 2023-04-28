@@ -2,7 +2,7 @@ import 'package:aaptronix/view/login_screen/login_screen.dart';
 import 'package:aaptronix/view/login_screen/widgets/main_card.dart';
 import 'package:aaptronix/view/login_screen/widgets/signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
-import 'package:aaptronix/view/signup_screen.dart/widget/sign_up_btn.dart';
+import 'package:aaptronix/view/signup_screen/widget/sign_up_btn.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 

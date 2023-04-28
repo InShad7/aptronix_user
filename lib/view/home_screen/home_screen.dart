@@ -1,3 +1,4 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/custom_curosel.dart';
 import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
@@ -6,6 +7,7 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -47,9 +49,9 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: const [
+        children: [
           kHeight20,
-          customCurosel(),
+          homeCurosel(),
           kHeight20,
           CategoryItemCard(),
           kHeight5,
@@ -57,5 +59,34 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  StreamBuilder<dynamic> homeCurosel() {
+    return StreamBuilder(
+        stream: GetImages(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+                child: SizedBox(
+              height: 50,
+              width: 50,
+              child: LoadingIndicator(
+                indicatorType: Indicator.circleStrokeSpin,
+                colors: [blue],
+                strokeWidth: 1,
+              ),
+            ));
+          }
+          if (snapshot.connectionState == ConnectionState.done ||
+              snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              var data = snapshot.data;
+              return snapshot.data!.isEmpty
+                  ? const Center(child: Text('List empty'))
+                  : customCurosel(imgs: data[0]['images']);
+            }
+          }
+          return Text('Cant fetch data');
+        });
   }
 }

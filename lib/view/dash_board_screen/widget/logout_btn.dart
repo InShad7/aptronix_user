@@ -1,15 +1,10 @@
-import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/controller/provider/google_signin.dart';
-import 'package:aaptronix/view/dash_board_screen/dash_board_screen.dart';
-import 'package:aaptronix/view/login_screen/login_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // bool logout = false;
 

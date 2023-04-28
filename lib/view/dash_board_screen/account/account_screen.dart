@@ -1,6 +1,7 @@
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/dash_board_screen/account/widget/update_btn.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
+import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:aaptronix/view/widget/text_filed.dart';
@@ -12,7 +13,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-User user = FirebaseAuth.instance.currentUser!;
+    User user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: MyAppBar(title: 'Profile'),
       body: Padding(
@@ -72,21 +73,13 @@ class _DpImgState extends State<DpImg> {
     final user = FirebaseAuth.instance.currentUser!;
     return Column(children: [
       kHeight,
-      if (user.photoURL != null)
-        Center(
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(user.photoURL!),
-            maxRadius: 80,
-          ),
-        )
-      else
-        const Center(
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-712.jpg?w=740'),
-            maxRadius: 80,
-          ),
+      Center(
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(user.photoURL ??
+              'https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-712.jpg?w=740'),
+          maxRadius: 80,
         ),
+      ),
       IconButton(
         onPressed: () {},
         icon: Icon(Icons.edit_outlined),

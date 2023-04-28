@@ -13,7 +13,8 @@ final imgUrl = [
 int activeIndex = 0;
 
 class customCurosel extends StatefulWidget {
-  const customCurosel({super.key});
+  const customCurosel({super.key, this.imgs});
+  final imgs;
 
   @override
   State<customCurosel> createState() => _customCuroselState();
@@ -25,13 +26,13 @@ class _customCuroselState extends State<customCurosel> {
     return Column(
       children: [
         CarouselSlider.builder(
-          itemCount: imgUrl.length,
+          itemCount: widget.imgs.length,
           itemBuilder: (context, index, realIndex) {
-            final urlImg = imgUrl[index];
+            final urlImg = widget.imgs[index];
             return buildImage(urlImg, index);
           },
           options: CarouselOptions(
-            viewportFraction: 0.95,
+            viewportFraction: 0.92,
             height: 220,
             autoPlay: true,
             enlargeCenterPage: true,
@@ -40,7 +41,7 @@ class _customCuroselState extends State<customCurosel> {
           ),
         ),
         kHeight,
-        buildIndicators(),
+        buildIndicators(widget.imgs.length),
       ],
     );
   }
@@ -50,15 +51,15 @@ class _customCuroselState extends State<customCurosel> {
         // margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
-          color: Colors.grey,
+          color: Colors.white,
           image:
               DecorationImage(image: NetworkImage(imgUrl), fit: BoxFit.cover),
         ),
       );
 
-  Widget buildIndicators() => AnimatedSmoothIndicator(
+  Widget buildIndicators([length]) => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: imgUrl.length,
+        count: length,
         effect: WormEffect(dotWidth: 10, dotHeight: 10),
       );
 }

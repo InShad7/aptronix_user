@@ -3,7 +3,7 @@ import 'package:aaptronix/view/login_screen/widgets/main_card.dart';
 import 'package:aaptronix/view/login_screen/widgets/google_signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/signup_btn.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
-import 'package:aaptronix/view/signup_screen.dart/signup_screen.dart';
+import 'package:aaptronix/view/signup_screen/signup_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 
