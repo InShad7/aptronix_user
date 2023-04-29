@@ -75,14 +75,6 @@ class HomeItemCards extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         // color: white,
                                         borderRadius: BorderRadius.circular(10),
-                                        // image: DecorationImage(
-                                        //     image: NetworkImage(
-                                        //         product['images'][0],
-
-                                        //         ),
-
-                                        // fit: BoxFit.contain
-                                        // ),
                                       ),
                                       child: FadeInImage.assetNetwork(
                                         placeholder: 'assets/APPRONIX.jpg',
@@ -150,7 +142,7 @@ class HomeItemCards extends StatelessWidget {
                                               ),
                                               kWidth,
                                               kWidth5,
-                                              FavIcon()
+                                              FavIcon(product:product['id'])
                                             ],
                                           ),
                                           InkWell(
@@ -178,6 +170,7 @@ class HomeItemCards extends StatelessWidget {
                                   )
                                 ]),
                               );
+                              // : null;
                             });
                   }
                 }

@@ -44,13 +44,13 @@ class SearchScreen extends StatelessWidget {
                 },
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: img.length,
-                itemBuilder: (context, index) => WishListCard(index: index),
-              ),
-            ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     physics: const BouncingScrollPhysics(),
+            //     itemCount: img.length,
+            //     itemBuilder: (context, index) => WishListCard(index: index),
+            //   ),
+            // ),
           ],
         ),
       ),

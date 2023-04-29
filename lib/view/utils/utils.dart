@@ -8,6 +8,7 @@ const kHeight15 = SizedBox(height: 15);
 const kHeight100 = SizedBox(height: 100);
 
 const kWidth = SizedBox(width: 10);
+const kWidth15 = SizedBox(width: 15);
 const kWidth5 = SizedBox(width: 5);
 
 class ItemModel {

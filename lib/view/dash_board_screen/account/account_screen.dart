@@ -1,7 +1,5 @@
-import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/dash_board_screen/account/widget/update_btn.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
-import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:aaptronix/view/widget/text_filed.dart';

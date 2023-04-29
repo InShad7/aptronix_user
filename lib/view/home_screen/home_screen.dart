@@ -5,6 +5,8 @@ import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
 import 'package:aaptronix/view/search_screen/search_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -14,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getWishList();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
@@ -47,21 +50,11 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          kHeight20,
-          homeCurosel(),
-          kHeight20,
-          CategoryItemCard(),
-          kHeight5,
-          HomeItemCards(),
-        ],
-      ),
+      body: homeCurosel(),
     );
   }
 
-  StreamBuilder<dynamic> homeCurosel() {
+  Widget homeCurosel() {
     return StreamBuilder(
         stream: GetImages(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -83,10 +76,29 @@ class HomeScreen extends StatelessWidget {
               var data = snapshot.data;
               return snapshot.data!.isEmpty
                   ? const Center(child: Text('List empty'))
-                  : customCurosel(imgs: data[0]['images']);
+                  : ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        kHeight20,
+                        customCurosel(imgs: data[0]['images']),
+                        kHeight20,
+                        const CategoryItemCard(),
+                        kHeight5,
+                        const HomeItemCards(),
+                      ],
+                    );
             }
           }
           return Text('Cant fetch data');
         });
   }
+}
+
+Future checkWishList() async {
+  FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .set({
+    'wishlist': ['no']
+  });
 }

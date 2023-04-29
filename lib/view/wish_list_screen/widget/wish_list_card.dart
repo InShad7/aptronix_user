@@ -1,14 +1,13 @@
 import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
-import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WishListCard extends StatelessWidget {
-  const WishListCard({super.key, required this.index});
-  final int index;
+  const WishListCard({super.key, required this.product});
+  final product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class WishListCard extends StatelessWidget {
                   color: white,
                   image: DecorationImage(
                     image: AssetImage(
-                      img[index],
+                      product['images'][0],
                     ),
                   ),
                 ),
