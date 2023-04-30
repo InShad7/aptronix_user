@@ -1,13 +1,20 @@
+import 'dart:developer';
+
+import 'package:aaptronix/controller/controller.dart';
+import 'package:aaptronix/model/cart_model.dart';
+import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/cart_screen/cart_screen.dart';
 import 'package:aaptronix/view/dash_board_screen/widget/logout_btn.dart';
 import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
+import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddCartAndBuyNow extends StatelessWidget {
-  const AddCartAndBuyNow({super.key});
-
+  const AddCartAndBuyNow({super.key, required this.product});
+  final product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,15 +31,48 @@ class AddCartAndBuyNow extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              Fluttertoast.showToast(
-                msg: "Added to Cart 🛒",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 15.0,
-              );
+              if (myCart.contains(product['id'])) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BottomNavBar(cart: true),
+                  ),
+                );
+                Fluttertoast.showToast(
+                  msg: "Already in the cart !!",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: red,
+                  textColor: Colors.white,
+                  fontSize: 15.0,
+                );
+              } else {
+                myCart.add(product['id']);
+                WishList myCartObj =
+                    WishList(wishList: myWishList, cart: myCart);
+                myCartObj.addToWishList();
+                log(myCart.toString());
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BottomNavBar(cart: true),
+                  ),
+                );
+
+                Fluttertoast.showToast(
+                  msg: "Added to Cart 🛒",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 15.0,
+                );
+              }
+
+              // myCart.clear();
+              // log(myCart.toString());
             },
             child: Text(
               'Add to Cart',

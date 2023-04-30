@@ -5,8 +5,6 @@ import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
 import 'package:aaptronix/view/search_screen/search_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -94,11 +92,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Future checkWishList() async {
-  FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .set({
-    'wishlist': ['no']
-  });
-}

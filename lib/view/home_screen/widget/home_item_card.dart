@@ -3,6 +3,7 @@ import 'package:aaptronix/view/home_screen/product_details/product_details.dart'
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -76,9 +77,10 @@ class HomeItemCards extends StatelessWidget {
                                         // color: white,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: FadeInImage.assetNetwork(
-                                        placeholder: 'assets/APPRONIX.jpg',
-                                        image: product['images'][0],
+                                      child: CachedNetworkImage(
+                                        placeholder: (context, url) => Image.asset(
+                                            'assets/APPRONIX.jpg'), // Add whatever you want to display.
+                                        imageUrl: product['images'][0],
                                       ),
                                     ),
                                     onTap: () {
@@ -142,7 +144,7 @@ class HomeItemCards extends StatelessWidget {
                                               ),
                                               kWidth,
                                               kWidth5,
-                                              FavIcon(product:product['id'])
+                                              FavIcon(product: product['id'])
                                             ],
                                           ),
                                           InkWell(

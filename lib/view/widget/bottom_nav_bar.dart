@@ -12,9 +12,11 @@ class BottomNavBar extends StatefulWidget {
   BottomNavBar({
     super.key,
     this.state = false,
+    this.cart = false,
   });
 
   final bool state;
+  final bool cart;
   late int currentIndex = 0;
 
   List pages = [
@@ -33,6 +35,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     widget.currentIndex = widget.state ? 1 : 0;
+    if (widget.cart == true) {
+      widget.currentIndex = 2;
+    }
     super.initState();
   }
 

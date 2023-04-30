@@ -34,12 +34,12 @@ class _FavIconState extends State<FavIcon> {
         if (fav == false) {
           myWishList.add(widget.product);
 
-          WishList myWishobj = WishList(wishList: myWishList);
+          WishList myWishobj = WishList(wishList: myWishList, cart: myCart);
           myWishobj.addToWishList();
         } else {
           myWishList.remove(widget.product);
 
-          WishList myWishobj = WishList(wishList: myWishList);
+          WishList myWishobj = WishList(wishList: myWishList, cart: myCart);
           myWishobj.addToWishList();
         }
         log(myWishList.toString());
@@ -55,21 +55,21 @@ class _FavIconState extends State<FavIcon> {
   void alert() {
     if (fav == false) {
       Fluttertoast.showToast(
-        msg: "Added to WishList 💜",
+        msg: "Item added to wishlist 💜",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.pinkAccent,
+        backgroundColor: blue,
         textColor: Colors.white,
         fontSize: 15.0,
       );
     } else {
       Fluttertoast.showToast(
-        msg: "Removed from WishList 💔",
+        msg: "Item removed from wishlist 💔",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.purple[400],
+        backgroundColor: black,
         textColor: Colors.white,
         fontSize: 15.0,
       );

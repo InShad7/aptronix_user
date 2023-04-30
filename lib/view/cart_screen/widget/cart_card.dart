@@ -1,12 +1,14 @@
+import 'package:aaptronix/controller/controller.dart';
+import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({super.key, this.quantity = true});
-
+  const CartCard({super.key, this.quantity = true, this.data});
+  final data;
   final bool quantity;
 
   @override
@@ -14,9 +16,8 @@ class CartCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: Container(
-        height: 110,
+        height: 115,
         decoration: BoxDecoration(
-          // border: Border.all(width: 0),
           color: cardClr,
           borderRadius: BorderRadius.circular(18),
         ),
@@ -25,16 +26,16 @@ class CartCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 90,
-                width: 80,
+                height: 95,
+                width: 85,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: white,
-                  image: DecorationImage(
-                      image: NetworkImage(
-                        'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1656712888128',
-                      ),
-                      fit: BoxFit.cover),
+                ),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) =>
+                      Image.asset('assets/APPRONIX.jpg'),
+                  imageUrl: data['images'][0],
                 ),
               ),
               kWidth,
@@ -44,25 +45,31 @@ class CartCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        'iPhone 13',
-                        style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w500)),
+                      SizedBox(
+                        width: 280,
+                        child: Text(
+                          data['name'],
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w500)),
+                        ),
                       ),
                     ],
                   ),
+                  kHeight,
                   Text(
-                    '128 GB',
+                    '${data['size']} GB',
                     style:
                         GoogleFonts.roboto(textStyle: TextStyle(fontSize: 17)),
                   ),
                   Row(
                     children: [
                       Text(
-                        '₹ 89,990',
+                        '₹ ${data['price']}',
                         style: GoogleFonts.roboto(
-                            textStyle: TextStyle(fontSize: 20)),
+                          textStyle: TextStyle(fontSize: 20),
+                        ),
                       ),
                       Padding(
                         padding: quantity
@@ -83,6 +90,12 @@ class CartCard extends StatelessWidget {
                               visible: quantity,
                               child: IconButton(
                                 onPressed: () {
+                                  myCart.remove(data['id']);
+
+                                  WishList myCartobj = WishList(
+                                      wishList: myWishList, cart: myCart);
+                                  myCartobj.addToWishList();
+                                  getWishList();
                                   print('remove');
                                 },
                                 icon: Icon(Icons.remove),

@@ -12,7 +12,7 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar( title: "Order Details"),
+      appBar: MyAppBar(title: "Order Details"),
       body: ListView(children: [
         kHeight20,
         CartCard(quantity: false),

@@ -21,3 +21,9 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 }
+
+//  final filteredList = data
+//                                   .where(
+//                                     (item) => 'iPhone' == item['category'],
+//                                   )
+//                                   .toList();

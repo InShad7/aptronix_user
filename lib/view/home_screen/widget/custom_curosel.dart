@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -52,8 +53,18 @@ class _customCuroselState extends State<customCurosel> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           color: Colors.white,
-          image:
-              DecorationImage(image: NetworkImage(imgUrl), fit: BoxFit.cover),
+          // image:
+          //     DecorationImage(image: NetworkImage(imgUrl), fit: BoxFit.cover),
+        ),
+        child: CachedNetworkImage(
+          placeholder: (context, url) => Image.asset('assets/APPRONIX.jpg'),
+          imageUrl: imgUrl,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+            ),
+          ),
         ),
       );
 
