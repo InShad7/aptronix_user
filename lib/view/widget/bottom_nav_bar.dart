@@ -2,6 +2,7 @@ import 'package:aaptronix/view/cart_screen/cart_screen.dart';
 import 'package:aaptronix/view/category_screen/category_screen.dart';
 import 'package:aaptronix/view/dash_board_screen/dash_board_screen.dart';
 import 'package:aaptronix/view/home_screen/home_screen.dart';
+import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/wish_list_screen/wish_list_screen.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
@@ -19,19 +20,18 @@ class BottomNavBar extends StatefulWidget {
   final bool cart;
   late int currentIndex = 0;
 
-  List pages = [
-    HomeScreen(),
-    const CategoryScreen(),
-    const CartScreen(),
-    const WishListScreen(),
-    DashBoardScreen()
-  ];
-
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  List pages = [
+    HomeScreen(),
+    CategoryScreen(),
+    const CartScreen(),
+    const WishListScreen(),
+    DashBoardScreen()
+  ];
   @override
   void initState() {
     widget.currentIndex = widget.state ? 1 : 0;
@@ -46,7 +46,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       extendBody: true,
-      body: widget.pages[widget.currentIndex],
+      body: pages[widget.currentIndex],
       bottomNavigationBar: BottomBarDefault(
         animated: true,
         iconSize: 24,
@@ -58,6 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         indexSelected: widget.currentIndex,
         onTap: (index) => setState(() {
           widget.currentIndex = index;
+          indx = -1;
         }),
         items: const <TabItem>[
           TabItem(icon: Icons.home_filled),

@@ -22,8 +22,6 @@ class CartCard1 extends StatelessWidget {
   final index;
   @override
   Widget build(BuildContext context) {
-    
-
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: InkWell(
@@ -77,10 +75,13 @@ class CartCard1 extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          '₹ ${product['price']}',
-                          style: GoogleFonts.roboto(
-                            textStyle: const TextStyle(fontSize: 20),
+                        SizedBox(
+                          width: 63,
+                          child: Text(
+                            '₹ ${product['price']}',
+                            style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
                           ),
                         ),
                         QuantityCounter(

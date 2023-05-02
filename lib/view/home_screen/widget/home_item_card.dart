@@ -47,6 +47,21 @@ class HomeItemCards extends StatelessWidget {
                     snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
                     final data = snapshot.data;
+                    iphoneList = data
+                        .where((item) => 'iPhone' == item['category'])
+                        .toList();
+                    ipadList = data
+                        .where((item) => 'iPad' == item['category'])
+                        .toList();
+                    watchList = data
+                        .where((item) => 'iWatch' == item['category'])
+                        .toList();
+                    macList = data
+                        .where((item) => 'MacBook' == item['category'])
+                        .toList();
+
+                    categoryList = myProduct = data;
+
                     return snapshot.data!.isEmpty
                         ? const Center(child: Text('List empty'))
                         : GridView.builder(

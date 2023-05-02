@@ -23,6 +23,13 @@ List<dynamic> myCart = [];
 List countList = [];
 List myProductTotal = [];
 
+List categoryList = [];
+List iphoneList = [];
+List ipadList = [];
+List watchList = [];
+List macList = [];
+List myProduct = [];
+
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance
       .collection('users')
