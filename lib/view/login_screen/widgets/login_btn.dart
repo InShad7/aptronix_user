@@ -1,6 +1,5 @@
 import 'package:aaptronix/main.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
-import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

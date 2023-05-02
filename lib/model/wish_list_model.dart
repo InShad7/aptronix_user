@@ -4,8 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 class WishList {
   List<dynamic> wishList;
   List<dynamic> cart;
+  List<dynamic> count;
+  List productTotal;
 
-  WishList({required this.wishList, required this.cart});
+  WishList(
+      {required this.wishList,
+      required this.cart,
+      required this.count,
+      required this.productTotal});
 
   Future<void> addToWishList() async {
     try {
@@ -14,7 +20,12 @@ class WishList {
       // final id = docRef.id;
 
       Map<String, dynamic> saveWish() {
-        return {'wishList': wishList, 'cart': cart};
+        return {
+          'wishList': wishList,
+          'cart': cart,
+          'count': count,
+          'productTotal': productTotal
+        };
       }
 
       await docRef.set(saveWish());

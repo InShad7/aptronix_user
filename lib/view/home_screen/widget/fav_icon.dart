@@ -34,12 +34,14 @@ class _FavIconState extends State<FavIcon> {
         if (fav == false) {
           myWishList.add(widget.product);
 
-          WishList myWishobj = WishList(wishList: myWishList, cart: myCart);
+          WishList myWishobj =
+              WishList(wishList: myWishList, cart: myCart, count: countList,productTotal: myProductTotal);
           myWishobj.addToWishList();
         } else {
           myWishList.remove(widget.product);
 
-          WishList myWishobj = WishList(wishList: myWishList, cart: myCart);
+          WishList myWishobj =
+              WishList(wishList: myWishList, cart: myCart, count: countList,productTotal: myProductTotal);
           myWishobj.addToWishList();
         }
         log(myWishList.toString());

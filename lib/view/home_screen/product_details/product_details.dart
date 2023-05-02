@@ -14,7 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Product Details'),
+      appBar: MyAppBar(title: '${product['name']}'),
       body: ListView(
           // shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
@@ -46,7 +46,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
             kHeight20,
           ]),
-      bottomNavigationBar:  AddCartAndBuyNow(product: product),
+      bottomNavigationBar: AddCartAndBuyNow(product: product),
     );
   }
 }

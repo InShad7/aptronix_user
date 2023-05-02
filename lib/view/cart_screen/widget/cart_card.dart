@@ -35,7 +35,8 @@ class CartCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   placeholder: (context, url) =>
                       Image.asset('assets/APPRONIX.jpg'),
-                  imageUrl: data['images'][0],
+                  imageUrl:
+                      'https://www.reliancedigital.in/medias/Apple-iPhone-13-Smartphones-492849504-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w0MjUzMnxpbWFnZS9qcGVnfGltYWdlcy9oYjEvaDZjLzk4ODAzNjMwNzM1NjYuanBnfGVkODc3NTQ1MDE0NmFiMDExZDY4MzFhYTM1MWM2OWM4OTM5MjljNTI3MTZhZjBmYzc2MTc2NzVhMjBjZjdmNDI',
                 ),
               ),
               kWidth,
@@ -48,7 +49,7 @@ class CartCard extends StatelessWidget {
                       SizedBox(
                         width: 280,
                         child: Text(
-                          data['name'],
+                          'name',
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(
                               textStyle: TextStyle(
@@ -59,14 +60,14 @@ class CartCard extends StatelessWidget {
                   ),
                   kHeight,
                   Text(
-                    '${data['size']} GB',
+                    'size GB',
                     style:
                         GoogleFonts.roboto(textStyle: TextStyle(fontSize: 17)),
                   ),
                   Row(
                     children: [
                       Text(
-                        '₹ ${data['price']}',
+                        '₹ price',
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(fontSize: 20),
                         ),
@@ -90,12 +91,7 @@ class CartCard extends StatelessWidget {
                               visible: quantity,
                               child: IconButton(
                                 onPressed: () {
-                                  myCart.remove(data['id']);
-
-                                  WishList myCartobj = WishList(
-                                      wishList: myWishList, cart: myCart);
-                                  myCartobj.addToWishList();
-                                  getWishList();
+                                 
                                   print('remove');
                                 },
                                 icon: Icon(Icons.remove),

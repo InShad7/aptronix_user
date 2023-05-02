@@ -1,12 +1,15 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+int total = 0;
+
 class PlaceOrderBtn extends StatelessWidget {
   PlaceOrderBtn(
       {super.key,
-      this.botomSpace=0,
+      this.botomSpace = 0,
       required this.ht,
       required this.clr,
       required this.label,
@@ -36,7 +39,7 @@ class PlaceOrderBtn extends StatelessWidget {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Text(
-              'Total :  ₹ 2,89,990',
+              'Total :  ₹ ${total}',
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
                     fontSize: 22,
@@ -44,7 +47,6 @@ class PlaceOrderBtn extends StatelessWidget {
                     color: clr ? white : black),
               ),
             ),
-
             SizedBox(
               height: 47,
               width: 165,
@@ -73,39 +75,9 @@ class PlaceOrderBtn extends StatelessWidget {
                 ),
               ),
             ),
-            // InkWell(
-            //   child: Container(
-            //     height: 47,
-            //     width: 165,
-            //     decoration: BoxDecoration(
-            //       color: clr ? white : blue,
-            //       borderRadius: BorderRadius.circular(18),
-            //     ),
-            //     child: Center(
-            //       child: Text(
-            //         label,
-            //         style: GoogleFonts.roboto(
-            //           textStyle: TextStyle(
-            //               fontSize: 22,
-            //               color: clr ? black : white,
-            //               fontWeight: FontWeight.bold),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => navigateTo,
-            //         ));
-            //   },
-            // ),
           ]),
         ),
       ),
     );
   }
 }
-
-

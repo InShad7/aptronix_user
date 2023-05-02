@@ -19,6 +19,10 @@ Stream GetImages() async* {
 }
 
 List<dynamic> myWishList = [];
+List<dynamic> myCart = [];
+List countList = [];
+List myProductTotal = [];
+
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance
       .collection('users')
@@ -47,9 +51,33 @@ Future<void> getWishList() async {
   } else {
     myCart = ['no data'];
   }
+
+  if (ref.exists) {
+    final data = ref.data()!['count'];
+    countList = data ?? ['no data'];
+
+    if (countList.length > 1 && countList[0] == 'no data') {
+      countList.removeAt(0);
+      log(countList.toString());
+    }
+  } else {
+    countList = ['no data'];
+  }
+
+  if (ref.exists) {
+    final data = ref.data()!['productTotal'];
+    myProductTotal = data ?? ['no data'];
+
+    if (myProductTotal.length > 1 && myProductTotal[0] == 'no data') {
+      myProductTotal.removeAt(0);
+      log(myProductTotal.toString());
+    }
+  } else {
+    myProductTotal = ['no data'];
+  }
 }
 
-List<dynamic> myCart = [];
+
 
 
 

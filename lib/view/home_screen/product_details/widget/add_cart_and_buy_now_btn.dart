@@ -8,6 +8,7 @@ import 'package:aaptronix/view/dash_board_screen/widget/logout_btn.dart';
 import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,8 +50,13 @@ class AddCartAndBuyNow extends StatelessWidget {
                 );
               } else {
                 myCart.add(product['id']);
-                WishList myCartObj =
-                    WishList(wishList: myWishList, cart: myCart);
+                countList.add(1);
+                myProductTotal.add(product['price'] * 1);
+                WishList myCartObj = WishList(
+                    wishList: myWishList,
+                    cart: myCart,
+                    count: countList,
+                    productTotal: myProductTotal);
                 myCartObj.addToWishList();
                 log(myCart.toString());
                 Navigator.pushReplacement(
@@ -70,12 +76,9 @@ class AddCartAndBuyNow extends StatelessWidget {
                   fontSize: 15.0,
                 );
               }
-
-              // myCart.clear();
-              // log(myCart.toString());
             },
             child: Text(
-              'Add to Cart',
+              myCart.contains(product['id']) ? 'Go to Cart' : 'Add to Cart',
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(fontSize: 22, color: white),
               ),
