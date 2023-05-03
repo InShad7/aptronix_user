@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
@@ -9,7 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeItemCards extends StatelessWidget {
-  const HomeItemCards({super.key});
+  const HomeItemCards({super.key, this.search = false});
+  final search;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class HomeItemCards extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "New Arrival",
+            search ? '' : "New Arrival",
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                 fontSize: 22,
@@ -59,12 +62,12 @@ class HomeItemCards extends StatelessWidget {
                     macList = data
                         .where((item) => 'MacBook' == item['category'])
                         .toList();
-
                     categoryList = myProduct = data;
 
-                    return snapshot.data!.isEmpty
-                        ? const Center(child: Text('List empty'))
-                        : GridView.builder(
+                    return (search ? searchList.length : data.length) > 0
+                        // snapshot.data!.isEmpty
+                        // ? const Center(child: Text('List empty')):
+                        ? GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -72,11 +75,13 @@ class HomeItemCards extends StatelessWidget {
                               mainAxisSpacing: 8,
                               childAspectRatio: (2 / 2.6),
                             ),
-                            itemCount: data.length,
+                            itemCount: search ? searchList.length : data.length,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              final product = data[index];
+                              final product =
+                                  search ? searchList[index] : data[index];
+                              log(searchList.length.toString());
                               return Container(
                                 decoration: BoxDecoration(
                                     color: white,
@@ -188,7 +193,9 @@ class HomeItemCards extends StatelessWidget {
                                 ]),
                               );
                               // : null;
-                            });
+                            })
+                        : Center(
+                            child: Image.asset('assets/nomatchfound.jpeg'));
                   }
                 }
                 return Text('Cant fetch data');

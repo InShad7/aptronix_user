@@ -1,4 +1,3 @@
-
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
@@ -8,15 +7,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ItemCards extends StatefulWidget {
+class ItemCards extends StatelessWidget {
   ItemCards({super.key});
-
-  @override
-  State<ItemCards> createState() => _ItemCardsState();
-}
-
-class _ItemCardsState extends State<ItemCards> {
-  var iphoneFiltered;
 
   @override
   Widget build(BuildContext context) {

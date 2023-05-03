@@ -14,14 +14,14 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
+  void removeItem(String itemId) {
+    setState(() {
+      myWishList.remove(itemId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void removeItem(String itemId) {
-      setState(() {
-        myWishList.remove(itemId);
-      });
-    }
-
     log(myWishList.length.toString());
     return Scaffold(
       backgroundColor: white,

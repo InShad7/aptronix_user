@@ -4,8 +4,6 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-int total = 0;
-
 class PlaceOrderBtn extends StatelessWidget {
   PlaceOrderBtn(
       {super.key,
@@ -23,6 +21,16 @@ class PlaceOrderBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (myProductTotal.isEmpty || myProductTotal[0] == 'no data') {
+      total = 0;
+    } else {
+      getWishList();
+      int sum = 0;
+      for (int i = 0; i < myProductTotal.length; i++) {
+        sum = sum + int.parse(myProductTotal[i].toString());
+      }
+      total = sum;
+    }
     return Container(
       height: ht,
       width: mWidth,

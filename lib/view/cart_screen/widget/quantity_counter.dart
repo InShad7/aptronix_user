@@ -47,6 +47,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                       count: countList,
                       productTotal: myProductTotal);
                   myWishobj.addToWishList();
+                  widget.updateTotal();
 
                   Fluttertoast.showToast(
                     msg: "Item removed from cart 🛒",

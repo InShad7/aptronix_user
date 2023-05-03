@@ -32,7 +32,7 @@ class _CartScreenState extends State<CartScreen> {
     void updatePrice() {
       setState(() {
         int sum = 0;
-        if (myProductTotal.isEmpty || myProductTotal == 'no data') {
+        if (myProductTotal.isEmpty || myProductTotal[0] == 'no data') {
           total = 0;
         } else {
           for (int i = 0; i < myProductTotal.length; i++) {
@@ -72,9 +72,11 @@ class _CartScreenState extends State<CartScreen> {
                   snapshot.connectionState == ConnectionState.active) {
                 if (myCart.isEmpty || myCart[0] == 'no data') {
                   return SizedBox(
-                    height: 580,
-                    child: Image.asset(
-                      'assets/cart1.jpeg',
+                    height: 750,
+                    child: Center(
+                      child: Image.asset(
+                        'assets/cartempty.jpeg',
+                      ),
                     ),
                   );
                 }
@@ -88,10 +90,11 @@ class _CartScreenState extends State<CartScreen> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             final filteredList = data
-                                .where(
-                                  (item) => myCart.contains(item['id']),
-                                )
-                                .toList();
+                                .where((item) => myCart.contains(item['id']))
+                                .toList()
+                              ..sort((a, b) => myCart
+                                  .indexOf(a['id'])
+                                  .compareTo(myCart.indexOf(b['id'])));
 
                             final product = filteredList[index];
 

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Stream getProducts() async* {
   final QuerySnapshot querySnapshot =
@@ -22,6 +21,7 @@ List<dynamic> myWishList = [];
 List<dynamic> myCart = [];
 List countList = [];
 List myProductTotal = [];
+int? total;
 
 List categoryList = [];
 List iphoneList = [];
@@ -30,6 +30,7 @@ List watchList = [];
 List macList = [];
 List myProduct = [];
 
+List searchList = [];
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance
       .collection('users')

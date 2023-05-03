@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/utils/colors.dart';
+import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -32,16 +33,34 @@ class _FavIconState extends State<FavIcon> {
       ),
       onTap: () {
         if (fav == false) {
-          myWishList.add(widget.product);
+          if (myWishList.contains(widget.product)) {
+            Fluttertoast.showToast(
+              msg: "Already in the wishlist !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: red,
+              textColor: Colors.white,
+              fontSize: 15.0,
+            );
+          } else {
+            myWishList.add(widget.product);
 
-          WishList myWishobj =
-              WishList(wishList: myWishList, cart: myCart, count: countList,productTotal: myProductTotal);
-          myWishobj.addToWishList();
+            WishList myWishobj = WishList(
+                wishList: myWishList,
+                cart: myCart,
+                count: countList,
+                productTotal: myProductTotal);
+            myWishobj.addToWishList();
+          }
         } else {
           myWishList.remove(widget.product);
 
-          WishList myWishobj =
-              WishList(wishList: myWishList, cart: myCart, count: countList,productTotal: myProductTotal);
+          WishList myWishobj = WishList(
+              wishList: myWishList,
+              cart: myCart,
+              count: countList,
+              productTotal: myProductTotal);
           myWishobj.addToWishList();
         }
         log(myWishList.toString());

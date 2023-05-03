@@ -1,14 +1,10 @@
 import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
-import 'package:aaptronix/model/cart_model.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
-import 'package:aaptronix/view/cart_screen/cart_screen.dart';
-import 'package:aaptronix/view/dash_board_screen/widget/logout_btn.dart';
 import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +47,7 @@ class AddCartAndBuyNow extends StatelessWidget {
               } else {
                 myCart.add(product['id']);
                 countList.add(1);
-                myProductTotal.add(product['price'] * 1);
+                myProductTotal.add(int.parse(product['price']) * 1);
                 WishList myCartObj = WishList(
                     wishList: myWishList,
                     cart: myCart,
