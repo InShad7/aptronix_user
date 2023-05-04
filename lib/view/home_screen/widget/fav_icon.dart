@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -47,20 +48,26 @@ class _FavIconState extends State<FavIcon> {
             myWishList.add(widget.product);
 
             WishList myWishobj = WishList(
-                wishList: myWishList,
-                cart: myCart,
-                count: countList,
-                productTotal: myProductTotal);
+              wishList: myWishList,
+              cart: myCart,
+              count: countList,
+              productTotal: myProductTotal,
+              address: addressList,
+              currentAddress: selectedAddress,
+            );
             myWishobj.addToWishList();
           }
         } else {
           myWishList.remove(widget.product);
 
           WishList myWishobj = WishList(
-              wishList: myWishList,
-              cart: myCart,
-              count: countList,
-              productTotal: myProductTotal);
+            wishList: myWishList,
+            cart: myCart,
+            count: countList,
+            productTotal: myProductTotal,
+            address: addressList,
+            currentAddress: selectedAddress,
+          );
           myWishobj.addToWishList();
         }
         log(myWishList.toString());

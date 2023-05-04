@@ -1,7 +1,17 @@
 import 'dart:developer';
 
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+TextEditingController nameController = TextEditingController();
+TextEditingController phoneController = TextEditingController();
+TextEditingController pincodeController = TextEditingController();
+TextEditingController cityController = TextEditingController();
+TextEditingController stateController = TextEditingController();
+TextEditingController houseController = TextEditingController();
+TextEditingController streetController = TextEditingController();
 
 Stream getProducts() async* {
   final QuerySnapshot querySnapshot =
@@ -29,6 +39,8 @@ List ipadList = [];
 List watchList = [];
 List macList = [];
 List myProduct = [];
+List cartItems = [];
+List addressList = [];
 
 List searchList = [];
 Future<void> getWishList() async {
@@ -82,6 +94,30 @@ Future<void> getWishList() async {
     }
   } else {
     myProductTotal = ['no data'];
+  }
+
+  if (ref.exists) {
+    final data = ref.data()!['address'];
+    addressList = data ?? ['no data'];
+
+    if (addressList.length > 1 && addressList[0] == 'no data') {
+      addressList.removeAt(0);
+      log(addressList.toString());
+    }
+  } else {
+    addressList = ['no data'];
+  }
+
+  if (ref.exists) {
+    final data = ref.data()!['selectedAddress'];
+    selectedAddress = data ?? ['no data'];
+
+    if (selectedAddress.length > 1 && selectedAddress[0] == 'no data') {
+      selectedAddress.removeAt(0);
+      log(selectedAddress.toString());
+    }
+  } else {
+    selectedAddress = ['no data'];
   }
 }
 

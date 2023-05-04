@@ -1,3 +1,4 @@
+import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,12 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   MyAppBar({
     super.key,
     required this.title,
+    this.addressScren = false,
   });
   @override
   final Size preferredSize = const Size.fromHeight(60.0);
   final String title;
+  final addressScren;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,17 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
       centerTitle: true,
       iconTheme: IconThemeData(color: black),
       leading: IconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () {
+          // addressScren
+          //     ? Navigator.pushReplacement(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => OrderSummaryScreen(),
+          //         ),
+          //       )
+              // : 
+              Navigator.pop(context);
+        },
         icon: Icon(Icons.arrow_back_ios_new),
       ),
       title: Text(

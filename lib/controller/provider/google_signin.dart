@@ -1,5 +1,6 @@
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class GoogleSignInProvider extends ChangeNotifier {
         cart: myCart,
         count: countList,
         productTotal: myProductTotal,
+        address: addressList,currentAddress: selectedAddress,
       );
       myCartObj.addToWishList();
       

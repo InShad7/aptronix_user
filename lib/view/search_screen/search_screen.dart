@@ -78,8 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: 1,
-                itemBuilder: (context, index) =>
-                    const HomeItemCards(search: true),
+                itemBuilder: (context, index) => HomeItemCards(search: true),
               ),
             ),
           ],

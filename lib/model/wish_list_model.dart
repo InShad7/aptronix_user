@@ -6,12 +6,17 @@ class WishList {
   List<dynamic> cart;
   List<dynamic> count;
   List productTotal;
+  List address;
+  dynamic currentAddress;
 
-  WishList(
-      {required this.wishList,
-      required this.cart,
-      required this.count,
-      required this.productTotal});
+  WishList({
+    required this.wishList,
+    required this.cart,
+    required this.count,
+    required this.productTotal,
+    required this.address,
+    required this.currentAddress,
+  });
 
   Future<void> addToWishList() async {
     try {
@@ -24,7 +29,9 @@ class WishList {
           'wishList': wishList,
           'cart': cart,
           'count': count,
-          'productTotal': productTotal
+          'productTotal': productTotal,
+          'address': address,
+          'selectedAddress': currentAddress,
         };
       }
 

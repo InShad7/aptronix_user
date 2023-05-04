@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/order_summary_screen/order_summary_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
@@ -58,10 +59,13 @@ class AddCartAndBuyNow extends StatelessWidget {
                 countList.add(1);
                 myProductTotal.add(int.parse(product['price']) * 1);
                 WishList myCartObj = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal);
+                  wishList: myWishList,
+                  cart: myCart,
+                  count: countList,
+                  productTotal: myProductTotal,
+                  address: addressList,
+                  currentAddress: selectedAddress,
+                );
                 myCartObj.addToWishList();
                 log(myCart.toString());
                 Navigator.pushReplacement(

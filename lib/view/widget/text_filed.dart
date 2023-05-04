@@ -1,4 +1,4 @@
-import 'package:aaptronix/view/order_summary_screen/address_screen/address_screen.dart';
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ class CustomTextField extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddressScreen(),
+                        builder: (context) => SelectAddressScreen(),
                       ),
                     );
                   },
@@ -80,7 +80,7 @@ class CustomTextField extends StatelessWidget {
               color: cardClr,
               borderRadius: BorderRadius.circular(18),
             ),
-            height: ht,
+            // height: ht,
             width: width,
             child: customField(num, max, content, readOnly),
           ),
@@ -92,8 +92,9 @@ class CustomTextField extends StatelessWidget {
 
 Widget customField(bool num, int max, String content, bool readOnly) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.only(left: 8.0, right: 8),
     child: TextFormField(
+      scrollPhysics: const NeverScrollableScrollPhysics(),
       enableInteractiveSelection: false,
       minLines: 1,
       initialValue: content,

@@ -1,3 +1,4 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/quantity_counter.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
 import 'package:aaptronix/view/utils/colors.dart';
@@ -9,14 +10,16 @@ import 'package:google_fonts/google_fonts.dart';
 class CartCard1 extends StatelessWidget {
   const CartCard1(
       {super.key,
-      required this.product,
-      required this.onRemove,
-      required this.updateTotal,
-      this.index});
+      this.product,
+      this.onRemove,
+      this.updateTotal,
+      this.index,
+      this.orderSummary = false});
   final product;
   final onRemove;
   final updateTotal;
   final index;
+  final orderSummary;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -81,11 +84,43 @@ class CartCard1 extends StatelessWidget {
                             ),
                           ),
                         ),
-                        QuantityCounter(
-                            index: index,
-                            product: product,
-                            onRemove: onRemove,
-                            updateTotal: updateTotal)
+                        orderSummary
+                            ? Padding(
+                                padding: const EdgeInsets.only(left: 140),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Qty:',
+                                      style: GoogleFonts.roboto(
+                                        textStyle: TextStyle(fontSize: 17),
+                                      ),
+                                    ),
+                                    kWidth,
+                                    Container(
+                                      height: 25,
+                                      width: 25,
+                                      decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          countList[index].toString(),
+                                          style: GoogleFonts.roboto(
+                                            textStyle: TextStyle(
+                                                fontSize: 18, color: white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : QuantityCounter(
+                                index: index,
+                                product: product,
+                                onRemove: onRemove,
+                                updateTotal: updateTotal)
                       ],
                     ),
                   ],

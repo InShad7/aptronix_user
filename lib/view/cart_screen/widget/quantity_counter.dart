@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,13 @@ class _QuantityCounterState extends State<QuantityCounter> {
                   myProductTotal.removeAt(widget.index);
                   // myProductTotal.clear();
                   WishList myWishobj = WishList(
-                      wishList: myWishList,
-                      cart: myCart,
-                      count: countList,
-                      productTotal: myProductTotal);
+                    wishList: myWishList,
+                    cart: myCart,
+                    count: countList,
+                    productTotal: myProductTotal,
+                    address: addressList,
+                    currentAddress: selectedAddress,
+                  );
                   myWishobj.addToWishList();
                   widget.updateTotal();
 
@@ -67,10 +71,13 @@ class _QuantityCounterState extends State<QuantityCounter> {
                       count * int.parse(widget.product['price']);
 
                   WishList my = WishList(
-                      wishList: myWishList,
-                      cart: myCart,
-                      count: countList,
-                      productTotal: myProductTotal);
+                    wishList: myWishList,
+                    cart: myCart,
+                    count: countList,
+                    productTotal: myProductTotal,
+                    address: addressList,
+                    currentAddress: selectedAddress,
+                  );
                   my.addToWishList();
                   widget.updateTotal();
 
@@ -115,10 +122,13 @@ class _QuantityCounterState extends State<QuantityCounter> {
                   myProductTotal[widget.index] =
                       count * int.parse(widget.product['price']);
                   WishList my = WishList(
-                      wishList: myWishList,
-                      cart: myCart,
-                      count: countList,
-                      productTotal: myProductTotal);
+                    wishList: myWishList,
+                    cart: myCart,
+                    count: countList,
+                    productTotal: myProductTotal,
+                    address: addressList,
+                    currentAddress: selectedAddress,
+                  );
                   my.addToWishList();
                   widget.updateTotal();
                 }

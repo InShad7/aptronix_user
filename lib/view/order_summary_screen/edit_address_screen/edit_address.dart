@@ -1,14 +1,15 @@
+import 'package:aaptronix/controller/controller.dart';
+import 'package:aaptronix/view/order_summary_screen/add_address_screen/widget/custom_field2.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
-import 'package:aaptronix/view/widget/text_filed.dart';
 import 'package:flutter/material.dart';
 
 import '../../dash_board_screen/account/widget/update_btn.dart';
 
 class EditAddressScreen extends StatelessWidget {
-  const EditAddressScreen({super.key});
-
+  EditAddressScreen({super.key, this.index});
+  final index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,76 +18,89 @@ class EditAddressScreen extends StatelessWidget {
         padding: const EdgeInsets.all(6.0),
         child: ListView(
           children: [
-            CustomTextField(
+            customField2(
               label: 'Name',
-              ht: 60,
+              height: 60,
               width: mWidth!,
               num: false,
-              max: 2,
-              content: '',
+              max: 1,
+              controller: nameController =
+                  TextEditingController(text: addressList[index]['name']),
               readOnly: false,
             ),
-            CustomTextField(
+            kHeight,
+            customField2(
               label: 'Phone number',
-              ht: 60,
+              height: 60,
               width: mWidth!,
               num: true,
               max: 1,
-              content: '',
+              controller: phoneController = TextEditingController(
+                  text: addressList[index]['phoneNumber']),
               readOnly: false,
             ),
+            kHeight,
             Row(
               children: [
-                CustomTextField(
+                customField2(
                   label: 'Pincode',
-                  ht: 60,
+                  height: 60,
                   width: mWidth! / 2.5,
                   num: true,
                   max: 1,
-                  content: '',
+                  controller: pincodeController = TextEditingController(
+                      text: addressList[index]['pincode']),
                   readOnly: false,
                 ),
-                CustomTextField(
+                customField2(
                   label: 'City',
-                  ht: 60,
+                  height: 60,
                   width: mWidth! / 2.4,
                   num: false,
                   max: 1,
-                  content: '',
+                  controller: cityController =
+                      TextEditingController(text: addressList[index]['city']),
                   readOnly: false,
                 ),
               ],
             ),
-            CustomTextField(
+            kHeight,
+            customField2(
               label: 'State',
-              ht: 60,
+              height: 60,
               width: mWidth!,
               num: false,
-              max: 2,
-              content: '',
+              max: 1,
+              controller: stateController =
+                  TextEditingController(text: addressList[index]['state']),
               readOnly: false,
             ),
-            CustomTextField(
+            kHeight,
+            customField2(
               label: 'House no: / building no:',
-              ht: 60,
+              height: 60,
               width: mWidth!,
               num: false,
-              max: 2,
-              content: '',
+              max: 3,
+              controller: houseController = TextEditingController(
+                  text: addressList[index]['houseNumber']),
               readOnly: false,
             ),
-            CustomTextField(
+            kHeight,
+            customField2(
               label: 'Area ,street',
-              ht: 60,
+              height: 60,
               width: mWidth!,
               num: false,
-              max: 2,
-              content: '',
+              max: 3,
+              controller: streetController =
+                  TextEditingController(text: addressList[index]['streetName']),
               readOnly: false,
             ),
+            kHeight,
             kHeight100,
             kHeight20,
-            UpdateBtn(title: 'Save '),
+            UpdateBtn(title: 'Save ', index: index, update: true),
           ],
         ),
       ),
