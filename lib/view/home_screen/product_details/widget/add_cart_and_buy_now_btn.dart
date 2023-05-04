@@ -14,6 +14,15 @@ class AddCartAndBuyNow extends StatelessWidget {
   final product;
   @override
   Widget build(BuildContext context) {
+    if (myProductTotal.isEmpty || myProductTotal[0] == 'no data') {
+      total = 0;
+    } else {
+      int sum = 0;
+      for (int i = 0; i < myProductTotal.length; i++) {
+        sum = sum + int.parse(myProductTotal[i].toString());
+      }
+      total = sum;
+    }
     return Container(
       height: 80,
       decoration: BoxDecoration(

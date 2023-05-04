@@ -21,16 +21,6 @@ class PlaceOrderBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (myProductTotal.isEmpty || myProductTotal[0] == 'no data') {
-      total = 0;
-    } else {
-      getWishList();
-      int sum = 0;
-      for (int i = 0; i < myProductTotal.length; i++) {
-        sum = sum + int.parse(myProductTotal[i].toString());
-      }
-      total = sum;
-    }
     return Container(
       height: ht,
       width: mWidth,

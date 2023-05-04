@@ -1,3 +1,5 @@
+import 'package:aaptronix/controller/controller.dart';
+import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,14 @@ class GoogleSignInProvider extends ChangeNotifier {
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+      WishList myCartObj = WishList(
+        wishList: myWishList,
+        cart: myCart,
+        count: countList,
+        productTotal: myProductTotal,
+      );
+      myCartObj.addToWishList();
+      
 
       flag = 1;
     } catch (e) {

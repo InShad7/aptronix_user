@@ -1,4 +1,6 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/controller/provider/google_signin.dart';
+import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ class GoogleSignUpBtn extends StatelessWidget {
             final provider =
                 Provider.of<GoogleSignInProvider>(context, listen: false);
             provider.googleLogin();
+            
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/quantity_counter.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
 import 'package:aaptronix/view/utils/colors.dart';
