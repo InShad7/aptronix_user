@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
@@ -9,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FavIcon extends StatefulWidget {
-  const FavIcon({super.key, this.product});
+  const FavIcon({super.key, this.product, this.refresh});
   final product;
+  final refresh;
 
   @override
   State<FavIcon> createState() => _FavIconState();
@@ -71,6 +73,9 @@ class _FavIconState extends State<FavIcon> {
           myWishobj.addToWishList();
         }
         log(myWishList.toString());
+        if (widget.refresh != null) {
+          widget.refresh();
+        }
 
         alert();
         setState(() {

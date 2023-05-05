@@ -1,9 +1,14 @@
 import 'dart:developer';
 
+import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
+import 'package:aaptronix/view/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 TextEditingController nameController = TextEditingController();
 TextEditingController phoneController = TextEditingController();
@@ -12,6 +17,82 @@ TextEditingController cityController = TextEditingController();
 TextEditingController stateController = TextEditingController();
 TextEditingController houseController = TextEditingController();
 TextEditingController streetController = TextEditingController();
+
+ Future<void> signUp(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: LoadingIndicator(
+            indicatorType: Indicator.circleStrokeSpin,
+            colors: [white],
+            strokeWidth: 2,
+          ),
+        ),
+      ),
+    );
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: userNameController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      final currentUser = FirebaseAuth.instance.currentUser;
+      await currentUser!.updateDisplayName(nameController.text.trim());
+      // log(currentUser.toString());
+
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Sign-up successful',
+            style: GoogleFonts.roboto(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CheckUserLogin(),
+        ),
+      );
+
+      userNameController.clear();
+      passwordController.clear();
+      nameController.clear();
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      String errorMessage = 'Enter valid Credentials';
+      if (e.code == 'invalid-email') {
+        errorMessage = 'The email address is not valid';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The email address is already in use';
+      } else if (e.code == 'weak-password') {
+        errorMessage = 'Please enter a minimum of 6 characters password';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            errorMessage,
+            style: GoogleFonts.roboto(
+              textStyle: const TextStyle(fontSize: 20),
+            ),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: deleteRed,
+        ),
+      );
+    }
+  }
 
 Stream getProducts() async* {
   final QuerySnapshot querySnapshot =
@@ -121,7 +202,15 @@ Future<void> getWishList() async {
   }
 }
 
-
+clear() {
+  nameController.clear();
+  phoneController.clear();
+  pincodeController.clear();
+  cityController.clear();
+  stateController.clear();
+  houseController.clear();
+  streetController.clear();
+}
 
 
 

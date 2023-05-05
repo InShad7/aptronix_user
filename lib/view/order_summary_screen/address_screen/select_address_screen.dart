@@ -2,15 +2,17 @@ import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/add_address_screen/add_address_screen.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/widget/title_and_btn.dart';
-import 'package:aaptronix/view/order_summary_screen/edit_address_screen/edit_address.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SelectAddressScreen extends StatefulWidget {
-  const SelectAddressScreen({super.key});
+  const SelectAddressScreen({super.key, this.selectadd});
+  final selectadd;
 
   @override
   State<SelectAddressScreen> createState() => _SelectAddressScreenState();
@@ -19,9 +21,22 @@ class SelectAddressScreen extends StatefulWidget {
 dynamic selectedAddress;
 
 class _SelectAddressScreenState extends State<SelectAddressScreen> {
+  bool a = false;
+  getRefresh(String refresh) {
+    if (refresh == 'refresh') {
+      setState(() {
+        a = true;
+      });
+    }
+  }
+
   void deleteAddress(int index) {
     setState(() {
       addressList.removeAt(index);
+      Fluttertoast.showToast(
+        msg: 'deleted',
+        backgroundColor: deleteRed,
+      );
       WishList my = WishList(
         wishList: myWishList,
         cart: myCart,
@@ -36,13 +51,13 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log(selectedAddress.toString());
+    log('inside ${selectedAddress.toString()}');
     return Scaffold(
       appBar: MyAppBar(title: 'Address'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          const TitleAndBtn(),
+          TitleAndBtn(refresh: getRefresh),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -53,12 +68,12 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                 title: Container(
                   padding: const EdgeInsets.all(15),
                   // margin: const EdgeInsets.only(left: 16, right: 16, top: 5),
-                  height: 200,
+                  height: 240,
                   decoration: BoxDecoration(
                     color: cardClr,
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,23 +86,27 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                           ),
                         ),
                       ),
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditAddressScreen(index: index),
-                                ),
-                              );
+                            onPressed: () async {
+                              final result = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddAddressScreen(
+                                        editAdd: true, index: index),
+                                  ));
+                              if (result == 'refresh') {
+                                getRefresh('refresh');
+                              }
                             },
                             icon: const Icon(Icons.edit_outlined),
                           ),
                           IconButton(
                             onPressed: () {
                               deleteAddress(index);
+
                               if (addressList.isEmpty) {
                                 selectedAddress = 'no data';
 
@@ -116,6 +135,12 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                 onChanged: (value) {
                   setState(() {
                     selectedAddress = value;
+                    Fluttertoast.showToast(
+                      msg: 'Address selected',
+                      backgroundColor: Colors.green,
+                      fontSize: 15,
+                    );
+
                     WishList my = WishList(
                       wishList: myWishList,
                       cart: myCart,
@@ -125,6 +150,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                       currentAddress: selectedAddress,
                     );
                     my.addToWishList();
+                    log('select ${selectedAddress.toString()}');
                   });
                 },
               );

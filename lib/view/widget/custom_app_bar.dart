@@ -31,8 +31,8 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
           //           builder: (context) => OrderSummaryScreen(),
           //         ),
           //       )
-              // : 
-              Navigator.pop(context);
+          // :
+          Navigator.pop(context, 'refresh');
         },
         icon: Icon(Icons.arrow_back_ios_new),
       ),

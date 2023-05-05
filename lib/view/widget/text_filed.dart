@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
@@ -5,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+  CustomTextField({
     super.key,
     this.ht,
     this.width,
@@ -16,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     required this.label,
     this.btn = false,
     this.btnName = '',
+    this.refresh,
   });
   final double? ht;
   final double? width;
@@ -26,9 +29,14 @@ class CustomTextField extends StatelessWidget {
   final bool btn;
   final String btnName;
   final String label;
+  final refresh;
+
+  bool a = false;
 
   @override
   Widget build(BuildContext context) {
+    log('field refreshh');
+    log(selectedAddress.toString());
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
@@ -55,13 +63,15 @@ class CustomTextField extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SelectAddressScreen(),
-                      ),
-                    );
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SelectAddressScreen(),
+                        ));
+                    if (result == 'refresh') {
+                      refresh('refresh');
+                    }
                   },
                   child: Text(
                     btnName,
@@ -97,7 +107,8 @@ Widget customField(bool num, int max, String content, bool readOnly) {
       scrollPhysics: const NeverScrollableScrollPhysics(),
       enableInteractiveSelection: false,
       minLines: 1,
-      initialValue: content,
+      // initialValue: content,
+      controller: TextEditingController(text: content),
       readOnly: readOnly,
       maxLines: max,
       keyboardType: num ? TextInputType.number : TextInputType.text,

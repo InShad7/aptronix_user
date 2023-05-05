@@ -1,5 +1,6 @@
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../splash_screen.dart/spalsh_screen.dart';
@@ -10,8 +11,10 @@ Widget customField2({
   double? width,
   required bool num,
   TextEditingController? controller,
-  required  max,
+  required max,
   bool readOnly = true,
+  validator,
+  number = false,
 }) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
@@ -30,23 +33,36 @@ Widget customField2({
               border: Border.all(color: grey)),
           // height: height,
           width: width,
-          child: customField(num, max, controller!, readOnly),
+          child:
+              customField(num, max, controller!, readOnly, validator, number),
         ),
       ],
     ),
   );
 }
 
-Widget customField(
-    bool num,  max, TextEditingController controller, bool readOnly) {
+Widget customField(bool num, max, TextEditingController controller,
+    bool readOnly, validator, number) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: TextFormField(
+      inputFormatters: number
+          ? [
+              FilteringTextInputFormatter.allow(
+                RegExp(r"[0-9]"),
+              )
+            ]
+          : [
+              FilteringTextInputFormatter.allow(
+                RegExp(r"[a-zA-Z]+|\s"),
+              )
+            ],
+      validator: validator,
       readOnly: readOnly,
       cursorColor: black,
       controller: controller,
       minLines: 1,
-      maxLines: max ,
+      maxLines: max,
       keyboardType: num ? TextInputType.number : TextInputType.text,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(

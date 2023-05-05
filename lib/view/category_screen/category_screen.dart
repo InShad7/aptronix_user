@@ -127,5 +127,5 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return chips;
   }
 
-  onChipStateChangedEvent(int index) {}
+ 
 }

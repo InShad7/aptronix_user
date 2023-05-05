@@ -10,9 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-class HomeItemCards extends StatelessWidget {
+class HomeItemCards extends StatefulWidget {
   const HomeItemCards({super.key, this.search = false});
   final search;
+
+  @override
+  State<HomeItemCards> createState() => _HomeItemCardsState();
+}
+
+class _HomeItemCardsState extends State<HomeItemCards> {
+  bool a = false;
+  void getUpdate(String refresh) {
+    setState(() {
+      if (refresh == 'refresh') {
+        a = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class HomeItemCards extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            search ? '' : "New Arrival",
+            widget.search ? '' : "New Arrival",
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                 fontSize: 22,
@@ -64,7 +78,7 @@ class HomeItemCards extends StatelessWidget {
                         .toList();
                     categoryList = myProduct = data;
 
-                    return (search ? searchList.length : data.length) > 0
+                    return (widget.search ? searchList.length : data.length) > 0
                         // snapshot.data!.isEmpty
                         // ? const Center(child: Text('List empty')):
                         ? GridView.builder(
@@ -75,12 +89,14 @@ class HomeItemCards extends StatelessWidget {
                               mainAxisSpacing: 8,
                               childAspectRatio: (2 / 2.6),
                             ),
-                            itemCount: search ? searchList.length : data.length,
+                            itemCount:
+                                widget.search ? searchList.length : data.length,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              final product =
-                                  search ? searchList[index] : data[index];
+                              final product = widget.search
+                                  ? searchList[index]
+                                  : data[index];
                               log(searchList.length.toString());
                               return Container(
                                 decoration: BoxDecoration(
@@ -103,8 +119,8 @@ class HomeItemCards extends StatelessWidget {
                                         imageUrl: product['images'][0],
                                       ),
                                     ),
-                                    onTap: () {
-                                      Navigator.push(
+                                    onTap: () async {
+                                      final result = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
@@ -112,6 +128,9 @@ class HomeItemCards extends StatelessWidget {
                                                   product: product),
                                         ),
                                       );
+                                      if (result == 'refresh') {
+                                        getUpdate('refresh');
+                                      }
                                     },
                                   ),
                                   kHeight15,

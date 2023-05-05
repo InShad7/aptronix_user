@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TitleAndBtn extends StatelessWidget {
-  const TitleAndBtn({super.key});
+  const TitleAndBtn({super.key, this.refresh});
+  final refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +32,15 @@ class TitleAndBtn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
               ),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddAddressScreen(),
-                ),
-              );
+            onPressed: () async {
+              final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddAddressScreen(editAdd: false),
+                  ));
+              if (result == 'refresh') {
+                refresh('refresh');
+              }
             },
             child: Text(
               'Add Address',

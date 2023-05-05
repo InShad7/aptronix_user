@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/main.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
@@ -30,12 +31,7 @@ class SignUpBtn extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // if (formKey1.currentState!.validate()) {
                 signUp(context);
-                // }
-                // nameController.clear();
-                // userNameController.clear();
-                // passwordController.clear();
               },
               child: Text(
                 'Sign In',
@@ -47,81 +43,5 @@ class SignUpBtn extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> signUp(BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: SizedBox(
-          height: 50,
-          width: 50,
-          child: LoadingIndicator(
-            indicatorType: Indicator.circleStrokeSpin,
-            colors: [white],
-            strokeWidth: 2,
-          ),
-        ),
-      ),
-    );
-
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: userNameController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-
-      final currentUser = FirebaseAuth.instance.currentUser;
-      await currentUser!.updateDisplayName(nameController.text.trim());
-      // log(currentUser.toString());
-
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Sign-up successful',
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-          ),
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CheckUserLogin(),
-        ),
-      );
-
-      userNameController.clear();
-      passwordController.clear();
-      nameController.clear();
-    } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      String errorMessage = 'Enter valid Credentials';
-      if (e.code == 'invalid-email') {
-        errorMessage = 'The email address is not valid';
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = 'The email address is already in use';
-      } else if (e.code == 'weak-password') {
-        errorMessage = 'Please enter a minimum of 6 characters password';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            errorMessage,
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-          ),
-          duration: const Duration(seconds: 2),
-          backgroundColor: deleteRed,
-        ),
-      );
-    }
   }
 }

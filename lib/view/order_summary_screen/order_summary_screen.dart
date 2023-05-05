@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
-import 'package:aaptronix/view/cart_screen/widget/cart_card.dart';
 import 'package:aaptronix/view/cart_screen/widget/my_cart_card.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
@@ -11,11 +12,29 @@ import 'package:aaptronix/view/widget/text_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OrderSummaryScreen extends StatelessWidget {
+class OrderSummaryScreen extends StatefulWidget {
   const OrderSummaryScreen({super.key});
 
   @override
+  State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
+}
+
+class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
+  bool a = false;
+  @override
   Widget build(BuildContext context) {
+    getRefresh(String refresh) {
+      if (refresh == 'refresh') {
+        setState(() {
+          a = true;
+        });
+      }
+    }
+
+    getWishList();
+    log('order refresh');
+    log('order${selectedAddress.toString()}');
+
     return Scaffold(
       appBar: MyAppBar(title: 'Order Summary'),
       body: SingleChildScrollView(
@@ -24,21 +43,21 @@ class OrderSummaryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
-              label: 'Deliver to:',
-              ht: 220,
-              width: mWidth!,
-              num: false,
-              max: 7,
-              content: (selectedAddress[0] == 'no data' ||
-                      selectedAddress == 'no data')
-                  ? 'Select an address'
-                  : "${selectedAddress['name']}\n${selectedAddress['houseNumber']}\n${selectedAddress['streetName']}\n${selectedAddress['city']}\n${selectedAddress['state']}\n${selectedAddress['pincode']}\n${selectedAddress['phoneNumber']}\n",
-              readOnly: true,
-              btn: true,
-              btnName: selectedAddress[0] == 'no data'
-                  ? 'Add address'
-                  : 'Change Address',
-            ),
+                label: 'Deliver to:',
+                ht: 220,
+                width: mWidth!,
+                num: false,
+                max: 7,
+                content: (selectedAddress[0] == 'no data' ||
+                        selectedAddress == 'no data')
+                    ? 'Select an address'
+                    : "${selectedAddress['name']}\n${selectedAddress['houseNumber']}\n${selectedAddress['streetName']}\n${selectedAddress['city']}\n${selectedAddress['state']}\n${selectedAddress['pincode']}\n${selectedAddress['phoneNumber']}\n",
+                readOnly: true,
+                btn: true,
+                btnName: selectedAddress[0] == 'no data'
+                    ? 'Add address'
+                    : 'Change Address',
+                refresh: getRefresh),
             kHeight20,
             Padding(
               padding: const EdgeInsets.only(left: 16.0),

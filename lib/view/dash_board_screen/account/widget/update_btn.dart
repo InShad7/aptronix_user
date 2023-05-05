@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/address_model.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
+import 'package:aaptronix/view/order_summary_screen/add_address_screen/add_address_screen.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdateBtn extends StatelessWidget {
@@ -30,15 +32,25 @@ class UpdateBtn extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            update ? updateAddress() : addAddress();
-            log(addressList.length.toString());
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => SelectAddressScreen(),
-            //   ),
-            // );
-            Navigator.pop(context);
+            if (!formKey.currentState!.validate()) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Please provide a valid credentials',
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  duration: const Duration(seconds: 2),
+                  backgroundColor: deleteRed,
+                ),
+              );
+            } else {
+              update ? updateAddress() : addAddress();
+              log(addressList.length.toString());
+              clear();
+              Navigator.pop(context, 'refresh');
+            }
           },
           child: Text(
             title,
@@ -63,6 +75,11 @@ class UpdateBtn extends StatelessWidget {
     };
 
     addressList[index] = newAddress;
+    Fluttertoast.showToast(
+      msg: 'updated',
+      backgroundColor: Colors.green,
+      fontSize: 15,
+    );
     WishList myCartObj = WishList(
       wishList: myWishList,
       cart: myCart,
@@ -72,6 +89,7 @@ class UpdateBtn extends StatelessWidget {
       currentAddress: selectedAddress,
     );
     myCartObj.addToWishList();
+    clear();
   }
 
   void addAddress() {
@@ -85,6 +103,12 @@ class UpdateBtn extends StatelessWidget {
       streetName: streetController.text,
     );
     addressObj.addAdress();
+    Fluttertoast.showToast(
+      msg: 'Address added',
+      backgroundColor: Colors.green,
+      fontSize: 15,
+    );
+
     WishList myCartObj = WishList(
       wishList: myWishList,
       cart: myCart,
@@ -94,5 +118,6 @@ class UpdateBtn extends StatelessWidget {
       currentAddress: selectedAddress,
     );
     myCartObj.addToWishList();
+    clear();
   }
 }
