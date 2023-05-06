@@ -24,6 +24,7 @@ class WhishlistRemoveBtn extends StatelessWidget {
           productTotal: myProductTotal,
           address: addressList,
           currentAddress: selectedAddress,
+          buyNow: buyNowList,
         );
         myWishobj.addToWishList();
 

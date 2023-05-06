@@ -55,7 +55,7 @@ class _FavIconState extends State<FavIcon> {
               count: countList,
               productTotal: myProductTotal,
               address: addressList,
-              currentAddress: selectedAddress,
+              currentAddress: selectedAddress,buyNow: buyNowList,
             );
             myWishobj.addToWishList();
           }
@@ -68,7 +68,7 @@ class _FavIconState extends State<FavIcon> {
             count: countList,
             productTotal: myProductTotal,
             address: addressList,
-            currentAddress: selectedAddress,
+            currentAddress: selectedAddress,buyNow: buyNowList,
           );
           myWishobj.addToWishList();
         }

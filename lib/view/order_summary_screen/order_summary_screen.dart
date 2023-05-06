@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
-  const OrderSummaryScreen({super.key});
-
+  const OrderSummaryScreen({super.key, this.buyNow = false});
+  final buyNow;
   @override
   State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
 }
@@ -29,6 +29,20 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
           a = true;
         });
       }
+    }
+
+    void updatePrice() {
+      setState(() {
+        int sum = 0;
+        if (myProductTotal.isEmpty || myProductTotal[0] == 'no data') {
+          total = 0;
+        } else {
+          for (int i = 0; i < myProductTotal.length; i++) {
+            sum = sum + int.parse(myProductTotal[i].toString());
+          }
+          total = sum;
+        }
+      });
     }
 
     getWishList();
@@ -73,12 +87,23 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) => CartCard1(
-                index: index,
-                product: cartItems[index],
-                orderSummary: true,
-              ),
+              // itemCount: widget.buyNow ? buyNow.length : cartItems.length,
+              itemBuilder: (context, index) {
+                final filteredList = myProduct
+                    .where((item) => buyNowList.contains(item['id']))
+                    .toList()
+                  ..sort((a, b) => buyNowList
+                      .indexOf(a['id'])
+                      .compareTo(buyNowList.indexOf(b['id'])));
+                buyNow = filteredList;
+                log(buyNow.toString());
+                return CartCard1(
+                  index: index,
+                  product: widget.buyNow ? buyNow[index] : cartItems[index],
+                  updateTotal: updatePrice,
+                );
+              },
+              itemCount: widget.buyNow ? buyNow.length : cartItems.length,
             ),
             kHeight15,
           ],

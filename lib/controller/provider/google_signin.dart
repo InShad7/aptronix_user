@@ -33,10 +33,11 @@ class GoogleSignInProvider extends ChangeNotifier {
         cart: myCart,
         count: countList,
         productTotal: myProductTotal,
-        address: addressList,currentAddress: selectedAddress,
+        address: addressList,
+        currentAddress: selectedAddress,
+        buyNow: buyNowList,
       );
       myCartObj.addToWishList();
-      
 
       flag = 1;
     } catch (e) {

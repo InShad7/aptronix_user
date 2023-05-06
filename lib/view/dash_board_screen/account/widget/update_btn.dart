@@ -49,6 +49,11 @@ class UpdateBtn extends StatelessWidget {
               update ? updateAddress() : addAddress();
               log(addressList.length.toString());
               clear();
+              // Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => SelectAddressScreen(),
+              //     ));
               Navigator.pop(context, 'refresh');
             }
           },
@@ -87,6 +92,7 @@ class UpdateBtn extends StatelessWidget {
       productTotal: myProductTotal,
       address: addressList,
       currentAddress: selectedAddress,
+      buyNow: buyNowList,
     );
     myCartObj.addToWishList();
     clear();
@@ -116,6 +122,7 @@ class UpdateBtn extends StatelessWidget {
       productTotal: myProductTotal,
       address: addressList,
       currentAddress: selectedAddress,
+      buyNow: buyNowList,
     );
     myCartObj.addToWishList();
     clear();

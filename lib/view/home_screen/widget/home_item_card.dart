@@ -76,7 +76,7 @@ class _HomeItemCardsState extends State<HomeItemCards> {
                     macList = data
                         .where((item) => 'MacBook' == item['category'])
                         .toList();
-                    categoryList = myProduct = data;
+                    categoryList  = myProduct = data;
 
                     return (widget.search ? searchList.length : data.length) > 0
                         // snapshot.data!.isEmpty

@@ -18,81 +18,81 @@ TextEditingController stateController = TextEditingController();
 TextEditingController houseController = TextEditingController();
 TextEditingController streetController = TextEditingController();
 
- Future<void> signUp(BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: SizedBox(
-          height: 50,
-          width: 50,
-          child: LoadingIndicator(
-            indicatorType: Indicator.circleStrokeSpin,
-            colors: [white],
-            strokeWidth: 2,
+Future<void> signUp(BuildContext context) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => Center(
+      child: SizedBox(
+        height: 50,
+        width: 50,
+        child: LoadingIndicator(
+          indicatorType: Indicator.circleStrokeSpin,
+          colors: [white],
+          strokeWidth: 2,
+        ),
+      ),
+    ),
+  );
+
+  try {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: userNameController.text.trim(),
+      password: passwordController.text.trim(),
+    );
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+    await currentUser!.updateDisplayName(nameController.text.trim());
+    // log(currentUser.toString());
+
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Sign-up successful',
+          style: GoogleFonts.roboto(
+            textStyle: const TextStyle(fontSize: 20),
           ),
         ),
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.green,
       ),
     );
 
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: userNameController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CheckUserLogin(),
+      ),
+    );
 
-      final currentUser = FirebaseAuth.instance.currentUser;
-      await currentUser!.updateDisplayName(nameController.text.trim());
-      // log(currentUser.toString());
-
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Sign-up successful',
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-          ),
-          duration: const Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CheckUserLogin(),
-        ),
-      );
-
-      userNameController.clear();
-      passwordController.clear();
-      nameController.clear();
-    } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      String errorMessage = 'Enter valid Credentials';
-      if (e.code == 'invalid-email') {
-        errorMessage = 'The email address is not valid';
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = 'The email address is already in use';
-      } else if (e.code == 'weak-password') {
-        errorMessage = 'Please enter a minimum of 6 characters password';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            errorMessage,
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(fontSize: 20),
-            ),
-          ),
-          duration: const Duration(seconds: 2),
-          backgroundColor: deleteRed,
-        ),
-      );
+    userNameController.clear();
+    passwordController.clear();
+    nameController.clear();
+  } on FirebaseAuthException catch (e) {
+    Navigator.pop(context);
+    String errorMessage = 'Enter valid Credentials';
+    if (e.code == 'invalid-email') {
+      errorMessage = 'The email address is not valid';
+    } else if (e.code == 'email-already-in-use') {
+      errorMessage = 'The email address is already in use';
+    } else if (e.code == 'weak-password') {
+      errorMessage = 'Please enter a minimum of 6 characters password';
     }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          errorMessage,
+          style: GoogleFonts.roboto(
+            textStyle: const TextStyle(fontSize: 20),
+          ),
+        ),
+        duration: const Duration(seconds: 2),
+        backgroundColor: deleteRed,
+      ),
+    );
   }
+}
 
 Stream getProducts() async* {
   final QuerySnapshot querySnapshot =
@@ -121,9 +121,12 @@ List watchList = [];
 List macList = [];
 List myProduct = [];
 List cartItems = [];
+List buyNow = [];
 List addressList = [];
 
 List searchList = [];
+dynamic buyNowList;
+dynamic buyNowTotals = [];
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance
       .collection('users')
@@ -199,6 +202,18 @@ Future<void> getWishList() async {
     }
   } else {
     selectedAddress = ['no data'];
+  }
+
+  if (ref.exists) {
+    final data = ref.data()!['buyNow'];
+    buyNowList = data ?? ['no data'];
+
+    if (buyNowList.length > 1 && buyNowList[0] == 'no data') {
+      buyNowList.removeAt(0);
+      log(buyNowList.toString());
+    }
+  } else {
+    buyNowList = ['no data'];
   }
 }
 

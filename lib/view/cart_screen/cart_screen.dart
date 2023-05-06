@@ -92,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
                             count: countList,
                             productTotal: myProductTotal,
                             address: addressList,
-                            currentAddress: selectedAddress,
+                            currentAddress: selectedAddress,buyNow: buyNowList,
                           );
                           myWishobj.addToWishList();
 

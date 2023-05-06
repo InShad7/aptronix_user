@@ -10,17 +10,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuantityCounter extends StatefulWidget {
-  QuantityCounter(
-      {super.key,
-      this.product,
-      this.onRemove,
-      required this.updateTotal,
-      this.index});
+  QuantityCounter({
+    super.key,
+    this.product,
+    this.onRemove,
+    required this.updateTotal,
+    this.index,
+    this.orderSummary,
+  });
   final product;
   final onRemove;
   final updateTotal;
   final index;
-
+  final orderSummary;
   @override
   State<QuantityCounter> createState() => _QuantityCounterState();
 }
@@ -49,6 +51,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
+                    buyNow: buyNowList,
                   );
                   myWishobj.addToWishList();
                   widget.updateTotal();
@@ -77,6 +80,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
+                    buyNow: buyNowList,
                   );
                   my.addToWishList();
                   widget.updateTotal();
@@ -128,6 +132,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
+                    buyNow: buyNowList,
                   );
                   my.addToWishList();
                   widget.updateTotal();
