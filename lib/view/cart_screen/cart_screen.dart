@@ -92,7 +92,10 @@ class _CartScreenState extends State<CartScreen> {
                             count: countList,
                             productTotal: myProductTotal,
                             address: addressList,
-                            currentAddress: selectedAddress,buyNow: buyNowList,
+                            currentAddress: selectedAddress,
+                            buyNow: buyNowItem,
+                            buyNowCount: buyNowCount,
+                            buyNowTotal: buyNowTotals,
                           );
                           myWishobj.addToWishList();
 
@@ -117,6 +120,7 @@ class _CartScreenState extends State<CartScreen> {
                     product: product,
                     onRemove: removeItemFromCart,
                     updateTotal: updatePrice,
+                    buynow: false,
                   ),
                 );
               },

@@ -46,7 +46,9 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         productTotal: myProductTotal,
         address: addressList,
         currentAddress: selectedAddress,
-        buyNow: buyNowList,
+        buyNow: buyNowItem,
+        buyNowCount: buyNowCount,
+        buyNowTotal: buyNowTotals,
       );
       my.addToWishList();
     });
@@ -54,14 +56,15 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('inside ${selectedAddress.toString()}');
     return Scaffold(
       appBar: MyAppBar(title: 'Address'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
           TitleAndBtn(refresh: getRefresh),
-          (addressList[0] == 'no data' || addressList == 'no data')
+          (addressList.isEmpty ||
+                  addressList[0] == 'no data' ||
+                  addressList == 'no data')
               ? CustomTextField(
                   label: ' ',
                   ht: 220,
@@ -135,7 +138,9 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                                         productTotal: myProductTotal,
                                         address: addressList,
                                         currentAddress: selectedAddress,
-                                        buyNow: buyNowList,
+                                        buyNow: buyNowItem,
+                                        buyNowCount: buyNowCount,
+                                        buyNowTotal: buyNowTotals,
                                       );
                                       my.addToWishList();
                                       getWishList();
@@ -169,7 +174,9 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                             productTotal: myProductTotal,
                             address: addressList,
                             currentAddress: selectedAddress,
-                            buyNow: buyNowList,
+                            buyNow: buyNowItem,
+                            buyNowCount: buyNowCount,
+                            buyNowTotal: buyNowTotals,
                           );
                           my.addToWishList();
                           log('select ${selectedAddress.toString()}');

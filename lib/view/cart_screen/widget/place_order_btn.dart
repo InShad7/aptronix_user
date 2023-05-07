@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
@@ -5,22 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlaceOrderBtn extends StatelessWidget {
-  PlaceOrderBtn(
-      {super.key,
-      this.botomSpace = 0,
-      required this.ht,
-      required this.clr,
-      required this.label,
-      required this.navigateTo});
+  PlaceOrderBtn({
+    super.key,
+    this.botomSpace = 0,
+    required this.ht,
+    required this.clr,
+    required this.label,
+    required this.navigateTo,
+    this.buynow = false,
+  });
 
   final double ht;
   final bool clr;
   final String label;
   final Widget navigateTo;
   final double botomSpace;
+  final buynow;
 
   @override
   Widget build(BuildContext context) {
+    log(buyNowTotals.toString());
     return Container(
       height: ht,
       width: mWidth,
@@ -37,7 +43,7 @@ class PlaceOrderBtn extends StatelessWidget {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Text(
-              'Total :  ₹ ${total}',
+              buynow ? 'Total :  ₹ ${buyNowTotals}' : 'Total :  ₹ ${total}',
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(
                     fontSize: 22,

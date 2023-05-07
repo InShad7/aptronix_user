@@ -23,12 +23,19 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   bool a = false;
   @override
   Widget build(BuildContext context) {
+    getWishList();
     getRefresh(String refresh) {
       if (refresh == 'refresh') {
         setState(() {
           a = true;
         });
       }
+    }
+
+    void removeItemFromOrder(String itemId) {
+      setState(() {
+        myCart.remove(itemId);
+      });
     }
 
     void updatePrice() {
@@ -45,9 +52,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
       });
     }
 
-    getWishList();
-    log('order refresh');
-    log('order${selectedAddress.toString()}');
+    buyNow = myProduct.where((item) => buyNowItem == item['id']).toList();
 
     return Scaffold(
       appBar: MyAppBar(title: 'Order Summary'),
@@ -87,23 +92,17 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              // itemCount: widget.buyNow ? buyNow.length : cartItems.length,
+              itemCount: widget.buyNow ? buyNow.length : cartItems.length,
               itemBuilder: (context, index) {
-                final filteredList = myProduct
-                    .where((item) => buyNowList.contains(item['id']))
-                    .toList()
-                  ..sort((a, b) => buyNowList
-                      .indexOf(a['id'])
-                      .compareTo(buyNowList.indexOf(b['id'])));
-                buyNow = filteredList;
-                log(buyNow.toString());
+                log('buyNow::::${buyNow.toString()}');
                 return CartCard1(
                   index: index,
                   product: widget.buyNow ? buyNow[index] : cartItems[index],
                   updateTotal: updatePrice,
+                  onRemove: removeItemFromOrder,
+                  buynow: widget.buyNow,
                 );
               },
-              itemCount: widget.buyNow ? buyNow.length : cartItems.length,
             ),
             kHeight15,
           ],
@@ -113,6 +112,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         label: 'Continue',
         ht: 90,
         clr: true,
+        buynow: widget.buyNow,
         navigateTo: PaymentScreen(),
       ),
     );

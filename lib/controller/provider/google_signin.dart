@@ -28,16 +28,19 @@ class GoogleSignInProvider extends ChangeNotifier {
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      WishList myCartObj = WishList(
-        wishList: myWishList,
-        cart: myCart,
-        count: countList,
-        productTotal: myProductTotal,
-        address: addressList,
-        currentAddress: selectedAddress,
-        buyNow: buyNowList,
-      );
-      myCartObj.addToWishList();
+      // WishList myCartObj = WishList(
+      //   wishList: myWishList,
+      //   cart: myCart,
+      //   count: countList,
+      //   productTotal: myProductTotal,
+      //   address: addressList,
+      //   currentAddress: selectedAddress,
+      //   buyNow: buyNowItem,
+      //   buyNowCount: buyNowCount,
+      //   buyNowTotal: buyNowTotals,
+
+      // );
+      // myCartObj.addToWishList();
 
       flag = 1;
     } catch (e) {

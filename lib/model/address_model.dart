@@ -26,7 +26,7 @@ class Address {
       return {
         'name': name,
         'phoneNumber': phoneNumber,
-        'pincode': phoneNumber,
+        'pincode': pincode,
         'city': city,
         'state': state,
         'houseNumber': houseNumber,

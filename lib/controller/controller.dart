@@ -121,12 +121,14 @@ List watchList = [];
 List macList = [];
 List myProduct = [];
 List cartItems = [];
-List buyNow = [];
 List addressList = [];
 
 List searchList = [];
-dynamic buyNowList;
-dynamic buyNowTotals = [];
+String buyNowItem = ' ';
+int buyNowTotals = 1;
+int buyNowCount = 1;
+List buyNow = [];
+
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance
       .collection('users')
@@ -206,14 +208,18 @@ Future<void> getWishList() async {
 
   if (ref.exists) {
     final data = ref.data()!['buyNow'];
-    buyNowList = data ?? ['no data'];
+    if (data is List<dynamic>) {
+      buyNowItem = data.join(', ');
+    } else {
+      buyNowItem = data ?? 'no data';
+    }
 
-    if (buyNowList.length > 1 && buyNowList[0] == 'no data') {
-      buyNowList.removeAt(0);
-      log(buyNowList.toString());
+    if (buyNowItem.length > 1 && buyNowItem == 'no data') {
+      buyNowItem = '';
+      log(buyNowItem.toString());
     }
   } else {
-    buyNowList = ['no data'];
+    buyNowItem = 'no data';
   }
 }
 

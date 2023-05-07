@@ -30,6 +30,12 @@ class _HomeItemCardsState extends State<HomeItemCards> {
 
   @override
   Widget build(BuildContext context) {
+    if (buyNow.isNotEmpty) {
+      buyNow.clear();
+      buyNowItem = '';
+      log('buy from build ${buyNow}');
+      log('buy from build ${buyNowItem}');
+    }
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -76,7 +82,11 @@ class _HomeItemCardsState extends State<HomeItemCards> {
                     macList = data
                         .where((item) => 'MacBook' == item['category'])
                         .toList();
-                    categoryList  = myProduct = data;
+                    buyNow = myProduct
+                        .where((item) => buyNowItem == item['id'])
+                        .toList();
+                    log('buy from home ${buyNow}');
+                    categoryList = myProduct = data;
 
                     return (widget.search ? searchList.length : data.length) > 0
                         // snapshot.data!.isEmpty

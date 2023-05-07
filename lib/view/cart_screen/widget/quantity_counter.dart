@@ -16,13 +16,13 @@ class QuantityCounter extends StatefulWidget {
     this.onRemove,
     required this.updateTotal,
     this.index,
-    this.orderSummary,
+    this.buynow = false,
   });
   final product;
   final onRemove;
   final updateTotal;
   final index;
-  final orderSummary;
+  final buynow;
   @override
   State<QuantityCounter> createState() => _QuantityCounterState();
 }
@@ -30,7 +30,10 @@ class QuantityCounter extends StatefulWidget {
 class _QuantityCounterState extends State<QuantityCounter> {
   @override
   Widget build(BuildContext context) {
+    getWishList();
     int count = countList[widget.index];
+    log(' count ${count.toString()}');
+    log(' counlist ${countList.toString()}');
     return Padding(
       padding: const EdgeInsets.only(left: 86.5),
       child: Row(
@@ -39,11 +42,18 @@ class _QuantityCounterState extends State<QuantityCounter> {
           IconButton(
             onPressed: () {
               setState(() {
-                if (count == 1) {
-                  widget.onRemove(widget.product['id']);
-                  countList.removeAt(widget.index);
-                  myProductTotal.removeAt(widget.index);
-                  // myProductTotal.clear();
+                if (widget.buynow ? buyNowCount == 1 : count == 1) {
+                  widget.buynow
+                      ? buyNowItem = ''
+                      : widget.onRemove(widget.product['id']);
+                  log(countList.toString());
+                  widget.buynow
+                      ? buyNowCount = 0
+                      : countList.removeAt(widget.index);
+                  widget.buynow
+                      ? buyNowTotals = 0
+                      : myProductTotal.removeAt(widget.index);
+
                   WishList myWishobj = WishList(
                     wishList: myWishList,
                     cart: myCart,
@@ -51,7 +61,9 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
-                    buyNow: buyNowList,
+                    buyNow: buyNowItem,
+                    buyNowCount: buyNowCount,
+                    buyNowTotal: buyNowTotals,
                   );
                   myWishobj.addToWishList();
                   widget.updateTotal();
@@ -68,10 +80,13 @@ class _QuantityCounterState extends State<QuantityCounter> {
 
                   // print('remove');
                 } else {
-                  count--;
-                  countList[widget.index] = count;
-                  myProductTotal[widget.index] =
-                      count * int.parse(widget.product['price']);
+                  widget.buynow ? buyNowCount-- : count--;
+                  widget.buynow ? buyNowCount : countList[widget.index] = count;
+                  widget.buynow
+                      ? buyNowTotals =
+                          buyNowCount * int.parse(widget.product['price'])
+                      : myProductTotal[widget.index] =
+                          count * int.parse(widget.product['price']);
 
                   WishList my = WishList(
                     wishList: myWishList,
@@ -80,7 +95,9 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
-                    buyNow: buyNowList,
+                    buyNow: buyNowItem,
+                    buyNowCount: buyNowCount,
+                    buyNowTotal: buyNowTotals,
                   );
                   my.addToWishList();
                   widget.updateTotal();
@@ -100,7 +117,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
             ),
             child: Center(
               child: Text(
-                '${count}',
+                widget.buynow ? '${buyNowCount}' : '${count}',
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(fontSize: 18, color: white),
                 ),
@@ -121,10 +138,13 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     fontSize: 15.0,
                   );
                 } else {
-                  count++;
-                  countList[widget.index] = count;
-                  myProductTotal[widget.index] =
-                      count * int.parse(widget.product['price']);
+                  widget.buynow ? buyNowCount++ : count++;
+                  widget.buynow ? buyNowCount : countList[widget.index] = count;
+                  widget.buynow
+                      ? buyNowTotals =
+                          buyNowCount * int.parse(widget.product['price'])
+                      : myProductTotal[widget.index] =
+                          count * int.parse(widget.product['price']);
                   WishList my = WishList(
                     wishList: myWishList,
                     cart: myCart,
@@ -132,7 +152,9 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
-                    buyNow: buyNowList,
+                    buyNow: buyNowItem,
+                    buyNowCount: buyNowCount,
+                    buyNowTotal: buyNowTotals,
                   );
                   my.addToWishList();
                   widget.updateTotal();

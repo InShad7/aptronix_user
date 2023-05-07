@@ -66,7 +66,9 @@ class AddCartAndBuyNow extends StatelessWidget {
                   productTotal: myProductTotal,
                   address: addressList,
                   currentAddress: selectedAddress,
-                  buyNow: buyNowList,
+                  buyNow: buyNowItem,
+                  buyNowCount: buyNowCount,
+                  buyNowTotal: buyNowTotals,
                 );
                 myCartObj.addToWishList();
                 log(myCart.toString());
@@ -100,7 +102,7 @@ class AddCartAndBuyNow extends StatelessWidget {
             width: 180,
             child: ElevatedButton(
               onPressed: () {
-                if (buyNowList.contains(product['id'])) {
+                if (buyNowItem == product['id']) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -108,7 +110,7 @@ class AddCartAndBuyNow extends StatelessWidget {
                     ),
                   );
                   Fluttertoast.showToast(
-                    msg: "Already in the cart !!",
+                    msg: "Ready to Order !!",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
@@ -117,20 +119,22 @@ class AddCartAndBuyNow extends StatelessWidget {
                     fontSize: 15.0,
                   );
                 } else {
-                  buyNowList.add(product['id']);
-                  countList.add(1);
-                  myProductTotal.add(int.parse(product['price']) * 1);
-                  WishList buyNowListObj = WishList(
+                  buyNowItem = product['id'];
+                  buyNowCount = 1;
+                  buyNowTotals = int.parse(product['price']) * 1;
+                  WishList buyNowItemObj = WishList(
                     wishList: myWishList,
                     cart: myCart,
                     count: countList,
                     productTotal: myProductTotal,
                     address: addressList,
                     currentAddress: selectedAddress,
-                    buyNow: buyNowList,
+                    buyNow: buyNowItem,
+                    buyNowCount: buyNowCount,
+                    buyNowTotal: buyNowTotals,
                   );
-                  buyNowListObj.addToWishList();
-                  log(buyNowList.toString());
+                  buyNowItemObj.addToWishList();
+                  log(buyNowItem.toString());
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -139,7 +143,7 @@ class AddCartAndBuyNow extends StatelessWidget {
                   );
 
                   Fluttertoast.showToast(
-                    msg: "Added to Cart 🛒",
+                    msg: "Ready to purchase",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,

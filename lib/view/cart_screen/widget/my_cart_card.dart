@@ -13,12 +13,13 @@ class CartCard1 extends StatelessWidget {
     this.product,
     this.onRemove,
     this.updateTotal,
-    this.index,
+    this.index, this.buynow,
   });
   final product;
   final onRemove;
   final updateTotal;
   final index;
+  final buynow;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,44 +84,13 @@ class CartCard1 extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // orderSummary
-                        //     ? Padding(
-                        //         padding: const EdgeInsets.only(left: 140),
-                        //         child: Row(
-                        //           children: [
-                        //             Text(
-                        //               'Qty:',
-                        //               style: GoogleFonts.roboto(
-                        //                 textStyle: TextStyle(fontSize: 17),
-                        //               ),
-                        //             ),
-                        //             kWidth,
-                        //             Container(
-                        //               height: 25,
-                        //               width: 25,
-                        //               decoration: BoxDecoration(
-                        //                 color: blue,
-                        //                 borderRadius: BorderRadius.circular(12),
-                        //               ),
-                        //               child: Center(
-                        //                 child: Text(
-                        //                   countList[index].toString(),
-                        //                   style: GoogleFonts.roboto(
-                        //                     textStyle: TextStyle(
-                        //                         fontSize: 18, color: white),
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       )
-                        //     :
+                      
                         QuantityCounter(
                           index: index,
                           product: product,
                           onRemove: onRemove,
                           updateTotal: updateTotal,
+                          buynow: buynow,
                         )
                       ],
                     ),
