@@ -102,56 +102,38 @@ class AddCartAndBuyNow extends StatelessWidget {
             width: 180,
             child: ElevatedButton(
               onPressed: () {
-                if (buyNowItem == product['id']) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderSummaryScreen(buyNow: true),
-                    ),
-                  );
-                  Fluttertoast.showToast(
-                    msg: "Ready to Order !!",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: red,
-                    textColor: Colors.white,
-                    fontSize: 15.0,
-                  );
-                } else {
-                  buyNowItem = product['id'];
-                  buyNowCount = 1;
-                  buyNowTotals = int.parse(product['price']) * 1;
-                  WishList buyNowItemObj = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                  );
-                  buyNowItemObj.addToWishList();
-                  log(buyNowItem.toString());
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderSummaryScreen(buyNow: true),
-                    ),
-                  );
+                buyNowItem = product['id'];
+                buyNowCount = 1;
+                buyNowTotals = int.parse(product['price']) * 1;
+                WishList buyNowItemObj = WishList(
+                  wishList: myWishList,
+                  cart: myCart,
+                  count: countList,
+                  productTotal: myProductTotal,
+                  address: addressList,
+                  currentAddress: selectedAddress,
+                  buyNow: buyNowItem,
+                  buyNowCount: buyNowCount,
+                  buyNowTotal: buyNowTotals,
+                );
+                buyNowItemObj.addToWishList();
+                log(buyNowItem.toString());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderSummaryScreen(buyNow: true),
+                  ),
+                );
 
-                  Fluttertoast.showToast(
-                    msg: "Ready to purchase",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 15.0,
-                  );
-                }
+                Fluttertoast.showToast(
+                  msg: "Ready to purchase",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 15.0,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: white,

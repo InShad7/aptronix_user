@@ -55,16 +55,19 @@ class _HomeItemCardsState extends State<HomeItemCards> {
               stream: getProducts(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.circleStrokeSpin,
-                      colors: [blue],
-                      strokeWidth: 1,
-                    ),
-                  ));
+                  return SizedBox(
+                    height: 600,
+                    child: Center(
+                        child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.circleStrokeSpin,
+                        colors: [blue],
+                        strokeWidth: 1,
+                      ),
+                    )),
+                  );
                 }
                 if (snapshot.connectionState == ConnectionState.done ||
                     snapshot.connectionState == ConnectionState.active) {

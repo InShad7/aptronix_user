@@ -42,13 +42,16 @@ class PlaceOrderBtn extends StatelessWidget {
           padding: EdgeInsets.only(bottom: botomSpace),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text(
-              buynow ? 'Total :  ₹ ${buyNowTotals}' : 'Total :  ₹ ${total}',
-              style: GoogleFonts.roboto(
-                textStyle: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: clr ? white : black),
+            SizedBox(
+              width: 160,
+              child: Text(
+                buynow ? 'Total :  ₹ ${buyNowTotals}' : 'Total :  ₹ ${total}',
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: clr ? white : black),
+                ),
               ),
             ),
             SizedBox(

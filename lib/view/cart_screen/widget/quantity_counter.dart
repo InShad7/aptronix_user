@@ -31,7 +31,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
   @override
   Widget build(BuildContext context) {
     getWishList();
-    int count = countList[widget.index];
+    int count = widget.buynow ? buyNowCount : countList[widget.index];
     log(' count ${count.toString()}');
     log(' counlist ${countList.toString()}');
     return Padding(
