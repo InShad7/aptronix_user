@@ -174,7 +174,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         ht: 90,
         clr: true,
         buynow: widget.buyNow,
-        navigateTo: PaymentScreen(),
+        navigateTo: PaymentScreen(buynow:  widget.buyNow),
       ),
     );
   }

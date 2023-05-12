@@ -13,16 +13,20 @@ class PlaceOrderBtn extends StatelessWidget {
     required this.ht,
     required this.clr,
     required this.label,
-    required this.navigateTo,
+    this.navigateTo,
     this.buynow = false,
+    this.payment = false,
+    this.makePayment,
   });
 
   final double ht;
   final bool clr;
   final String label;
-  final Widget navigateTo;
+  final navigateTo;
   final double botomSpace;
   final buynow;
+  final payment;
+  final makePayment;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +63,13 @@ class PlaceOrderBtn extends StatelessWidget {
               width: 165,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => navigateTo,
-                      ));
+                  payment
+                      ? makePayment()
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => navigateTo,
+                          ));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: clr ? white : blue,

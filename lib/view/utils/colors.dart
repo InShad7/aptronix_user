@@ -9,3 +9,4 @@ Color red = Colors.red;
 Color cardClr = Color.fromARGB(255, 240, 239, 239);
 Color cardClr2 = Color.fromARGB(255, 230, 230, 230);
 Color deleteRed = Color.fromARGB(255, 213, 78, 68);
+Color fail = Color.fromARGB(255, 230, 230, 230);

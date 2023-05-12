@@ -13,7 +13,8 @@ class CartCard1 extends StatelessWidget {
     this.product,
     this.onRemove,
     this.updateTotal,
-    this.index, this.buynow,
+    this.index,
+    this.buynow,
   });
   final product;
   final onRemove;
@@ -26,10 +27,14 @@ class CartCard1 extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: InkWell(
         child: Container(
-          height: 115,
+          height: 118,
           decoration: BoxDecoration(
-            color: cardClr,
+            color: white,
             borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              width: 1,
+              color: grey,
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -76,7 +81,7 @@ class CartCard1 extends StatelessWidget {
                     Row(
                       children: [
                         SizedBox(
-                          width: 63,
+                          width: 60,
                           child: Text(
                             '₹ ${product['price']}',
                             style: GoogleFonts.roboto(
@@ -84,7 +89,6 @@ class CartCard1 extends StatelessWidget {
                             ),
                           ),
                         ),
-                      
                         QuantityCounter(
                           index: index,
                           product: product,

@@ -1,20 +1,73 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
-import 'package:aaptronix/view/order_confirmation_screen/order_confirmation_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
-import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key});
+  const PaymentScreen({super.key, this.buynow});
+  final buynow;
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  Razorpay? _razorpay;
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(),
+    );
+    Fluttertoast.showToast(msg: 'Payment Success', backgroundColor: Colors.green);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(msg: 'Payment Failure ', backgroundColor: red);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(msg: 'ExternalWallet', backgroundColor: blue);
+  }
+
+  void makePayment() async {
+    var amount = widget.buynow ? buyNowTotals : total ?? 0;
+    var options = {
+      'key': 'rzp_test_VFn4UZHRVXFRF6',
+      'amount': amount * 100,
+      'name': 'aptronix.',
+      'description': 'iPhone 14',
+      'prefill': {'contact': '12345678', 'email': 'admin@gmail.com'}
+    };
+
+    try {
+      _razorpay?.open(options);
+    } catch (e) {
+      print("error :::::${e}");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    _razorpay?.clear();
+    super.dispose();
+  }
+
   String? selectedMode;
   List modes = [
     'UPI',
@@ -69,13 +122,54 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
           ),
+          ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(22),
+                          ),
+                          color: white,
+                          image: const DecorationImage(
+                            image: AssetImage('assets/tick.png'),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'message',
+                        // '${response.message}',
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(fontSize: 26),
+                        ),
+                      ),
+                      kHeight20,
+                    ],
+                  ),
+                );
+              },
+              child: Text('data'))
         ],
       ),
       bottomNavigationBar: PlaceOrderBtn(
         label: 'Continue',
         ht: 90,
         clr: true,
-        navigateTo:const OrderConfirmationScreen(),
+        payment: true,
+        makePayment: makePayment,
+        buynow: widget.buynow,
+        // navigateTo: OrderConfirmationScreen(),
       ),
     );
   }
