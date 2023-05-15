@@ -51,187 +51,131 @@ class _HomeItemCardsState extends State<HomeItemCards> {
             ),
           ),
           kHeight,
-          StreamBuilder(
-              stream: getProducts(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SizedBox(
-                    height: 600,
-                    child: Center(
-                        child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: LoadingIndicator(
-                        indicatorType: Indicator.circleStrokeSpin,
-                        colors: [blue],
-                        strokeWidth: 1,
-                      ),
-                    )),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.done ||
-                    snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    final data = snapshot.data;
-                    iphoneList = data
-                        .where((item) => 'iPhone' == item['category'])
-                        .toList();
-                    ipadList = data
-                        .where((item) => 'iPad' == item['category'])
-                        .toList();
-                    watchList = data
-                        .where((item) => 'iWatch' == item['category'])
-                        .toList();
-                    macList = data
-                        .where((item) => 'MacBook' == item['category'])
-                        .toList();
-                    buyNow = myProduct
-                        .where((item) => buyNowItem == item['id'])
-                        .toList();
-                    log('buy from home ${buyNow}');
-                    categoryList = myProduct = data;
-
-                    return (widget.search ? searchList.length : data.length) > 0
-                        // snapshot.data!.isEmpty
-                        // ? const Center(child: Text('List empty')):
-                        ? GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 8,
-                              childAspectRatio: (2 / 2.6),
+          (widget.search ? searchList.length : myProduct.length) > 0
+              // snapshot.data!.isEmpty
+              // ? const Center(child: Text('List empty')):
+              ? GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: (2 / 2.6),
+                  ),
+                  itemCount:
+                      widget.search ? searchList.length : myProduct.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final product =
+                        widget.search ? searchList[index] : myProduct[index];
+                    log(searchList.length.toString());
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: grey)),
+                      child: Column(children: [
+                        InkWell(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 12),
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              // color: white,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            itemCount:
-                                widget.search ? searchList.length : data.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final product = widget.search
-                                  ? searchList[index]
-                                  : data[index];
-                              log(searchList.length.toString());
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color: white,
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: grey)),
-                                child: Column(children: [
-                                  InkWell(
-                                    child: Container(
-                                      margin: const EdgeInsets.only(top: 12),
-                                      height: 150,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                        // color: white,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        placeholder: (context, url) => Image.asset(
-                                            'assets/APPRONIX.jpg'), // Add whatever you want to display.
-                                        imageUrl: product['images'][0],
-                                      ),
-                                    ),
-                                    onTap: () async {
-                                      final result = await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen(
-                                                  product: product),
-                                        ),
-                                      );
-                                      if (result == 'refresh') {
-                                        getUpdate('refresh');
-                                      }
-                                    },
-                                  ),
-                                  kHeight15,
-                                  Container(
-                                    height: 60,
-                                    width: 170,
-                                    decoration: BoxDecoration(
-                                      color: white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 8),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          kHeight,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Flexible(
-                                                child: InkWell(
-                                                  child: Text(
-                                                    product['name'],
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: GoogleFonts.roboto(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProductDetailsScreen(
-                                                                product:
-                                                                    product),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                              kWidth,
-                                              kWidth5,
-                                              FavIcon(product: product['id'])
-                                            ],
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Image.asset(
+                                  'assets/APPRONIX.jpg'), // Add whatever you want to display.
+                              imageUrl: product['images'][0],
+                            ),
+                          ),
+                          onTap: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailsScreen(product: product),
+                              ),
+                            );
+                            if (result == 'refresh') {
+                              getUpdate('refresh');
+                            }
+                          },
+                        ),
+                        kHeight15,
+                        Container(
+                          height: 60,
+                          width: 170,
+                          decoration: BoxDecoration(
+                            color: white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8, right: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                kHeight,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Flexible(
+                                      child: InkWell(
+                                        child: Text(
+                                          product['name'],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.roboto(
+                                            textStyle: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500),
                                           ),
-                                          InkWell(
-                                            child: Text(
-                                              '₹ ${product['price']}',
-                                              style: GoogleFonts.roboto(
-                                                textStyle: const TextStyle(
-                                                    fontSize: 18),
-                                              ),
+                                        ),
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductDetailsScreen(
+                                                      product: product),
                                             ),
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProductDetailsScreen(
-                                                          product: product),
-                                                ),
-                                              );
-                                            },
-                                          )
-                                        ],
+                                          );
+                                        },
                                       ),
                                     ),
-                                  )
-                                ]),
-                              );
-                              // : null;
-                            })
-                        : Center(
-                            child: Image.asset('assets/nomatchfound.jpeg'));
-                  }
-                }
-                return Text('Cant fetch data');
-              })
+                                    kWidth,
+                                    kWidth5,
+                                    FavIcon(product: product['id'])
+                                  ],
+                                ),
+                                InkWell(
+                                  child: Text(
+                                    '₹ ${product['price']}',
+                                    style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailsScreen(
+                                                product: product),
+                                      ),
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ]),
+                    );
+                    // : null;
+                  })
+              : Center(child: Image.asset('assets/nomatchfound.jpeg'))
         ],
       ),
     );

@@ -27,56 +27,27 @@ class _WishListScreenState extends State<WishListScreen> {
       backgroundColor: white,
       appBar: NavScreenAppBar(title: 'Wishlist'),
       body: ListView(physics: const BouncingScrollPhysics(), children: [
-        StreamBuilder(
-            stream: getProducts(),
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return SizedBox(
-                  height: 700,
-                  child: Center(
-                      child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.circleStrokeSpin,
-                      colors: [blue],
-                      strokeWidth: 1,
-                    ),
-                  )),
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.done ||
-                  snapshot.connectionState == ConnectionState.active) {
-                if (myWishList.isEmpty || myWishList[0] == 'no data') {
-                  return SizedBox(
-                    height: 580,
-                    child: Image.asset('assets/no data.jpeg'),
-                  );
-                }
-                if (snapshot.hasData) {
-                  var data = snapshot.data;
-                  return snapshot.data!.isEmpty
-                      ? const Center(child: Text('List empty'))
-                      : ListView.builder(
-                          itemCount: myWishList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final filteredList = data
-                                .where(
-                                  (item) => myWishList.contains(item['id']),
-                                )
-                                .toList();
-                            log(filteredList.toString());
+        if (myWishList.isEmpty || myWishList[0] == 'no data')
+          SizedBox(
+            height: 580,
+            child: Image.asset('assets/no data.jpeg'),
+          )
+        else
+          ListView.builder(
+              itemCount: myWishList.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final filteredList = myProduct
+                    .where(
+                      (item) => myWishList.contains(item['id']),
+                    )
+                    .toList();
+                log(filteredList.toString());
 
-                            final product = filteredList[index];
-                            return WishListCard(
-                                product: product, onRemove: removeItem);
-                          });
-                }
-              }
-              return const Center(child: Text('Cant fetch items'));
-            })
+                final product = filteredList[index];
+                return WishListCard(product: product, onRemove: removeItem);
+              })
       ]),
     );
   }

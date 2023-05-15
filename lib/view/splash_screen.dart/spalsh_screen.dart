@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/login_screen/login_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
@@ -29,15 +32,96 @@ class _SplashScreenState extends State<SplashScreen> {
     mHeight = MediaQuery.of(context).size.height;
     mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Center(
-        child: Text(
-          'aptronix.',
-          style: GoogleFonts.roboto(
-            textStyle: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-    );
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        StreamBuilder(
+            stream: getProducts(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                  height: mHeight,
+                  width: mWidth,
+                  child: Center(
+                    child: Text(
+                      'aptronix.',
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 55, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.done ||
+                  snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  final data = snapshot.data;
+                  iphoneList = data
+                      .where((item) => 'iPhone' == item['category'])
+                      .toList();
+                  ipadList =
+                      data.where((item) => 'iPad' == item['category']).toList();
+                  watchList = data
+                      .where((item) => 'iWatch' == item['category'])
+                      .toList();
+                  macList = data
+                      .where((item) => 'MacBook' == item['category'])
+                      .toList();
+                  buyNow = myProduct
+                      .where((item) => buyNowItem == item['id'])
+                      .toList();
+                  log('buy from home ${buyNow}');
+                  categoryList = myProduct = data;
+
+                  return SizedBox(
+                    height: mHeight,
+                    width: mWidth,
+                    child: Center(
+                      child: Text(
+                        'aptronix.',
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                              fontSize: 55, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              }
+              return Text('Cant fetch data');
+            }),
+        Expanded(
+          child: StreamBuilder(
+              stream: GetImages(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.circleStrokeSpin,
+                      colors: [blue],
+                      strokeWidth: 1,
+                    ),
+                  ));
+                }
+                if (snapshot.connectionState == ConnectionState.done ||
+                    snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.hasData) {
+                    var data = snapshot.data;
+                    curoselImg = data;
+                    return snapshot.data!.isEmpty
+                        ? const Center(child: Text('List empty'))
+                        : Text('');
+                  }
+                }
+                return Text('Cant fetch data');
+              }),
+        )
+      ],
+    ));
   }
 
   void checkLogin() async {

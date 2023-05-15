@@ -49,11 +49,7 @@ class UpdateBtn extends StatelessWidget {
               update ? updateAddress() : addAddress();
               log(addressList.length.toString());
               clear();
-              // Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => SelectAddressScreen(),
-              //     ));
+             
               Navigator.pop(context, 'refresh');
             }
           },

@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
+import 'package:aaptronix/view/order_confirmation_screen/order_confirmation_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
+import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,14 +25,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Razorpay? _razorpay;
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(),
-    );
-    Fluttertoast.showToast(msg: 'Payment Success', backgroundColor: Colors.green);
+    success(response: response);
+    
+    Fluttertoast.showToast(
+        msg: 'Payment Success', backgroundColor: Colors.green);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
+    success(response: response, fail: true);
     Fluttertoast.showToast(msg: 'Payment Failure ', backgroundColor: red);
   }
 
@@ -69,12 +73,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   String? selectedMode;
-  List modes = [
-    'UPI',
-    'Credit / Debit Card',
-    'Net Banking',
-    'Cash On Delivery'
-  ];
+  List modes = ['Pre-paid Online', 'Cash On Delivery'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,55 +121,97 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20),
-                    ),
-                  ),
-                  context: context,
-                  builder: (context) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        height: 250,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(22),
-                          ),
-                          color: white,
-                          image: const DecorationImage(
-                            image: AssetImage('assets/tick.png'),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'message',
-                        // '${response.message}',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(fontSize: 26),
-                        ),
-                      ),
-                      kHeight20,
-                    ],
-                  ),
-                );
-              },
-              child: Text('data'))
         ],
       ),
       bottomNavigationBar: PlaceOrderBtn(
         label: 'Continue',
         ht: 90,
         clr: true,
-        payment: true,
+        payment: selectedMode == 'Pre-paid Online' ? true : false,
         makePayment: makePayment,
         buynow: widget.buynow,
-        // navigateTo: OrderConfirmationScreen(),
+        navigateTo: OrderConfirmationScreen(),
       ),
+    );
+  }
+
+  void success({fail = false, response}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(
+          backgroundColor: white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(18),
+            ),
+          ),
+          actions: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(22),
+                    ),
+                    color: white,
+                    image: DecorationImage(
+                      image: AssetImage(
+                          fail ? 'assets/close (1).jpg' : 'assets/tick.png'),
+                    ),
+                  ),
+                ),
+                Text(
+                  fail ? 'Order cancelled' : 'Order confirmed',
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(fontSize: 22),
+                  ),
+                ),
+                kHeight15,
+                Text(
+                  fail
+                      ? '${response.message}'
+                      : 'Payment Id: ${response.paymentId}',
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                ),
+                kHeight20,
+                SizedBox(
+                  height: 45,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      fail
+                          ? Navigator.pop(context)
+                          : Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BottomNavBar(),
+                              ),
+                              (route) => false);
+                    },
+                    icon: const Icon(
+                      Icons.shopping_bag_outlined,
+                    ),
+                    label: Text(
+                      'Continue shopping',
+                      style: GoogleFonts.roboto(fontSize: 20),
+                    ),
+                  ),
+                ),
+                kHeight20,
+              ],
+            ),
+          ]),
     );
   }
 }

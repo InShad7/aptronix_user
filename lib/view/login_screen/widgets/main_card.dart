@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SignInText extends StatelessWidget {
   const SignInText({super.key, required this.title});
-  final  String title;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +16,11 @@ class SignInText extends StatelessWidget {
           Text(
             'aptronix.',
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 33, color: black),
+              textStyle: TextStyle(
+                fontSize: 40,
+                color: black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           kHeight,
@@ -24,13 +28,14 @@ class SignInText extends StatelessWidget {
             title,
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
-                fontSize: 60,
+                fontSize: 26,
                 color: black,
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ),
           kHeight20,
+          kHeight20
         ],
       ),
     );

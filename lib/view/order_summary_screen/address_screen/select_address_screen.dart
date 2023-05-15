@@ -90,7 +90,8 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                         // margin: const EdgeInsets.only(left: 16, right: 16, top: 5),
                         height: 240,
                         decoration: BoxDecoration(
-                          color: cardClr,
+                          color: white,
+                          border: Border.all(width: 1, color: grey),
                           borderRadius: BorderRadius.circular(18),
                         ),
                         child: Column(

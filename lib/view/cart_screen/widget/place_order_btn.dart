@@ -63,13 +63,27 @@ class PlaceOrderBtn extends StatelessWidget {
               width: 165,
               child: ElevatedButton(
                 onPressed: () {
-                  payment
-                      ? makePayment()
-                      : Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => navigateTo,
-                          ));
+                  if (total == 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Cart empty...!  Add items to cart',
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(fontSize: 19),
+                          ),
+                        ),
+                        backgroundColor: deleteRed,
+                      ),
+                    );
+                  } else {
+                    payment
+                        ? makePayment()
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => navigateTo,
+                            ));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: clr ? white : blue,

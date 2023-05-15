@@ -48,46 +48,17 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: homeCurosel(),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          kHeight20,
+          customCurosel(imgs: curoselImg[0]['images']),
+          kHeight20,
+          const CategoryItemCard(),
+          kHeight5,
+          const HomeItemCards(),
+        ],
+      ),
     );
-  }
-
-  Widget homeCurosel() {
-    return StreamBuilder(
-        stream: GetImages(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: SizedBox(
-              height: 50,
-              width: 50,
-              child: LoadingIndicator(
-                indicatorType: Indicator.circleStrokeSpin,
-                colors: [blue],
-                strokeWidth: 1,
-              ),
-            ));
-          }
-          if (snapshot.connectionState == ConnectionState.done ||
-              snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData) {
-              var data = snapshot.data;
-              return snapshot.data!.isEmpty
-                  ? const Center(child: Text('List empty'))
-                  : ListView(
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        kHeight20,
-                        customCurosel(imgs: data[0]['images']),
-                        kHeight20,
-                        const CategoryItemCard(),
-                        kHeight5,
-                        const HomeItemCards(),
-                      ],
-                    );
-            }
-          }
-          return Text('Cant fetch data');
-        });
   }
 }

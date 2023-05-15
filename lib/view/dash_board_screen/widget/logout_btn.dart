@@ -89,7 +89,7 @@ void alertBox(context) {
           ),
         ),
         // kHeight,
-        Icon(Icons.horizontal_rule, color: grey),
+       const Divider(indent: 60, endIndent: 60),
         SizedBox(
           height: 50,
           width: 400,

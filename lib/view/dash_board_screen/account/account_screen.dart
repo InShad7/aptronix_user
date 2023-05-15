@@ -20,6 +20,7 @@ class AccountScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             const DpImg(),
+            const Divider(indent: 60, endIndent: 60),
             CustomTextField(
               label: 'Name',
               ht: 70,

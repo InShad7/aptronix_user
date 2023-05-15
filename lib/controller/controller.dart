@@ -128,6 +128,7 @@ String buyNowItem = ' ';
 int buyNowTotals = 1;
 int buyNowCount = 1;
 List buyNow = [];
+List curoselImg = [];
 
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance

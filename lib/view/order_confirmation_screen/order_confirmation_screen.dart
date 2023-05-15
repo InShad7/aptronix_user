@@ -2,7 +2,7 @@ import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
-  const OrderConfirmationScreen({super.key, this.status, this.id});
+  const OrderConfirmationScreen({super.key, this.status = false, this.id});
 
   final status;
   final id;
@@ -10,9 +10,9 @@ class OrderConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(title: status ? 'Order Confrimed' : 'Order Cancelled'),
+        appBar: MyAppBar(title: status ? 'Order Cancelled' : 'Order Confrimed'),
         body: status
             ? Text('Order Confrimed ${id}')
-            : Image.asset('assets/fast-delivery-mobile_86047-160.jpeg'));
+            : Image.asset('assets/tick.png'));
   }
 }
