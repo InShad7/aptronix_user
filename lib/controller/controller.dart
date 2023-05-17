@@ -108,6 +108,13 @@ Stream GetImages() async* {
   yield docs;
 }
 
+Stream getOrder() async* {
+  final QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('orders').get();
+  final List<DocumentSnapshot> docs = querySnapshot.docs;
+  yield docs;
+}
+
 List<dynamic> myWishList = [];
 List<dynamic> myCart = [];
 List countList = [];
@@ -129,6 +136,10 @@ int buyNowTotals = 1;
 int buyNowCount = 1;
 List buyNow = [];
 List curoselImg = [];
+dynamic selectedAddress;
+List orderedItems = [];
+List orderedCount = [];
+dynamic orderedAddress;
 
 Future<void> getWishList() async {
   final ref = await FirebaseFirestore.instance

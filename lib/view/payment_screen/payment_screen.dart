@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
+import 'package:aaptronix/model/order_model.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
 import 'package:aaptronix/view/order_confirmation_screen/order_confirmation_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,13 +28,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     success(response: response);
-    
+
     Fluttertoast.showToast(
         msg: 'Payment Success', backgroundColor: Colors.green);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     success(response: response, fail: true);
+    orderedItems = myCart;
+    orderedCount = countList;
+    orderedAddress = selectedAddress;
+
+    for (int i = 0; i < orderedItems.length; i++) {
+      Ordered obj = Ordered(
+        username: FirebaseAuth.instance.currentUser!.email!,
+        address: selectedAddress,
+        products: orderedItems[i],
+        count: orderedCount[i],
+      );
+      obj.addToOrderedList();
+    }
+
+    log(orderedItems.toString());
     Fluttertoast.showToast(msg: 'Payment Failure ', backgroundColor: red);
   }
 
@@ -77,7 +94,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Payments'),
+      appBar: MyAppBar(title: 'Payment'),
       body: ListView(
         children: [
           kHeight,
@@ -130,7 +147,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         payment: selectedMode == 'Pre-paid Online' ? true : false,
         makePayment: makePayment,
         buynow: widget.buynow,
-        navigateTo: OrderConfirmationScreen(),
+        navigateTo: const OrderConfirmationScreen(),
       ),
     );
   }
@@ -182,6 +199,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 kHeight20,
                 SizedBox(
                   height: 45,
+                  width: 250,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: blue,
@@ -199,11 +217,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ),
                               (route) => false);
                     },
-                    icon: const Icon(
-                      Icons.shopping_bag_outlined,
+                    icon: Icon(
+                      fail
+                          ? Icons.restart_alt_rounded
+                          : Icons.shopping_bag_outlined,
                     ),
                     label: Text(
-                      'Continue shopping',
+                      fail ? 'Retry' : 'Continue shopping',
                       style: GoogleFonts.roboto(fontSize: 20),
                     ),
                   ),

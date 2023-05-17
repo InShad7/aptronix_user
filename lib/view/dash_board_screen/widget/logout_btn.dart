@@ -26,7 +26,7 @@ class CustomBtn extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: blue,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
           onPressed: () {
@@ -42,7 +42,7 @@ class CustomBtn extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 26),
+              textStyle: TextStyle(fontSize: 24),
             ),
           ),
         ),
@@ -69,7 +69,7 @@ void alertBox(context) {
         kHeight,
         SizedBox(
           width: 400,
-          height: 50,
+          height: 60,
           child: TextButton(
             onPressed: () async {
               if (flag == 1) {
@@ -89,7 +89,7 @@ void alertBox(context) {
           ),
         ),
         // kHeight,
-       const Divider(indent: 60, endIndent: 60),
+        const Divider(indent: 60, endIndent: 60),
         SizedBox(
           height: 50,
           width: 400,

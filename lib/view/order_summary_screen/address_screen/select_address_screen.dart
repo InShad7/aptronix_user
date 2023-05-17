@@ -20,8 +20,6 @@ class SelectAddressScreen extends StatefulWidget {
   State<SelectAddressScreen> createState() => _SelectAddressScreenState();
 }
 
-dynamic selectedAddress;
-
 class _SelectAddressScreenState extends State<SelectAddressScreen> {
   bool a = false;
   getRefresh(String refresh) {
@@ -49,6 +47,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         buyNow: buyNowItem,
         buyNowCount: buyNowCount,
         buyNowTotal: buyNowTotals,
+        
       );
       my.addToWishList();
     });
@@ -142,6 +141,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                                         buyNow: buyNowItem,
                                         buyNowCount: buyNowCount,
                                         buyNowTotal: buyNowTotals,
+                                        
                                       );
                                       my.addToWishList();
                                       getWishList();
@@ -178,6 +178,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                             buyNow: buyNowItem,
                             buyNowCount: buyNowCount,
                             buyNowTotal: buyNowTotals,
+                            
                           );
                           my.addToWishList();
                           log('select ${selectedAddress.toString()}');

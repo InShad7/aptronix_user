@@ -1,5 +1,4 @@
 import 'package:aaptronix/controller/controller.dart';
-import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,16 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({super.key, this.quantity = true, this.data});
+  const CartCard(
+      {super.key, this.quantity = true, this.data, this.product, this.index});
   final data;
   final bool quantity;
+  final product;
+  final index;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: Container(
-        height: 115,
+        height: 110,
         decoration: BoxDecoration(
           color: cardClr,
           borderRadius: BorderRadius.circular(18),
@@ -26,8 +28,8 @@ class CartCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 95,
-                width: 85,
+                height: 90,
+                width: 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: white,
@@ -35,8 +37,7 @@ class CartCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   placeholder: (context, url) =>
                       Image.asset('assets/APPRONIX.jpg'),
-                  imageUrl:
-                      'https://www.reliancedigital.in/medias/Apple-iPhone-13-Smartphones-492849504-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w0MjUzMnxpbWFnZS9qcGVnfGltYWdlcy9oYjEvaDZjLzk4ODAzNjMwNzM1NjYuanBnfGVkODc3NTQ1MDE0NmFiMDExZDY4MzFhYTM1MWM2OWM4OTM5MjljNTI3MTZhZjBmYzc2MTc2NzVhMjBjZjdmNDI',
+                  imageUrl: product['images'][0],
                 ),
               ),
               kWidth,
@@ -49,7 +50,7 @@ class CartCard extends StatelessWidget {
                       SizedBox(
                         width: 280,
                         child: Text(
-                          'name',
+                          product['name'],
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(
                               textStyle: TextStyle(
@@ -60,43 +61,29 @@ class CartCard extends StatelessWidget {
                   ),
                   kHeight,
                   Text(
-                    'size GB',
+                    '${product['size']} GB',
                     style:
                         GoogleFonts.roboto(textStyle: TextStyle(fontSize: 17)),
                   ),
                   Row(
                     children: [
                       Text(
-                        '₹ price',
+                        '₹ ${product['price']} ',
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(fontSize: 20),
                         ),
                       ),
                       Padding(
-                        padding: quantity
-                            ? const EdgeInsets.only(left: 86.5)
-                            : EdgeInsets.only(left: 150),
+                        padding: const EdgeInsets.only(left: 150),
                         child: Row(
                           children: [
-                            quantity
-                                ? Text('')
-                                : Text(
-                                    'Qty:',
-                                    style: GoogleFonts.roboto(
-                                      textStyle: TextStyle(fontSize: 17),
-                                    ),
-                                  ),
-                            kWidth,
-                            Visibility(
-                              visible: quantity,
-                              child: IconButton(
-                                onPressed: () {
-                                 
-                                  print('remove');
-                                },
-                                icon: Icon(Icons.remove),
+                            Text(
+                              'Qty:',
+                              style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(fontSize: 17),
                               ),
                             ),
+                            kWidth,
                             Container(
                               height: 25,
                               width: 25,
@@ -106,21 +93,12 @@ class CartCard extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  '1',
+                                  data['count'].toString(),
                                   style: GoogleFonts.roboto(
                                     textStyle:
                                         TextStyle(fontSize: 18, color: white),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: quantity,
-                              child: IconButton(
-                                onPressed: () {
-                                  print('add');
-                                },
-                                icon: Icon(Icons.add),
                               ),
                             ),
                           ],

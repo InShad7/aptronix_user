@@ -50,6 +50,22 @@ class _FavIconState extends State<FavIcon> {
             myWishList.add(widget.product);
 
             WishList myWishobj = WishList(
+                wishList: myWishList,
+                cart: myCart,
+                count: countList,
+                productTotal: myProductTotal,
+                address: addressList,
+                currentAddress: selectedAddress,
+                buyNow: buyNowItem,
+                buyNowCount: buyNowCount,
+                buyNowTotal: buyNowTotals,
+                );
+            myWishobj.addToWishList();
+          }
+        } else {
+          myWishList.remove(widget.product);
+
+          WishList myWishobj = WishList(
               wishList: myWishList,
               cart: myCart,
               count: countList,
@@ -59,23 +75,7 @@ class _FavIconState extends State<FavIcon> {
               buyNow: buyNowItem,
               buyNowCount: buyNowCount,
               buyNowTotal: buyNowTotals,
-            );
-            myWishobj.addToWishList();
-          }
-        } else {
-          myWishList.remove(widget.product);
-
-          WishList myWishobj = WishList(
-            wishList: myWishList,
-            cart: myCart,
-            count: countList,
-            productTotal: myProductTotal,
-            address: addressList,
-            currentAddress: selectedAddress,
-            buyNow: buyNowItem,
-            buyNowCount: buyNowCount,
-            buyNowTotal: buyNowTotals,
-          );
+              );
           myWishobj.addToWishList();
         }
         log(myWishList.toString());

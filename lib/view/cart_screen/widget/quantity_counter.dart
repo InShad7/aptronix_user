@@ -64,6 +64,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     buyNow: buyNowItem,
                     buyNowCount: buyNowCount,
                     buyNowTotal: buyNowTotals,
+                    
                   );
                   myWishobj.addToWishList();
                   widget.updateTotal();
@@ -98,6 +99,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     buyNow: buyNowItem,
                     buyNowCount: buyNowCount,
                     buyNowTotal: buyNowTotals,
+                    
                   );
                   my.addToWishList();
                   widget.updateTotal();
@@ -155,6 +157,7 @@ class _QuantityCounterState extends State<QuantityCounter> {
                     buyNow: buyNowItem,
                     buyNowCount: buyNowCount,
                     buyNowTotal: buyNowTotals,
+                    
                   );
                   my.addToWishList();
                   widget.updateTotal();

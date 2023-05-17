@@ -63,11 +63,15 @@ class PlaceOrderBtn extends StatelessWidget {
               width: 165,
               child: ElevatedButton(
                 onPressed: () {
-                  if (total == 0) {
+                  if (buynow
+                      ? buyNowTotals == 0
+                      : total == 0 || selectedAddress[0] == 'no data') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          'Cart empty...!  Add items to cart',
+                          selectedAddress[0] == 'no data'
+                              ? 'add an address...!'
+                              : ' Oops...! Add an item to proceed',
                           style: GoogleFonts.roboto(
                             textStyle: TextStyle(fontSize: 19),
                           ),

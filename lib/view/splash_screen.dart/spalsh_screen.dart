@@ -32,15 +32,15 @@ class _SplashScreenState extends State<SplashScreen> {
     mHeight = MediaQuery.of(context).size.height;
     mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         StreamBuilder(
             stream: getProducts(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(
-                  height: mHeight,
+                  height: 850,
                   width: mWidth,
                   child: Center(
                     child: Text(
@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   categoryList = myProduct = data;
 
                   return SizedBox(
-                    height: mHeight,
+                    height: 850,
                     width: mWidth,
                     child: Center(
                       child: Text(
@@ -91,42 +91,40 @@ class _SplashScreenState extends State<SplashScreen> {
               }
               return Text('Cant fetch data');
             }),
-        Expanded(
-          child: StreamBuilder(
-              stream: GetImages(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.circleStrokeSpin,
-                      colors: [blue],
-                      strokeWidth: 1,
-                    ),
-                  ));
+        StreamBuilder(
+            stream: GetImages(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                    child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.circleStrokeSpin,
+                    colors: [blue],
+                    strokeWidth: 1,
+                  ),
+                ));
+              }
+              if (snapshot.connectionState == ConnectionState.done ||
+                  snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  var data = snapshot.data;
+                  curoselImg = data;
+                  return snapshot.data!.isEmpty
+                      ? const Center(child: Text('List empty'))
+                      : Text('');
                 }
-                if (snapshot.connectionState == ConnectionState.done ||
-                    snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    var data = snapshot.data;
-                    curoselImg = data;
-                    return snapshot.data!.isEmpty
-                        ? const Center(child: Text('List empty'))
-                        : Text('');
-                  }
-                }
-                return Text('Cant fetch data');
-              }),
-        )
+              }
+              return Text('Cant fetch data');
+            })
       ],
     ));
   }
 
   void checkLogin() async {
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 5),
     );
     Navigator.pushReplacement(
       context,

@@ -90,7 +90,7 @@ class UpdateBtn extends StatelessWidget {
       currentAddress: selectedAddress,
       buyNow: buyNowItem,
       buyNowCount: buyNowCount,
-        buyNowTotal: buyNowTotals,
+      buyNowTotal: buyNowTotals,
     );
     myCartObj.addToWishList();
     clear();

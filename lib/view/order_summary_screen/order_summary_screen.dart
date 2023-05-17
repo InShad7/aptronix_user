@@ -4,7 +4,6 @@ import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/cart_screen/widget/my_cart_card.dart';
 import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
-import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/payment_screen/payment_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
@@ -123,21 +122,28 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     children: [
                       SlidableAction(
                         onPressed: (context) {
-                          countList.removeAt(index);
-                          myProductTotal.removeAt(index);
-                          removeItemFromOrder(product['id']);
+                          widget.buyNow
+                              ? buyNowCount = 0
+                              : countList.removeAt(index);
+                          widget.buyNow
+                              ? buyNowTotals = 0
+                              : myProductTotal.removeAt(index);
+                          widget.buyNow
+                              ? buyNowItem = ''
+                              : removeItemFromOrder(product['id']);
                           WishList myWishobj = WishList(
-                            wishList: myWishList,
-                            cart: myCart,
-                            count: countList,
-                            productTotal: myProductTotal,
-                            address: addressList,
-                            currentAddress: selectedAddress,
-                            buyNow: buyNowItem,
-                            buyNowCount: buyNowCount,
-                            buyNowTotal: buyNowTotals,
-                          );
+                              wishList: myWishList,
+                              cart: myCart,
+                              count: countList,
+                              productTotal: myProductTotal,
+                              address: addressList,
+                              currentAddress: selectedAddress,
+                              buyNow: buyNowItem,
+                              buyNowCount: buyNowCount,
+                              buyNowTotal: buyNowTotals,
+                              );
                           myWishobj.addToWishList();
+                          removeItemFromOrder(buyNowItem);
 
                           Fluttertoast.showToast(
                             msg: "Item removed from cart 🛒",
@@ -174,7 +180,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         ht: 90,
         clr: true,
         buynow: widget.buyNow,
-        navigateTo: PaymentScreen(buynow:  widget.buyNow),
+        navigateTo: PaymentScreen(buynow: widget.buyNow),
       ),
     );
   }

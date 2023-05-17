@@ -39,11 +39,11 @@ class _WishListScreenState extends State<WishListScreen> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final filteredList = myProduct
-                    .where(
-                      (item) => myWishList.contains(item['id']),
-                    )
-                    .toList();
-                log(filteredList.toString());
+                    .where((item) => myWishList.contains(item['id']))
+                    .toList()
+                  ..sort((a, b) => myWishList
+                      .indexOf(a['id'])
+                      .compareTo(myWishList.indexOf(b['id'])));
 
                 final product = filteredList[index];
                 return WishListCard(product: product, onRemove: removeItem);

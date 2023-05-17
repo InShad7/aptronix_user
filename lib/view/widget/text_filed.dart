@@ -35,8 +35,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('field refreshh');
-    log(selectedAddress.toString());
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
