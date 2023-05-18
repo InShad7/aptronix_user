@@ -132,16 +132,16 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                               ? buyNowItem = ''
                               : removeItemFromOrder(product['id']);
                           WishList myWishobj = WishList(
-                              wishList: myWishList,
-                              cart: myCart,
-                              count: countList,
-                              productTotal: myProductTotal,
-                              address: addressList,
-                              currentAddress: selectedAddress,
-                              buyNow: buyNowItem,
-                              buyNowCount: buyNowCount,
-                              buyNowTotal: buyNowTotals,
-                              );
+                            wishList: myWishList,
+                            cart: myCart,
+                            count: countList,
+                            productTotal: myProductTotal,
+                            address: addressList,
+                            currentAddress: selectedAddress,
+                            buyNow: buyNowItem,
+                            buyNowCount: buyNowCount,
+                            buyNowTotal: buyNowTotals,
+                          );
                           myWishobj.addToWishList();
                           removeItemFromOrder(buyNowItem);
 

@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderedItemTile extends StatelessWidget {
-  const OrderedItemTile({super.key, required this.index, this.product,  this.data});
+  const OrderedItemTile(
+      {super.key, required this.index, this.product, this.data});
   final int index;
   final product;
   final data;
@@ -57,7 +58,7 @@ class OrderedItemTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Delivered on 1${index}-02-2023',
+                      data['status'],
                       style: GoogleFonts.roboto(
                         textStyle: const TextStyle(fontSize: 19),
                       ),
@@ -71,7 +72,8 @@ class OrderedItemTile extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OrderDetailsScreen(product: product,index:index,data:data),
+            builder: (context) =>
+                OrderDetailsScreen(product: product, index: index, data: data),
           ),
         ),
       ),

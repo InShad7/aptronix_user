@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
           border: 20,
           title: 'Name',
           icon: Icons.abc,
-          myControler: nameController,
+          myControler: nameController1,
           passChar: false,
         ),
         kHeight,

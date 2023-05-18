@@ -35,7 +35,7 @@ class SignUpTxtBtn extends StatelessWidget {
                       fontSize: 22, color: blue, fontWeight: FontWeight.bold),
                 ),
           onTap: () {
-            nameController.clear();
+            nameController1.clear();
             userNameController.clear();
             passwordController.clear();
             Navigator.pushReplacement(

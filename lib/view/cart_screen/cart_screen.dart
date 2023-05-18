@@ -91,21 +91,20 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         SlidableAction(
                           onPressed: (context) {
-
                             countList.removeAt(index);
                             myProductTotal.removeAt(index);
                             removeItemFromCart(product['id']);
                             WishList myWishobj = WishList(
-                                wishList: myWishList,
-                                cart: myCart,
-                                count: countList,
-                                productTotal: myProductTotal,
-                                address: addressList,
-                                currentAddress: selectedAddress,
-                                buyNow: buyNowItem,
-                                buyNowCount: buyNowCount,
-                                buyNowTotal: buyNowTotals,
-                                );
+                              wishList: myWishList,
+                              cart: myCart,
+                              count: countList,
+                              productTotal: myProductTotal,
+                              address: addressList,
+                              currentAddress: selectedAddress,
+                              buyNow: buyNowItem,
+                              buyNowCount: buyNowCount,
+                              buyNowTotal: buyNowTotals,
+                            );
                             myWishobj.addToWishList();
 
                             Fluttertoast.showToast(

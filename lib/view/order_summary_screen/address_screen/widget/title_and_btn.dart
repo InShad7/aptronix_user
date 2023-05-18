@@ -43,7 +43,7 @@ class TitleAndBtn extends StatelessWidget {
               }
             },
             child: Text(
-              'Add Address',
+              '+ Add Address',
               style: GoogleFonts.roboto(
                 textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),

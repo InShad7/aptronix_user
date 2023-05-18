@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextEditingController userNameController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
-TextEditingController nameController = TextEditingController();
+TextEditingController nameController1 = TextEditingController();
 TextEditingController phoneNumberController = TextEditingController();
 
 class MyTextField extends StatefulWidget {

@@ -27,7 +27,7 @@ class LoginBtn extends StatelessWidget {
               ),
               onPressed: () {
                 signIn(context);
-                nameController.clear();
+                nameController1.clear();
                 userNameController.clear();
                 passwordController.clear();
               },

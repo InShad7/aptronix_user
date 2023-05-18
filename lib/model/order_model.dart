@@ -6,12 +6,16 @@ class Ordered {
   dynamic products;
   int count;
   String? id;
+  String status;
+  String payment;
 
   Ordered(
       {required this.username,
       required this.address,
       required this.products,
       required this.count,
+      required this.status,
+      required this.payment,
       this.id});
 
   Future<void> addToOrderedList() async {
@@ -26,6 +30,8 @@ class Ordered {
           'count': count,
           'products': products,
           'address': address,
+          'status': status,
+          'payment': payment,
           'id': id,
         };
       }

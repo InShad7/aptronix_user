@@ -47,7 +47,6 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         buyNow: buyNowItem,
         buyNowCount: buyNowCount,
         buyNowTotal: buyNowTotals,
-        
       );
       my.addToWishList();
     });
@@ -73,7 +72,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                   content: 'add new address',
                   readOnly: true,
                   btn: false,
-                  btnName: 'Add address',
+                  btnName: ' Add address',
                 )
               : ListView.builder(
                   shrinkWrap: true,
@@ -141,7 +140,6 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                                         buyNow: buyNowItem,
                                         buyNowCount: buyNowCount,
                                         buyNowTotal: buyNowTotals,
-                                        
                                       );
                                       my.addToWishList();
                                       getWishList();
@@ -178,7 +176,6 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                             buyNow: buyNowItem,
                             buyNowCount: buyNowCount,
                             buyNowTotal: buyNowTotals,
-                            
                           );
                           my.addToWishList();
                           log('select ${selectedAddress.toString()}');

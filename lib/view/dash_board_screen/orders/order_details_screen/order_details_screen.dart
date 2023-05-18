@@ -16,7 +16,7 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(title: "Order Details"),
-      body: ListView(children: [
+      body: ListView(physics: const BouncingScrollPhysics(), children: [
         kHeight20,
         CartCard(
           quantity: false,
@@ -41,11 +41,12 @@ class OrderDetailsScreen extends StatelessWidget {
           width: mWidth!,
           num: false,
           max: 1,
-          content: (int.parse(product['price']) * data['count']).toString(),
+          content:
+              '${int.parse(product['price']) * data['count']}   -  ${data['payment']}',
           readOnly: true,
         ),
         kHeight,
-        StatusPage(),
+        StatusPage(data: data),
       ]),
     );
   }

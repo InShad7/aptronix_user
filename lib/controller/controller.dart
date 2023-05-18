@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
@@ -42,7 +43,7 @@ Future<void> signUp(BuildContext context) async {
     );
 
     final currentUser = FirebaseAuth.instance.currentUser;
-    await currentUser!.updateDisplayName(nameController.text.trim());
+    await currentUser!.updateDisplayName(nameController1.text.trim());
     // log(currentUser.toString());
 
     Navigator.pop(context);
@@ -50,6 +51,7 @@ Future<void> signUp(BuildContext context) async {
       SnackBar(
         content: Text(
           'Sign-up successful',
+          textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
             textStyle: const TextStyle(fontSize: 20),
           ),
@@ -83,12 +85,13 @@ Future<void> signUp(BuildContext context) async {
       SnackBar(
         content: Text(
           errorMessage,
+          textAlign: TextAlign.center,
           style: GoogleFonts.roboto(
             textStyle: const TextStyle(fontSize: 20),
           ),
         ),
         duration: const Duration(seconds: 2),
-        backgroundColor: deleteRed,
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -113,6 +116,43 @@ Stream getOrder() async* {
       await FirebaseFirestore.instance.collection('orders').get();
   final List<DocumentSnapshot> docs = querySnapshot.docs;
   yield docs;
+}
+
+void updateFirebase() {
+  WishList myWishobj = WishList(
+    wishList: myWishList,
+    cart: myCart,
+    count: countList,
+    productTotal: myProductTotal,
+    address: addressList,
+    currentAddress: selectedAddress,
+    buyNow: buyNowItem,
+    buyNowCount: buyNowCount,
+    buyNowTotal: buyNowTotals,
+  );
+  myWishobj.addToWishList();
+}
+
+Future<void> updateQnty() async {
+  for (int i = 0; i < orderedItems.length; i++) {
+    int data = 0;
+    final ref = await FirebaseFirestore.instance
+        .collection('products')
+        .doc(orderedItems[i])
+        .get();
+    if (ref.exists) {
+      data = ref.data()!['quantity'];
+    }
+    FirebaseFirestore.instance
+        .collection('products')
+        .doc(orderedItems[i])
+        .update({"quantity": data - orderedCount[i]});
+  }
+  myCart.clear();
+  orderedItems.clear();
+  myProductTotal.clear();
+  countList.clear();
+  updateFirebase();
 }
 
 List<dynamic> myWishList = [];

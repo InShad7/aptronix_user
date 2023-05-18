@@ -191,11 +191,11 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 25th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
+                      // TextSpan(
+                      //   text: "Fri, 25th Mar '22",
+                      //   style: widget.headingDateTextStyle ??
+                      //       const TextStyle(fontSize: 16, color: Colors.grey),
+                      // ),
                     ],
                   ),
                 ),
@@ -297,11 +297,11 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 28th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
+                      // TextSpan(
+                      //   text: "Fri, 28th Mar '22",
+                      //   style: widget.headingDateTextStyle ??
+                      //       const TextStyle(fontSize: 16, color: Colors.grey),
+                      // ),
                     ],
                   ),
                 ),
@@ -405,11 +405,11 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 29th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
+                      // TextSpan(
+                      //   text: "Fri, 29th Mar '22",
+                      //   style: widget.headingDateTextStyle ??
+                      //       const TextStyle(fontSize: 16, color: Colors.grey),
+                      // ),
                     ],
                   ),
                 ),
@@ -511,11 +511,11 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 31th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
+                      // TextSpan(
+                      //   text: "Fri, 31th Mar '22",
+                      //   style: widget.headingDateTextStyle ??
+                      //       const TextStyle(fontSize: 16, color: Colors.grey),
+                      // ),
                     ],
                   ),
                 ),

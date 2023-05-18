@@ -4,6 +4,7 @@ import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlaceOrderBtn extends StatelessWidget {
@@ -15,7 +16,7 @@ class PlaceOrderBtn extends StatelessWidget {
     required this.label,
     this.navigateTo,
     this.buynow = false,
-    this.payment = false,
+    this.payment = '',
     this.makePayment,
   });
 
@@ -30,7 +31,7 @@ class PlaceOrderBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(buyNowTotals.toString());
+    log(payment.toString());
     return Container(
       height: ht,
       width: mWidth,
@@ -71,7 +72,7 @@ class PlaceOrderBtn extends StatelessWidget {
                         content: Text(
                           selectedAddress[0] == 'no data'
                               ? 'add an address...!'
-                              : ' Oops...! Add an item to proceed',
+                              : 'Oops...! Add an item to proceed',
                           style: GoogleFonts.roboto(
                             textStyle: TextStyle(fontSize: 19),
                           ),
@@ -80,7 +81,7 @@ class PlaceOrderBtn extends StatelessWidget {
                       ),
                     );
                   } else {
-                    payment
+                    payment == 'Pre-paid Online'
                         ? makePayment()
                         : Navigator.push(
                             context,

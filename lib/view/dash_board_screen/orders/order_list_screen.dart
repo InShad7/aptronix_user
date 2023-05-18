@@ -17,6 +17,7 @@ class OrderListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: orderClr,
       appBar: MyAppBar(title: "Orders"),
       body: StreamBuilder(
           stream: getOrder(),
@@ -38,32 +39,37 @@ class OrderListScreen extends StatelessWidget {
               if (snapshot.hasData) {
                 final data = snapshot.data;
                 List filteredList = [];
-                List filteredList1 = [];
-                for (int i = 0; i < data.length; i++) {
-                  if (data[i]["username"] ==
-                      FirebaseAuth.instance.currentUser!.email) {
-                    filteredList1.add(data[i]);
-                  }
-                }
+                List filteredList1 = data
+                    .where((item) =>
+                        item['username'] ==
+                        FirebaseAuth.instance.currentUser!.email)
+                    .toList();
 
-                return ListView.builder(
-                    itemCount: filteredList1.length,
-                    itemBuilder: (context, index) {
-                      for (int i = 0; i < filteredList1.length; i++) {
-                        filteredList.add(myProduct
-                            .where((item) => filteredList1[i]['products']
-                                .contains(item['id']))
-                            .toList()
-                          ..sort((a, b) => filteredList1
-                              .indexOf(a['id'])
-                              .compareTo(filteredList1.indexOf(b['id']))));
-                      }
+                return filteredList1.isEmpty
+                    ? Center(
+                        child: Image.asset('assets/no_order.png'),
+                      )
+                    : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: filteredList1.length,
+                        itemBuilder: (context, index) {
+                          final filteredList = filteredList1
+                              .expand((item) => myProduct
+                                  .where((product) =>
+                                      item['products'].contains(product['id']))
+                                  .toList()
+                                ..sort((a, b) => filteredList1
+                                    .indexOf(a['id'])
+                                    .compareTo(filteredList1.indexOf(b['id']))))
+                              .toList();
 
-                      final product = filteredList[index];
+                          final product = filteredList[index];
 
-                      return OrderedItemTile(
-                          index: index, product: product[0], data: data[index]);
-                    });
+                          return OrderedItemTile(
+                              index: index,
+                              product: product,
+                              data: filteredList1[index]);
+                        });
               }
             }
             return Text('Cant fetch data');
