@@ -16,8 +16,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import '../get_started/get_started.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key, this.buynow});
@@ -167,78 +170,122 @@ void success({fail = false, response, context, payment}) {
           ),
         ),
         actions: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                height: 170,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(22),
-                  ),
-                  color: white,
-                  image: DecorationImage(
-                    image: AssetImage(
-                        fail ? 'assets/close (1).jpg' : 'assets/tick.png'),
-                  ),
-                ),
-              ),
-              Text(
-                fail ? 'Order cancelled' : 'Order confirmed',
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(fontSize: 22),
-                ),
-              ),
-              kHeight15,
-              payment == 'COD'
-                  ? Text(
-                      'Your order has been placed successfully',
-                      style: GoogleFonts.roboto(
-                        textStyle: TextStyle(fontSize: 20),
-                      ),
-                    )
-                  : Text(
-                      fail
-                          ? '${response.message}'
-                          : 'Payment Id: ${response.paymentId}',
-                      style: GoogleFonts.roboto(
-                        textStyle: TextStyle(fontSize: 20),
+          StreamBuilder(
+              stream: getProducts(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.circleStrokeSpin,
+                        colors: [blue],
+                        strokeWidth: 1,
                       ),
                     ),
-              kHeight20,
-              SizedBox(
-                height: 45,
-                width: 200,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    fail
-                        ? Navigator.pop(context)
-                        : Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BottomNavBar(),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.done ||
+                    snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data;
+                    iphoneList = data
+                        .where((item) => 'iPhone' == item['category'])
+                        .toList();
+                    ipadList = data
+                        .where((item) => 'iPad' == item['category'])
+                        .toList();
+                    watchList = data
+                        .where((item) => 'iWatch' == item['category'])
+                        .toList();
+                    macList = data
+                        .where((item) => 'MacBook' == item['category'])
+                        .toList();
+                    buyNow = myProduct
+                        .where((item) => buyNowItem == item['id'])
+                        .toList();
+                    log('buy from home ${buyNow}');
+                    categoryList = myProduct = data;
+
+                    return Column(
+                      children: [
+                        Container(
+                          height: 170,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(22),
                             ),
-                            (route) => false);
-                  },
-                  icon: Icon(
-                    fail ? Icons.restart_alt_rounded : Icons.home_filled,
-                  ),
-                  label: Text(
-                    fail ? 'Retry' : 'Home',
-                    style: GoogleFonts.roboto(fontSize: 20),
-                  ),
-                ),
-              ),
-              kHeight20,
-            ],
-          ),
+                            color: white,
+                            image: DecorationImage(
+                              image: AssetImage(fail
+                                  ? 'assets/close (1).jpg'
+                                  : 'assets/tick.png'),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          fail ? 'Order cancelled' : 'Order confirmed',
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(fontSize: 22),
+                          ),
+                        ),
+                        kHeight15,
+                        payment == 'COD'
+                            ? Text(
+                                'Your order has been placed successfully',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(fontSize: 20),
+                                ),
+                              )
+                            : Text(
+                                fail
+                                    ? '${response.message}'
+                                    : 'Payment Id: ${response.paymentId}',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                        kHeight20,
+                        SizedBox(
+                          height: 45,
+                          width: 200,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              fail
+                                  ? Navigator.pop(context)
+                                  : Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            BottomNavBar(),
+                                      ),
+                                      (route) => false);
+                            },
+                            icon: Icon(
+                              fail
+                                  ? Icons.restart_alt_rounded
+                                  : Icons.home_filled,
+                            ),
+                            label: Text(
+                              fail ? 'Retry' : 'Home',
+                              style: GoogleFonts.roboto(fontSize: 20),
+                            ),
+                          ),
+                        ),
+                        kHeight20,
+                      ],
+                    );
+                  }
+                }
+                return Text('Cant fetch data');
+              }),
         ]),
   );
 }

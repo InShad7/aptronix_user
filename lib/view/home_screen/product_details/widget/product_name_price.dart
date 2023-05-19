@@ -1,5 +1,6 @@
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
 import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
+import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +40,7 @@ class ProductNamePrice extends StatelessWidget {
           ),
           kHeight20,
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 "₹ ${product['price']}",
@@ -48,6 +50,24 @@ class ProductNamePrice extends StatelessWidget {
                   ),
                 ),
               ),
+              const Spacer(),
+              Text(
+                product['quantity'] > 0
+                    ? product['quantity'] <= 4
+                        ? "Hurry only 2 left!"
+                        : "In Stock"
+                    : 'Out Of Stock',
+                style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 18,
+                      color: product['quantity'] > 0
+                          ? product['quantity'] <= 4
+                              ? red
+                              : Colors.green
+                          : red),
+                ),
+              ),
+              kWidth,
             ],
           ),
         ],

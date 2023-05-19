@@ -100,7 +100,8 @@ class PaymentBtn extends StatelessWidget {
     // orderedItems.clear();
     // myProductTotal.clear();
     // countList.clear();
-    updateFirebase();
+    // updateFirebase();
+    updateQnty();
     success(context: context, payment: 'COD');
   }
 }

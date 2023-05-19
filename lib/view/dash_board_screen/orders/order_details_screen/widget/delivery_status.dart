@@ -85,7 +85,7 @@ class _StatusPageState extends State<StatusPage> {
       case 'Shipped':
         return Status.shipped;
 
-      case 'OutOfDelivery':
+      case 'Out Of Delivery':
         return Status.outOfDelivery;
 
       case 'Delivered':

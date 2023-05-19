@@ -153,6 +153,29 @@ Future<void> updateQnty() async {
   myProductTotal.clear();
   countList.clear();
   updateFirebase();
+  getWishList();
+}
+
+Future<void> updateStatus(product, allProduct, selectedItem) async {
+  int data = 0;
+  final ref = await FirebaseFirestore.instance
+      .collection('products')
+      .doc(allProduct['id'])
+      .get();
+
+  if (ref.exists) {
+    data = ref.data()!['quantity'];
+    log(data.toString());
+    FirebaseFirestore.instance
+        .collection('products')
+        .doc(allProduct['id'])
+        .update({"quantity": data + product["count"]});
+  }
+
+  FirebaseFirestore.instance
+      .collection('orders')
+      .doc(product['id'])
+      .update({'status': selectedItem});
 }
 
 List<dynamic> myWishList = [];

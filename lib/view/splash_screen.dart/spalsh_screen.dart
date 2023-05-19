@@ -95,16 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
             stream: GetImages(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: LoadingIndicator(
-                    indicatorType: Indicator.circleStrokeSpin,
-                    colors: [blue],
-                    strokeWidth: 1,
-                  ),
-                ));
+                return const SizedBox();
               }
               if (snapshot.connectionState == ConnectionState.done ||
                   snapshot.connectionState == ConnectionState.active) {
@@ -124,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void checkLogin() async {
     await Future.delayed(
-      const Duration(seconds: 5),
+      const Duration(seconds: 4),
     );
     Navigator.pushReplacement(
       context,
