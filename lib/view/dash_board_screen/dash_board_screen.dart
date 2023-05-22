@@ -7,14 +7,26 @@ import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});
+
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  bool a = false;
+  void refresh() {
+    setState(() {
+      a = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavScreenAppBar(title: 'Dashboard'),
-      body: ListView(children: const [
+      body: ListView(children: [
         UserImgAndName(),
         DashboardList(
           label: 'Your Order',
@@ -23,10 +35,15 @@ class DashBoardScreen extends StatelessWidget {
         DashboardList(
           label: "Your Account",
           navigateTo: AccountScreen(),
+          refresh: refresh,
         ),
         DashboardList(
           label: "Privacy Policy",
-          navigateTo: OrderListScreen(),
+          privacy: true,
+        ),
+        DashboardList(
+          label: "Terms and Conditions",
+          terms: true,
         ),
         kHeight100,
         CustomBtn(

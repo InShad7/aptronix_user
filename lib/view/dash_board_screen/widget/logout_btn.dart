@@ -1,11 +1,17 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/provider/google_signin.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../controller/controller.dart';
+import '../../../model/wish_list_model.dart';
 
 // bool logout = false;
 
@@ -31,7 +37,7 @@ class CustomBtn extends StatelessWidget {
           ),
           onPressed: () {
             // logout?
-            alertBox(context);
+            alertBox(context: context);
             // : Navigator.pushAndRemoveUntil(
             //     context,
             //     MaterialPageRoute(
@@ -51,7 +57,16 @@ class CustomBtn extends StatelessWidget {
   }
 }
 
-void alertBox(context) {
+void alertBox({
+  context,
+  delete = false,
+  index,
+  deleteFun,
+  cancel = false,
+  data,
+  product,
+  refresh,
+}) {
   showModalBottomSheet(
     backgroundColor: cardClr2,
     isScrollControlled: true,
@@ -72,18 +87,50 @@ void alertBox(context) {
           height: 60,
           child: TextButton(
             onPressed: () async {
-              if (flag == 1) {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.googleLogout();
+              if (cancel == true) {
+                updateStatus(data, product, 'Cancelled');
+                refresh();
                 Navigator.pop(context);
+                Fluttertoast.showToast(msg: 'Order has been cancelled');
+              } else if (delete == true) {
+                deleteFun(index);
+
+                if (addressList.isEmpty) {
+                  selectedAddress = 'no data';
+
+                  WishList my = WishList(
+                    wishList: myWishList,
+                    cart: myCart,
+                    count: countList,
+                    productTotal: myProductTotal,
+                    address: addressList,
+                    currentAddress: selectedAddress,
+                    buyNow: buyNowItem,
+                    buyNowCount: buyNowCount,
+                    buyNowTotal: buyNowTotals,
+                  );
+                  my.addToWishList();
+                  getWishList();
+                }
+                log(addressList.length.toString());
               } else {
-                FirebaseAuth.instance.signOut();
-                Navigator.pop(context);
+                if (flag == 1) {
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.googleLogout();
+                  Navigator.pop(context);
+                } else {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                }
               }
             },
             child: Text(
-              'Logout',
+              delete
+                  ? 'Delete'
+                  : cancel
+                      ? 'Cancel Order'
+                      : 'Logout',
               style: GoogleFonts.roboto(color: Colors.teal, fontSize: 18),
             ),
           ),

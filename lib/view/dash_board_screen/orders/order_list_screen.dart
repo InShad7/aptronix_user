@@ -4,15 +4,24 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-
-import '../../splash_screen.dart/spalsh_screen.dart';
 
 List orderItem = ['iPhone 12', 'iPad Pro', 'Mac air', 'iWatch 7'];
 
-class OrderListScreen extends StatelessWidget {
+class OrderListScreen extends StatefulWidget {
   const OrderListScreen({super.key});
+
+  @override
+  State<OrderListScreen> createState() => _OrderListScreenState();
+}
+
+class _OrderListScreenState extends State<OrderListScreen> {
+  bool a = false;
+  void refresh() {
+    setState(() {
+      a = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,6 @@ class OrderListScreen extends StatelessWidget {
                 snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
                 final data = snapshot.data;
-                List filteredList = [];
                 List filteredList1 = data
                     .where((item) =>
                         item['username'] ==
@@ -66,9 +74,11 @@ class OrderListScreen extends StatelessWidget {
                           final product = filteredList[index];
 
                           return OrderedItemTile(
-                              index: index,
-                              product: product,
-                              data: filteredList1[index]);
+                            index: index,
+                            product: product,
+                            data: filteredList1[index],
+                            refresh: refresh,
+                          );
                         });
               }
             }

@@ -104,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   curoselImg = data;
                   return snapshot.data!.isEmpty
                       ? const Center(child: Text('List empty'))
-                      : Text('');
+                      : SizedBox();
                 }
               }
               return Text('Cant fetch data');
@@ -114,9 +114,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkLogin() async {
-    await Future.delayed(
-      const Duration(seconds: 4),
-    );
+    await Future.wait([
+      getProducts().first,
+      GetImages().first,
+    ]);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -152,6 +153,7 @@ class CheckUserLogin extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
+            getWishList();
             return BottomNavBar(state: false);
           } else {
             return LoginScreen();

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/login_screen/widgets/text_field.dart';
-import 'package:aaptronix/view/order_summary_screen/address_screen/select_address_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +17,7 @@ TextEditingController cityController = TextEditingController();
 TextEditingController stateController = TextEditingController();
 TextEditingController houseController = TextEditingController();
 TextEditingController streetController = TextEditingController();
+TextEditingController nameUpdateController = TextEditingController();
 
 Future<void> signUp(BuildContext context) async {
   showDialog(
@@ -131,6 +131,11 @@ void updateFirebase() {
     buyNowTotal: buyNowTotals,
   );
   myWishobj.addToWishList();
+}
+
+Future<void> updateName() async {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  await currentUser!.updateDisplayName(nameUpdateController.text.trim());
 }
 
 Future<void> updateQnty() async {

@@ -1,4 +1,6 @@
+import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/dash_board_screen/account/widget/update_btn.dart';
+import 'package:aaptronix/view/order_summary_screen/add_address_screen/widget/custom_field2.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
@@ -8,51 +10,63 @@ import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
+  final bool profile = true;
 
   @override
   Widget build(BuildContext context) {
+    Future<bool> onWillPop() async {
+      Navigator.pop(context, 'refresh');
+      return true;
+    }
+
     User user = FirebaseAuth.instance.currentUser!;
-    return Scaffold(
-      appBar: MyAppBar(title: 'Profile'),
-      body: Padding(
-        padding: const EdgeInsets.all(14.0),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            const DpImg(),
-            const Divider(indent: 60, endIndent: 60),
-            CustomTextField(
-              label: 'Name',
-              ht: 70,
-              width: mWidth!,
-              num: false,
-              max: 2,
-              content: user.displayName.toString(),
-              readOnly: false,
-            ),
-            CustomTextField(
-              label: "Email",
-              ht: 70,
-              width: mWidth!,
-              num: false,
-              max: 1,
-              content: user.email.toString(),
-              readOnly: false,
-            ),
-            CustomTextField(
-              label: 'Phone',
-              ht: 70,
-              width: mWidth!,
-              num: true,
-              max: 1,
-              content: '9895989599',
-              readOnly: false,
-            ),
-            kHeight100,
-            const UpdateBtn(
-              title: 'Update',
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: MyAppBar(title: 'Profile'),
+        body: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              const DpImg(),
+              const Divider(indent: 60, endIndent: 60),
+              customField2(
+                  label: 'Name',
+                  height: 60,
+                  width: mWidth!,
+                  num: false,
+                  max: 1,
+                  controller: profile
+                      ? nameUpdateController =
+                          TextEditingController(text: user.displayName)
+                      : nameUpdateController,
+                  readOnly: false,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Name can\'t be empty';
+                    }
+                  }),
+              customField2(
+                  label: 'Name',
+                  height: 60,
+                  width: mWidth!,
+                  num: false,
+                  max: 1,
+                  controller: TextEditingController(text: user.email),
+                  readOnly: true,
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return 'Name can\'t be empty';
+                    }
+                  }),
+              kHeight100,
+              const UpdateBtn(
+                title: 'Update',
+                updateProfile: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

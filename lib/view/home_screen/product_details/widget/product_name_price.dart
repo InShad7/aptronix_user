@@ -54,7 +54,7 @@ class ProductNamePrice extends StatelessWidget {
               Text(
                 product['quantity'] > 0
                     ? product['quantity'] <= 4
-                        ? "Hurry only 2 left!"
+                        ? "Hurry only few left!"
                         : "In Stock"
                     : 'Out Of Stock',
                 style: GoogleFonts.roboto(

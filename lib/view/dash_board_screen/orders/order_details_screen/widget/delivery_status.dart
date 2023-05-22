@@ -1,5 +1,4 @@
 import 'package:aaptronix/view/dash_board_screen/orders/order_details_screen/widget/order_tracker.dart';
-import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/text_filed.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +8,9 @@ import '../../../../splash_screen.dart/spalsh_screen.dart';
 // import 'package:order_tracker/order_tracker.dart';
 
 class StatusPage extends StatefulWidget {
-  const StatusPage({Key? key, this.data}) : super(key: key);
+  const StatusPage({Key? key, this.data, this.a}) : super(key: key);
   final data;
+  final a;
   @override
   State<StatusPage> createState() => _StatusPageState();
 }
@@ -40,7 +40,7 @@ class _StatusPageState extends State<StatusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.data['status'] == 'Cancelled'
+    return (widget.data['status'] == 'Cancelled'|| widget.a==true)
         ? CustomTextField(
             label: 'Order Status',
             ht: 65,

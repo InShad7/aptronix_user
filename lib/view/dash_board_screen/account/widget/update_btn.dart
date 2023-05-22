@@ -13,10 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UpdateBtn extends StatelessWidget {
   const UpdateBtn(
-      {super.key, required this.title, this.index, this.update = false});
+      {super.key,
+      required this.title,
+      this.index,
+      this.update = false,
+      this.updateProfile = false});
   final String title;
   final index;
   final update;
+  final updateProfile;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,25 +37,30 @@ class UpdateBtn extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            if (!formKey.currentState!.validate()) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Please provide a valid credentials',
-                    style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  duration: const Duration(seconds: 2),
-                  backgroundColor: deleteRed,
-                ),
-              );
+            if (updateProfile == true) {
+              updateName();
+              Fluttertoast.showToast(msg: 'Updated');
             } else {
-              update ? updateAddress() : addAddress();
-              log(addressList.length.toString());
-              clear();
-             
-              Navigator.pop(context, 'refresh');
+              if (!formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Please provide a valid credentials',
+                      style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    duration: const Duration(seconds: 2),
+                    backgroundColor: deleteRed,
+                  ),
+                );
+              } else {
+                update ? updateAddress() : addAddress();
+                log(addressList.length.toString());
+                clear();
+
+                Navigator.pop(context, 'refresh');
+              }
             }
           },
           child: Text(
@@ -122,7 +132,7 @@ class UpdateBtn extends StatelessWidget {
       currentAddress: selectedAddress,
       buyNow: buyNowItem,
       buyNowCount: buyNowCount,
-        buyNowTotal: buyNowTotals,
+      buyNowTotal: buyNowTotals,
     );
     myCartObj.addToWishList();
     clear();

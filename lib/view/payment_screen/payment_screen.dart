@@ -35,13 +35,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     success(response: response, context: context);
-
-    Fluttertoast.showToast(
-        msg: 'Payment Success', backgroundColor: Colors.green);
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    success(response: response, fail: true, context: context);
     List buyCount = [buyNowCount];
     List buyItem = [buyNowItem];
     orderedItems = widget.buynow ? buyItem : myCart;
@@ -60,6 +53,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       obj.addToOrderedList();
     }
     updateQnty();
+    Fluttertoast.showToast(
+        msg: 'Payment Success', backgroundColor: Colors.green);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    success(response: response, fail: true, context: context);
 
     Fluttertoast.showToast(msg: 'Payment Failure ', backgroundColor: red);
   }
@@ -129,8 +128,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
               margin: const EdgeInsets.only(left: 16, right: 16, top: 5),
               height: 300,
               decoration: BoxDecoration(
-                color: cardClr2,
+                color: white,
                 borderRadius: BorderRadius.circular(18),
+                border: Border.all(width: 1, color: grey),
                 image: DecorationImage(
                   image: AssetImage(img[index]),
                 ),
@@ -263,8 +263,7 @@ void success({fail = false, response, context, payment}) {
                                   : Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavBar(),
+                                        builder: (context) => BottomNavBar(),
                                       ),
                                       (route) => false);
                             },
