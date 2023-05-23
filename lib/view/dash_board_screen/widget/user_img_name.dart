@@ -24,14 +24,19 @@ class UserImgAndName extends StatelessWidget {
               ),
             ),
           ),
-          CircleAvatar(
-            maxRadius: 80,
-            backgroundColor: white,
-            backgroundImage: NetworkImage(
-              user.photoURL ??
-                  'https://img.freepik.com/premium-psd/character-avatar-3d-illustration_460336-712.jpg?w=740',
-            ),
-          ),
+          user.photoURL != null
+              ? CircleAvatar(
+                  maxRadius: 80,
+                  backgroundColor: white,
+                  backgroundImage: NetworkImage(
+                    user.photoURL!,
+                  ),
+                )
+              : CircleAvatar(
+                  maxRadius: 80,
+                  backgroundColor: white,
+                  backgroundImage: AssetImage('assets/dp.jpg'),
+                ),
         ],
       ),
     );

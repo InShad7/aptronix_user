@@ -30,7 +30,8 @@ class AccountScreen extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             children: [
               const DpImg(),
-              const Divider(indent: 60, endIndent: 60),
+              kHeight20,
+              kHeight20,
               customField2(
                   label: 'Name',
                   height: 60,
@@ -48,7 +49,7 @@ class AccountScreen extends StatelessWidget {
                     }
                   }),
               customField2(
-                  label: 'Name',
+                  label: 'Email',
                   height: 60,
                   width: mWidth!,
                   num: false,
@@ -93,10 +94,11 @@ class _DpImgState extends State<DpImg> {
           maxRadius: 80,
         ),
       ),
-      IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.edit_outlined),
-      ),
+      kHeight20
+      // IconButton(
+      //   onPressed: () {},
+      //   icon: Icon(Icons.edit_outlined),
+      // ),
     ]);
   }
 }

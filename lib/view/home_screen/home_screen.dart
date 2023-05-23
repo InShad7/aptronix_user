@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/custom_curosel.dart';
@@ -7,10 +9,21 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Future<void> _refresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {
+      updateList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +61,19 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          kHeight20,
-          customCurosel(imgs: curoselImg[0]['images']),
-          kHeight20,
-          const CategoryItemCard(),
-          kHeight5,
-          const HomeItemCards(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            kHeight20,
+            customCurosel(imgs: curoselImg[0]['images']),
+            kHeight20,
+            const CategoryItemCard(),
+            kHeight5,
+            const HomeItemCards(),
+          ],
+        ),
       ),
     );
   }

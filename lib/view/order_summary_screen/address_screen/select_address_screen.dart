@@ -38,18 +38,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
         msg: 'deleted',
         backgroundColor: deleteRed,
       );
-      WishList my = WishList(
-        wishList: myWishList,
-        cart: myCart,
-        count: countList,
-        productTotal: myProductTotal,
-        address: addressList,
-        currentAddress: selectedAddress,
-        buyNow: buyNowItem,
-        buyNowCount: buyNowCount,
-        buyNowTotal: buyNowTotals,
-      );
-      my.addToWishList();
+      updateFirebase();
     });
   }
 
@@ -161,18 +150,7 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                               fontSize: 15,
                             );
 
-                            WishList my = WishList(
-                              wishList: myWishList,
-                              cart: myCart,
-                              count: countList,
-                              productTotal: myProductTotal,
-                              address: addressList,
-                              currentAddress: selectedAddress,
-                              buyNow: buyNowItem,
-                              buyNowCount: buyNowCount,
-                              buyNowTotal: buyNowTotals,
-                            );
-                            my.addToWishList();
+                            updateFirebase();
                             log('select ${selectedAddress.toString()}');
                           });
                         },

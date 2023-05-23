@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-double? mHeight;
-double? mWidth;
+// double? mHeight;
+// double? mWidth;
 
 class GetStartedScreen extends StatefulWidget {
   GetStartedScreen({super.key});
@@ -18,8 +18,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mHeight = MediaQuery.of(context).size.height;
-    mWidth = MediaQuery.of(context).size.width;
+    // mHeight = MediaQuery.of(context).size.height;
+    // mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: white,
       body: Stack(

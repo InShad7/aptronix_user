@@ -131,18 +131,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                           widget.buyNow
                               ? buyNowItem = ''
                               : removeItemFromOrder(product['id']);
-                          WishList myWishobj = WishList(
-                            wishList: myWishList,
-                            cart: myCart,
-                            count: countList,
-                            productTotal: myProductTotal,
-                            address: addressList,
-                            currentAddress: selectedAddress,
-                            buyNow: buyNowItem,
-                            buyNowCount: buyNowCount,
-                            buyNowTotal: buyNowTotals,
-                          );
-                          myWishobj.addToWishList();
+                          updateFirebase();
                           removeItemFromOrder(buyNowItem);
 
                           Fluttertoast.showToast(

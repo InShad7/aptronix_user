@@ -94,18 +94,7 @@ class _CartScreenState extends State<CartScreen> {
                             countList.removeAt(index);
                             myProductTotal.removeAt(index);
                             removeItemFromCart(product['id']);
-                            WishList myWishobj = WishList(
-                              wishList: myWishList,
-                              cart: myCart,
-                              count: countList,
-                              productTotal: myProductTotal,
-                              address: addressList,
-                              currentAddress: selectedAddress,
-                              buyNow: buyNowItem,
-                              buyNowCount: buyNowCount,
-                              buyNowTotal: buyNowTotals,
-                            );
-                            myWishobj.addToWishList();
+                            updateFirebase();
 
                             Fluttertoast.showToast(
                               msg: "Item removed from cart 🛒",

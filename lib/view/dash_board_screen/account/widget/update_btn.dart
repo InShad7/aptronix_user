@@ -91,18 +91,7 @@ class UpdateBtn extends StatelessWidget {
       backgroundColor: Colors.green,
       fontSize: 15,
     );
-    WishList myCartObj = WishList(
-      wishList: myWishList,
-      cart: myCart,
-      count: countList,
-      productTotal: myProductTotal,
-      address: addressList,
-      currentAddress: selectedAddress,
-      buyNow: buyNowItem,
-      buyNowCount: buyNowCount,
-      buyNowTotal: buyNowTotals,
-    );
-    myCartObj.addToWishList();
+    updateFirebase();
     clear();
   }
 
@@ -123,18 +112,7 @@ class UpdateBtn extends StatelessWidget {
       fontSize: 15,
     );
 
-    WishList myCartObj = WishList(
-      wishList: myWishList,
-      cart: myCart,
-      count: countList,
-      productTotal: myProductTotal,
-      address: addressList,
-      currentAddress: selectedAddress,
-      buyNow: buyNowItem,
-      buyNowCount: buyNowCount,
-      buyNowTotal: buyNowTotals,
-    );
-    myCartObj.addToWishList();
+    updateFirebase();
     clear();
   }
 }

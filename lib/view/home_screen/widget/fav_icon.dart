@@ -49,34 +49,12 @@ class _FavIconState extends State<FavIcon> {
           } else {
             myWishList.add(widget.product);
 
-            WishList myWishobj = WishList(
-                wishList: myWishList,
-                cart: myCart,
-                count: countList,
-                productTotal: myProductTotal,
-                address: addressList,
-                currentAddress: selectedAddress,
-                buyNow: buyNowItem,
-                buyNowCount: buyNowCount,
-                buyNowTotal: buyNowTotals,
-                );
-            myWishobj.addToWishList();
+            updateFirebase();
           }
         } else {
           myWishList.remove(widget.product);
 
-          WishList myWishobj = WishList(
-              wishList: myWishList,
-              cart: myCart,
-              count: countList,
-              productTotal: myProductTotal,
-              address: addressList,
-              currentAddress: selectedAddress,
-              buyNow: buyNowItem,
-              buyNowCount: buyNowCount,
-              buyNowTotal: buyNowTotals,
-              );
-          myWishobj.addToWishList();
+          updateFirebase();
         }
         log(myWishList.toString());
         if (widget.refresh != null) {

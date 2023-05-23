@@ -17,18 +17,7 @@ class WhishlistRemoveBtn extends StatelessWidget {
         onRemove(product['id']);
         myWishList.remove(product['id']);
 
-        WishList myWishobj = WishList(
-          wishList: myWishList,
-          cart: myCart,
-          count: countList,
-          productTotal: myProductTotal,
-          address: addressList,
-          currentAddress: selectedAddress,
-          buyNow: buyNowItem,
-          buyNowCount: buyNowCount,
-          buyNowTotal: buyNowTotals,
-        );
-        myWishobj.addToWishList();
+        updateFirebase();
 
         Fluttertoast.showToast(
           msg: "Item removed from whishlist 💔",

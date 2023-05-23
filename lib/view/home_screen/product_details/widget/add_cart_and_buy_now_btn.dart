@@ -63,18 +63,7 @@ class AddCartAndBuyNow extends StatelessWidget {
                   myCart.add(product['id']);
                   countList.add(1);
                   myProductTotal.add(int.parse(product['price']) * 1);
-                  WishList myCartObj = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                  );
-                  myCartObj.addToWishList();
+                  updateFirebase();
                   log(myCart.toString());
                   Navigator.pushReplacement(
                     context,
@@ -114,18 +103,7 @@ class AddCartAndBuyNow extends StatelessWidget {
                   buyNowItem = product['id'];
                   buyNowCount = 1;
                   buyNowTotals = int.parse(product['price']) * 1;
-                  WishList buyNowItemObj = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                  );
-                  buyNowItemObj.addToWishList();
+                  updateFirebase();
                   log(buyNowItem.toString());
                   Navigator.push(
                     context,

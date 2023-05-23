@@ -98,18 +98,7 @@ void alertBox({
                 if (addressList.isEmpty) {
                   selectedAddress = 'no data';
 
-                  WishList my = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                  );
-                  my.addToWishList();
+                  updateFirebase();
                   getWishList();
                 }
                 log(addressList.length.toString());

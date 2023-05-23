@@ -11,19 +11,18 @@ class WishList {
   String buyNow;
   int buyNowCount;
   int buyNowTotal;
- 
 
-  WishList(
-      {required this.wishList,
-      required this.cart,
-      required this.count,
-      required this.productTotal,
-      required this.address,
-      required this.currentAddress,
-      required this.buyNow,
-      required this.buyNowCount,
-      required this.buyNowTotal,
-      });
+  WishList({
+    required this.wishList,
+    required this.cart,
+    required this.count,
+    required this.productTotal,
+    required this.address,
+    required this.currentAddress,
+    required this.buyNow,
+    required this.buyNowCount,
+    required this.buyNowTotal,
+  });
 
   Future<void> addToWishList() async {
     try {
@@ -42,7 +41,6 @@ class WishList {
           'buyNow': buyNow,
           'buyNowCount': buyNowCount,
           'buyNowTotal': buyNowTotal,
-          
         };
       }
 

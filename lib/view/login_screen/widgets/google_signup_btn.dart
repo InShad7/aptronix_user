@@ -22,7 +22,7 @@ Widget googleSignUpBtn(context) {
         onPressed: () {
           final provider =
               Provider.of<GoogleSignInProvider>(context, listen: false);
-          provider.googleLogin();
+          provider.googleLogin(context);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

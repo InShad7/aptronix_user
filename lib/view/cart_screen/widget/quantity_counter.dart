@@ -34,144 +34,105 @@ class _QuantityCounterState extends State<QuantityCounter> {
     int count = widget.buynow ? buyNowCount : countList[widget.index];
     log(' count ${count.toString()}');
     log(' counlist ${countList.toString()}');
-    return Padding(
-      padding: const EdgeInsets.only(left: 86.5),
-      child: Row(
-        children: [
-          kWidth,
-          IconButton(
-            onPressed: () {
-              setState(() {
-                if (widget.buynow ? buyNowCount == 1 : count == 1) {
-                  widget.buynow
-                      ? buyNowItem = ''
-                      : widget.onRemove(widget.product['id']);
-                  log(countList.toString());
-                  widget.buynow
-                      ? buyNowCount = 0
-                      : countList.removeAt(widget.index);
-                  widget.buynow
-                      ? buyNowTotals = 0
-                      : myProductTotal.removeAt(widget.index);
+    return Row(
+      children: [
+        kWidth,
+        IconButton(
+          onPressed: () {
+            setState(() {
+              if (widget.buynow ? buyNowCount == 1 : count == 1) {
+                widget.buynow
+                    ? buyNowItem = ''
+                    : widget.onRemove(widget.product['id']);
+                log(countList.toString());
+                widget.buynow
+                    ? buyNowCount = 0
+                    : countList.removeAt(widget.index);
+                widget.buynow
+                    ? buyNowTotals = 0
+                    : myProductTotal.removeAt(widget.index);
 
-                  WishList myWishobj = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                    
-                  );
-                  myWishobj.addToWishList();
-                  widget.updateTotal();
+                updateFirebase();
+                widget.updateTotal();
 
-                  Fluttertoast.showToast(
-                    msg: "Item removed from cart 🛒",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: black,
-                    textColor: Colors.white,
-                    fontSize: 15.0,
-                  );
+                Fluttertoast.showToast(
+                  msg: "Item removed from cart 🛒",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: black,
+                  textColor: Colors.white,
+                  fontSize: 15.0,
+                );
 
-                  // print('remove');
-                } else {
-                  widget.buynow ? buyNowCount-- : count--;
-                  widget.buynow ? buyNowCount : countList[widget.index] = count;
-                  widget.buynow
-                      ? buyNowTotals =
-                          buyNowCount * int.parse(widget.product['price'])
-                      : myProductTotal[widget.index] =
-                          count * int.parse(widget.product['price']);
+                // print('remove');
+              } else {
+                widget.buynow ? buyNowCount-- : count--;
+                widget.buynow ? buyNowCount : countList[widget.index] = count;
+                widget.buynow
+                    ? buyNowTotals =
+                        buyNowCount * int.parse(widget.product['price'])
+                    : myProductTotal[widget.index] =
+                        count * int.parse(widget.product['price']);
 
-                  WishList my = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                    
-                  );
-                  my.addToWishList();
-                  widget.updateTotal();
+                updateFirebase();
+                widget.updateTotal();
 
-                  log(count.toString());
-                }
-              });
-            },
-            icon: const Icon(Icons.remove),
+                log(count.toString());
+              }
+            });
+          },
+          icon: const Icon(Icons.remove),
+        ),
+        Container(
+          height: 25,
+          width: 25,
+          decoration: BoxDecoration(
+            color: blue,
+            borderRadius: BorderRadius.circular(12),
           ),
-          Container(
-            height: 25,
-            width: 25,
-            decoration: BoxDecoration(
-              color: blue,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(
-              child: Text(
-                widget.buynow ? '${buyNowCount}' : '${count}',
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(fontSize: 18, color: white),
-                ),
+          child: Center(
+            child: Text(
+              widget.buynow ? '${buyNowCount}' : '${count}',
+              style: GoogleFonts.roboto(
+                textStyle: TextStyle(fontSize: 18, color: white),
               ),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                if (widget.product['quantity'] == count) {
-                  Fluttertoast.showToast(
-                    msg: "Limit exceeded 🛒",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: red,
-                    textColor: Colors.white,
-                    fontSize: 15.0,
-                  );
-                } else {
-                  widget.buynow ? buyNowCount++ : count++;
-                  widget.buynow ? buyNowCount : countList[widget.index] = count;
-                  widget.buynow
-                      ? buyNowTotals =
-                          buyNowCount * int.parse(widget.product['price'])
-                      : myProductTotal[widget.index] =
-                          count * int.parse(widget.product['price']);
-                  WishList my = WishList(
-                    wishList: myWishList,
-                    cart: myCart,
-                    count: countList,
-                    productTotal: myProductTotal,
-                    address: addressList,
-                    currentAddress: selectedAddress,
-                    buyNow: buyNowItem,
-                    buyNowCount: buyNowCount,
-                    buyNowTotal: buyNowTotals,
-                    
-                  );
-                  my.addToWishList();
-                  widget.updateTotal();
-                }
+        ),
+        IconButton(
+          onPressed: () {
+            setState(() {
+              if (widget.product['quantity'] == count) {
+                Fluttertoast.showToast(
+                  msg: "Limit exceeded 🛒",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: red,
+                  textColor: Colors.white,
+                  fontSize: 15.0,
+                );
+              } else {
+                widget.buynow ? buyNowCount++ : count++;
+                widget.buynow ? buyNowCount : countList[widget.index] = count;
+                widget.buynow
+                    ? buyNowTotals =
+                        buyNowCount * int.parse(widget.product['price'])
+                    : myProductTotal[widget.index] =
+                        count * int.parse(widget.product['price']);
+                updateFirebase();
+                widget.updateTotal();
+              }
 
-                log(count.toString());
-              });
+              log(count.toString());
+            });
 
-              // print('add');
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
+            // print('add');
+          },
+          icon: const Icon(Icons.add),
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/quantity_counter.dart';
+import 'package:aaptronix/view/get_started/get_started.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,6 +30,7 @@ class CartCard1 extends StatelessWidget {
       child: InkWell(
         child: Container(
           height: 118,
+          width: mWidth! / 1.1,
           decoration: BoxDecoration(
             color: white,
             borderRadius: BorderRadius.circular(18),
@@ -58,19 +61,15 @@ class CartCard1 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          child: Text(
-                            product['name'],
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w500)),
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        product['name'],
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w500)),
+                      ),
                     ),
                     kHeight,
                     Text(
@@ -78,25 +77,30 @@ class CartCard1 extends StatelessWidget {
                       style: GoogleFonts.roboto(
                           textStyle: const TextStyle(fontSize: 17)),
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 60,
-                          child: Text(
-                            '₹ ${product['price']}',
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(fontSize: 20),
+                    SizedBox(
+                      width: 268,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            child: Text(
+                              '₹ ${product['price']}',
+                              style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ),
-                        ),
-                        QuantityCounter(
-                          index: index,
-                          product: product,
-                          onRemove: onRemove,
-                          updateTotal: updateTotal,
-                          buynow: buynow,
-                        )
-                      ],
+                          QuantityCounter(
+                            index: index,
+                            product: product,
+                            onRemove: onRemove,
+                            updateTotal: updateTotal,
+                            buynow: buynow,
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 )

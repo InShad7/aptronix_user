@@ -105,6 +105,7 @@ Stream getProducts() async* {
 }
 
 Stream GetImages() async* {
+  log('getimg');
   final QuerySnapshot querySnapshot =
       await FirebaseFirestore.instance.collection('FeatureImage').get();
   final List<DocumentSnapshot> docs = querySnapshot.docs;
@@ -131,6 +132,23 @@ void updateFirebase() {
     buyNowTotal: buyNowTotals,
   );
   myWishobj.addToWishList();
+}
+
+updateList() {
+  GetImages().listen((data) {
+    curoselImg = data;
+    log('buy from refresh ${curoselImg}');
+  });
+  getProducts().listen((data) {
+    iphoneList = data.where((item) => 'iPhone' == item['category']).toList();
+    ipadList = data.where((item) => 'iPad' == item['category']).toList();
+    watchList = data.where((item) => 'iWatch' == item['category']).toList();
+    macList = data.where((item) => 'MacBook' == item['category']).toList();
+    buyNow = myProduct.where((item) => buyNowItem == item['id']).toList();
+
+    categoryList = myProduct = data;
+    log('buy from refresh ${myProduct}');
+  });
 }
 
 Future<void> updateName() async {
