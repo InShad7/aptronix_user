@@ -1,9 +1,8 @@
 import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
-import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/cart_screen/widget/my_cart_card.dart';
-import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
+import 'package:aaptronix/view/order_summary_screen/widget/place_order_btn.dart';
 import 'package:aaptronix/view/payment_screen/payment_screen.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
@@ -58,118 +57,126 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
     updatePrice();
 
     buyNow = myProduct.where((item) => buyNowItem == item['id']).toList();
+    Future<bool> onWillPop() async {
+      Navigator.pop(context, 'refresh');
+      return true;
+    }
 
-    return Scaffold(
-      appBar: MyAppBar(title: 'Order Summary'),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomTextField(
-                label: 'Deliver to:',
-                ht: 220,
-                width: mWidth!,
-                num: false,
-                max: 7,
-                content: (selectedAddress[0] == 'no data' ||
-                        selectedAddress == 'no data')
-                    ? 'Select an address'
-                    : "${selectedAddress['name']}\n${selectedAddress['houseNumber']}\n${selectedAddress['streetName']}\n${selectedAddress['city']}\n${selectedAddress['state']}\n${selectedAddress['pincode']}\n${selectedAddress['phoneNumber']}\n",
-                readOnly: true,
-                btn: true,
-                btnName: selectedAddress[0] == 'no data'
-                    ? 'Add address'
-                    : 'Change Address',
-                refresh: getRefresh),
-            kHeight20,
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
-                'Order Details :',
-                style: GoogleFonts.roboto(
-                  textStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        appBar: MyAppBar(title: 'Order Summary'),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextField(
+                  label: 'Deliver to:',
+                  ht: 220,
+                  width: mWidth!,
+                  num: false,
+                  max: 7,
+                  content: (selectedAddress[0] == 'no data' ||
+                          selectedAddress == 'no data')
+                      ? 'Select an address'
+                      : "${selectedAddress['name']}\n${selectedAddress['houseNumber']}\n${selectedAddress['streetName']}\n${selectedAddress['city']}\n${selectedAddress['state']}\n${selectedAddress['pincode']}\n${selectedAddress['phoneNumber']}\n",
+                  readOnly: true,
+                  btn: true,
+                  btnName: selectedAddress[0] == 'no data'
+                      ? 'Add address'
+                      : 'Change Address',
+                  refresh: getRefresh),
+              kHeight20,
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Text(
+                  'Order Details :',
+                  style: GoogleFonts.roboto(
+                    textStyle:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            kHeight,
-            ListView.builder(
-              itemCount: widget.buyNow ? buyNow.length : myCart.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final filteredList = myProduct
-                    .where((item) => myCart.contains(item['id']))
-                    .toList()
-                  ..sort((a, b) => myCart
-                      .indexOf(a['id'])
-                      .compareTo(myCart.indexOf(b['id'])));
+              kHeight,
+              ListView.builder(
+                itemCount: widget.buyNow ? buyNow.length : myCart.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final filteredList = myProduct
+                      .where((item) => myCart.contains(item['id']))
+                      .toList()
+                    ..sort((a, b) => myCart
+                        .indexOf(a['id'])
+                        .compareTo(myCart.indexOf(b['id'])));
 
-                final buynowFiltered = myProduct
-                    .where((item) => buyNowItem == item['id'])
-                    .toList();
+                  final buynowFiltered = myProduct
+                      .where((item) => buyNowItem == item['id'])
+                      .toList();
 
-                final product =
-                    widget.buyNow ? buyNow[index] : filteredList[index];
+                  final product =
+                      widget.buyNow ? buyNow[index] : filteredList[index];
 
-                cartItems = filteredList;
-                buyNow = buynowFiltered;
+                  cartItems = filteredList;
+                  buyNow = buynowFiltered;
 
-                return Slidable(
-                  endActionPane: ActionPane(
-                    motion: const BehindMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          widget.buyNow
-                              ? buyNowCount = 0
-                              : countList.removeAt(index);
-                          widget.buyNow
-                              ? buyNowTotals = 0
-                              : myProductTotal.removeAt(index);
-                          widget.buyNow
-                              ? buyNowItem = ''
-                              : removeItemFromOrder(product['id']);
-                          updateFirebase();
-                          removeItemFromOrder(buyNowItem);
+                  return Slidable(
+                    endActionPane: ActionPane(
+                      motion: const BehindMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            widget.buyNow
+                                ? buyNowCount = 0
+                                : countList.removeAt(index);
+                            widget.buyNow
+                                ? buyNowTotals = 0
+                                : myProductTotal.removeAt(index);
+                            widget.buyNow
+                                ? buyNowItem = ''
+                                : removeItemFromOrder(product['id']);
+                            updateFirebase();
+                            removeItemFromOrder(buyNowItem);
 
-                          Fluttertoast.showToast(
-                            msg: "Item removed from cart 🛒",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: black,
-                            textColor: Colors.white,
-                            fontSize: 15.0,
-                          );
-                        },
-                        backgroundColor: const Color.fromARGB(255, 213, 78, 68),
-                        icon: Icons.close_rounded,
-                        label: 'Delete',
-                      ),
-                    ],
-                  ),
-                  child: CartCard1(
-                    index: index,
-                    product: product,
-                    onRemove: removeItemFromOrder,
-                    updateTotal: updatePrice,
-                    buynow: widget.buyNow,
-                  ),
-                );
-              },
-            ),
-            kHeight15,
-          ],
+                            Fluttertoast.showToast(
+                              msg: "Item removed from cart 🛒",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: black,
+                              textColor: Colors.white,
+                              fontSize: 15.0,
+                            );
+                          },
+                          backgroundColor:
+                              const Color.fromARGB(255, 213, 78, 68),
+                          icon: Icons.close_rounded,
+                          label: 'Delete',
+                        ),
+                      ],
+                    ),
+                    child: CartCard1(
+                      index: index,
+                      product: product,
+                      onRemove: removeItemFromOrder,
+                      updateTotal: updatePrice,
+                      buynow: widget.buyNow,
+                    ),
+                  );
+                },
+              ),
+              kHeight15,
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: PlaceOrderBtn(
-        label: 'Continue',
-        ht: 90,
-        clr: true,
-        buynow: widget.buyNow,
-        navigateTo: PaymentScreen(buynow: widget.buyNow),
+        bottomNavigationBar: PlaceOrderBtn(
+          label: 'Continue',
+          ht: 90,
+          clr: true,
+          buynow: widget.buyNow,
+          navigateTo: PaymentScreen(buynow: widget.buyNow),
+        ),
       ),
     );
   }

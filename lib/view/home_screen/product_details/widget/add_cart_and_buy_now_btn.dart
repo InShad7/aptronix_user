@@ -38,7 +38,7 @@ class AddCartAndBuyNow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (product['quantity'] == 0) {
                 Fluttertoast.showToast(
                     msg: 'Out of stock', backgroundColor: deleteRed);
@@ -60,6 +60,7 @@ class AddCartAndBuyNow extends StatelessWidget {
                     fontSize: 15.0,
                   );
                 } else {
+                  await getWishList();
                   myCart.add(product['id']);
                   countList.add(1);
                   myProductTotal.add(int.parse(product['price']) * 1);

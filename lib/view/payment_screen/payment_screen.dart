@@ -2,25 +2,18 @@ import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/model/order_model.dart';
-import 'package:aaptronix/view/cart_screen/widget/place_order_btn.dart';
-import 'package:aaptronix/view/dash_board_screen/orders/order_list_screen.dart';
-import 'package:aaptronix/view/order_confirmation_screen/order_confirmation_screen.dart';
 import 'package:aaptronix/view/payment_screen/widget/payment_btn.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_bar.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
-import '../get_started/get_started.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key, this.buynow});
@@ -208,78 +201,85 @@ void success({fail = false, response, context, payment}) {
                     log('buy from home ${buyNow}');
                     categoryList = myProduct = data;
 
-                    return Column(
-                      children: [
-                        Container(
-                          height: 170,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(22),
-                            ),
-                            color: white,
-                            image: DecorationImage(
-                              image: AssetImage(fail
-                                  ? 'assets/close (1).jpg'
-                                  : 'assets/tick.png'),
+                    return SizedBox(
+                      height: 350,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 170,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(22),
+                              ),
+                              color: white,
+                              image: DecorationImage(
+                                image: AssetImage(fail
+                                    ? 'assets/close (1).jpg'
+                                    : 'assets/tick.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          fail ? 'Order cancelled' : 'Order confirmed',
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(fontSize: 22),
+                          kHeight20,
+                          Text(
+                            fail ? 'Order cancelled' : 'Order confirmed',
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(fontSize: 22),
+                            ),
                           ),
-                        ),
-                        kHeight15,
-                        payment == 'COD'
-                            ? Text(
-                                'Your order has been placed successfully',
-                                style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(fontSize: 20),
+                          kHeight15,
+                          payment == 'COD'
+                              ? Text(
+                                  'Your order has been placed successfully',
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(fontSize: 20),
+                                  ),
+                                )
+                              : Text(
+                                  fail
+                                      ? '${response.message}'
+                                      : 'Payment Id: ${response.paymentId}',
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(fontSize: 20),
+                                  ),
                                 ),
-                              )
-                            : Text(
+                          kHeight20,
+                          kHeight20,
+                          SizedBox(
+                            height: 40,
+                            width: 200,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: blue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
                                 fail
-                                    ? '${response.message}'
-                                    : 'Payment Id: ${response.paymentId}',
+                                    ? Navigator.pop(context)
+                                    : Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BottomNavBar(),
+                                        ),
+                                        (route) => false);
+                              },
+                              icon: Icon(
+                                fail
+                                    ? Icons.restart_alt_rounded
+                                    : Icons.home_filled,
+                                color: white,
+                              ),
+                              label: Text(
+                                fail ? 'Retry' : 'Home',
                                 style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(fontSize: 20),
-                                ),
+                                    fontSize: 20, color: white),
                               ),
-                        kHeight20,
-                        SizedBox(
-                          height: 45,
-                          width: 200,
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            onPressed: () {
-                              fail
-                                  ? Navigator.pop(context)
-                                  : Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => BottomNavBar(),
-                                      ),
-                                      (route) => false);
-                            },
-                            icon: Icon(
-                              fail
-                                  ? Icons.restart_alt_rounded
-                                  : Icons.home_filled,
-                            ),
-                            label: Text(
-                              fail ? 'Retry' : 'Home',
-                              style: GoogleFonts.roboto(fontSize: 20),
                             ),
                           ),
-                        ),
-                        kHeight20,
-                      ],
+                          kHeight20,
+                        ],
+                      ),
                     );
                   }
                 }

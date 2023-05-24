@@ -11,7 +11,7 @@ Future main() async {
   runApp(const MyApp());
 }
 
-final navigatorKey = GlobalKey < NavigatorState>();
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=> GoogleSignInProvider(),
+      create: (context) => GoogleSignInProvider(),
       child: MaterialApp(
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(primarySwatch: Colors.grey),
         home: SplashScreen(),
       ),
     );

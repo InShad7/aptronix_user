@@ -15,6 +15,7 @@ Widget customField2({
   bool readOnly = true,
   validator,
   number = false,
+  house = false,
 }) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, right: 16, top: 8),
@@ -33,8 +34,8 @@ Widget customField2({
               border: Border.all(color: grey)),
           // height: height,
           width: width,
-          child:
-              customField(num, max, controller!, readOnly, validator, number),
+          child: customField(
+              num, max, controller!, readOnly, validator, number, house),
         ),
       ],
     ),
@@ -42,7 +43,7 @@ Widget customField2({
 }
 
 Widget customField(bool num, max, TextEditingController controller,
-    bool readOnly, validator, number) {
+    bool readOnly, validator, number, house) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: TextFormField(
@@ -52,11 +53,13 @@ Widget customField(bool num, max, TextEditingController controller,
                 RegExp(r"[0-9]"),
               )
             ]
-          : [
-              FilteringTextInputFormatter.allow(
-                RegExp(r"[a-zA-Z]+|\s"),
-              )
-            ],
+          : house
+              ? []
+              : [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r"[a-zA-Z]+|\s"),
+                  )
+                ],
       validator: validator,
       readOnly: readOnly,
       cursorColor: black,

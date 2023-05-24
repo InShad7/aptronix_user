@@ -14,20 +14,22 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> _refresh() async {
+  bool a = false;
+
+  Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
-      updateList();
+      a = updateList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    getWishList();
+    log('home');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
@@ -37,7 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
           'aptronix.',
           style: GoogleFonts.roboto(
             textStyle: TextStyle(
-                fontSize: 32, color: black, fontWeight: FontWeight.bold),
+              fontSize: 32,
+              color: black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         actions: [
@@ -62,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: _refresh,
+        onRefresh: refresh,
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -71,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             kHeight20,
             const CategoryItemCard(),
             kHeight5,
-            const HomeItemCards(),
+            const HomeItemCards(), 
           ],
         ),
       ),

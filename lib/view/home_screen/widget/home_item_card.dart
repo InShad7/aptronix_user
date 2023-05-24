@@ -30,6 +30,7 @@ class _HomeItemCardsState extends State<HomeItemCards> {
 
   @override
   Widget build(BuildContext context) {
+    log('home cards rebuilded');
     if (buyNow.isNotEmpty) {
       buyNow.clear();
       buyNowItem = '';

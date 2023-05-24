@@ -66,7 +66,7 @@ class UpdateBtn extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 26),
+              textStyle: TextStyle(fontSize: 26, color: white),
             ),
           ),
         ),

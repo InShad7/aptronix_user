@@ -1,4 +1,3 @@
-import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -53,7 +52,7 @@ class CartCard extends StatelessWidget {
                           product['name'],
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w500)),
                         ),
                       ),
@@ -62,15 +61,15 @@ class CartCard extends StatelessWidget {
                   kHeight,
                   Text(
                     '${product['size']} GB',
-                    style:
-                        GoogleFonts.roboto(textStyle: TextStyle(fontSize: 17)),
+                    style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(fontSize: 17)),
                   ),
                   Row(
                     children: [
                       Text(
                         '₹ ${product['price']} ',
                         style: GoogleFonts.roboto(
-                          textStyle: TextStyle(fontSize: 20),
+                          textStyle: const TextStyle(fontSize: 20),
                         ),
                       ),
                       Padding(

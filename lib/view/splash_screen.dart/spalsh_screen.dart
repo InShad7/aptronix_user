@@ -21,10 +21,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool isLoading = true;
   @override
   void initState() {
     checkLogin();
+    initialize();
     super.initState();
+  }
+
+  Future<void> initialize() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      await getWishList();
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -43,11 +54,13 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 850,
                   width: mWidth,
                   child: Center(
-                    child: Text(
-                      'aptronix.',
-                      style: GoogleFonts.roboto(
-                        textStyle: TextStyle(
-                            fontSize: 55, fontWeight: FontWeight.bold),
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballPulse,
+                        colors: [black],
+                        strokeWidth: 1,
                       ),
                     ),
                   ),
@@ -94,6 +107,7 @@ class _SplashScreenState extends State<SplashScreen> {
         StreamBuilder(
             stream: GetImages(),
             builder: (context, AsyncSnapshot snapshot) {
+              // curoselImg = snapshot.data;
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const SizedBox();
               }
@@ -114,8 +128,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkLogin() async {
-    await Future.wait(
-      [GetImages().first, getProducts().first],
+    await Future.
+      delayed(const Duration(seconds: 3)
+      // [GetImages().first, getProducts().first],
     );
     Navigator.pushReplacement(
       context,

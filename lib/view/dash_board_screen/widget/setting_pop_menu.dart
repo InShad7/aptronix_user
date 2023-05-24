@@ -13,7 +13,7 @@ class settingmenupopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: white,
+      backgroundColor: Color.fromARGB(255, 52, 52, 52),
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: Column(
@@ -29,9 +29,9 @@ class settingmenupopup extends StatelessWidget {
                           styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
                               textTheme: TextTheme(
                                   bodyText2: TextStyle(
-                                      // fontFamily: "Inter",
+                                      
                                       fontSize: 15.0,
-                                      color: black)))),
+                                      color: white)))),
                           data: snapshot.data.toString());
                     }
                     return const Center(
@@ -51,7 +51,7 @@ class settingmenupopup extends StatelessWidget {
                 width: double.infinity,
                 child: Text(
                   'OK',
-                  style: TextStyle(color: black),
+                  style: TextStyle(color: white),
                 ),
               ))
         ],

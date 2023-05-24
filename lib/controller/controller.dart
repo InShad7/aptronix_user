@@ -134,11 +134,7 @@ void updateFirebase() {
   myWishobj.addToWishList();
 }
 
-updateList() {
-  GetImages().listen((data) {
-    curoselImg = data;
-    log('buy from refresh ${curoselImg}');
-  });
+bool updateList() {
   getProducts().listen((data) {
     iphoneList = data.where((item) => 'iPhone' == item['category']).toList();
     ipadList = data.where((item) => 'iPad' == item['category']).toList();
@@ -149,6 +145,12 @@ updateList() {
     categoryList = myProduct = data;
     log('buy from refresh ${myProduct}');
   });
+  log('updatelist');
+  GetImages().listen((data) {
+    curoselImg = data;
+    log('buy from refresh ${curoselImg}');
+  });
+  return true;
 }
 
 Future<void> updateName() async {
@@ -243,6 +245,7 @@ Future<void> getWishList() async {
   } else {
     myWishList = ['no data'];
   }
+  log('getWishList');
 
   if (ref.exists) {
     final data = ref.data()!['cart'];

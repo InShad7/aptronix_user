@@ -52,14 +52,26 @@ class OrderedItemTile extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w500),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
                       Text(
                         data['status'],
                         style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(fontSize: 19),
+                          textStyle: TextStyle(
+                              fontSize: 19,
+                              color: data['status'] == 'Ordered'
+                                  ? black
+                                  : data['status'] == 'Shipped'
+                                      ? blue1
+                                      : data['status'] == 'Cancelled'
+                                          ? red
+                                          : data['status'] == 'Out of Delivery'
+                                              ? yellow
+                                              : Colors.green),
                         ),
                       ),
                     ],

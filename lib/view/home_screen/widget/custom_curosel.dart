@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -24,6 +26,7 @@ class customCurosel extends StatefulWidget {
 class _customCuroselState extends State<customCurosel> {
   @override
   Widget build(BuildContext context) {
+    log('cursel rebuilded');
     return Column(
       children: [
         CarouselSlider.builder(
@@ -49,12 +52,9 @@ class _customCuroselState extends State<customCurosel> {
 
   Widget buildImage(String imgUrl, int index) => Container(
         width: double.infinity,
-        // margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           color: Colors.white,
-          // image:
-          //     DecorationImage(image: NetworkImage(imgUrl), fit: BoxFit.cover),
         ),
         child: CachedNetworkImage(
           placeholder: (context, url) => Image.asset('assets/APPRONIX.jpg'),

@@ -124,6 +124,7 @@ class AddAddressScreen extends StatelessWidget {
                   width: mWidth!,
                   num: false,
                   max: 3,
+                  house:true,
                   controller: editAdd
                       ? houseController = TextEditingController(
                           text: addressList[index]['houseNumber'])

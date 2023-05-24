@@ -34,7 +34,7 @@ class LoginBtn extends StatelessWidget {
               child: Text(
                 'Sign In',
                 style: GoogleFonts.roboto(
-                    textStyle: const TextStyle(fontSize: 28)),
+                    textStyle: TextStyle(fontSize: 28, color: white)),
               ),
             ),
           ),

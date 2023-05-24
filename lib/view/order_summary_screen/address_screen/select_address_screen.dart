@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:aaptronix/controller/controller.dart';
-import 'package:aaptronix/model/wish_list_model.dart';
 import 'package:aaptronix/view/dash_board_screen/widget/logout_btn.dart';
 import 'package:aaptronix/view/order_summary_screen/add_address_screen/add_address_screen.dart';
 import 'package:aaptronix/view/order_summary_screen/address_screen/widget/title_and_btn.dart';
@@ -22,6 +21,20 @@ class SelectAddressScreen extends StatefulWidget {
 }
 
 class _SelectAddressScreenState extends State<SelectAddressScreen> {
+  bool b = true;
+  @override
+  void initState() {
+    super.initState();
+    initialise();
+  }
+
+  Future initialise() async {
+    await getWishList();
+    setState(() {
+      b = false;
+    });
+  }
+
   bool a = false;
   getRefresh(String refresh) {
     if (refresh == 'refresh') {

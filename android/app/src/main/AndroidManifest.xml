@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aaptronix">
    <application
-        android:label="aaptronix"
+        android:label="aptronix."
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

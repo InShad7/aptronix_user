@@ -48,7 +48,7 @@ class CustomBtn extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 24),
+              textStyle: TextStyle(fontSize: 24, color: white),
             ),
           ),
         ),
@@ -89,6 +89,7 @@ void alertBox({
             onPressed: () async {
               if (cancel == true) {
                 updateStatus(data, product, 'Cancelled');
+                await updateList();
                 refresh();
                 Navigator.pop(context);
                 Fluttertoast.showToast(msg: 'Order has been cancelled');

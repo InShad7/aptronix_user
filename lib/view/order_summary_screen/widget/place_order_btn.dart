@@ -4,7 +4,6 @@ import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlaceOrderBtn extends StatelessWidget {
@@ -64,13 +63,25 @@ class PlaceOrderBtn extends StatelessWidget {
               width: 165,
               child: ElevatedButton(
                 onPressed: () {
-                  if (buynow
-                      ? buyNowTotals == 0
-                      : total == 0 || selectedAddress[0] == 'no data') {
+                  if (selectedAddress[0] == 'no data') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
+                        duration: const Duration(seconds: 1),
                         content: Text(
-                          selectedAddress[0] == 'no data'
+                          'add an address...!',
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(fontSize: 19),
+                          ),
+                        ),
+                        backgroundColor: deleteRed,
+                      ),
+                    );
+                  } else if (buynow ? buyNowTotals == 0 : total == 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: const Duration(seconds: 1),
+                        content: Text(
+                          (selectedAddress[0] == 'no data')
                               ? 'add an address...!'
                               : 'Oops...! Add an item to proceed',
                           style: GoogleFonts.roboto(
