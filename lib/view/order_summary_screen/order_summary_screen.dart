@@ -141,11 +141,9 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
 
                             Fluttertoast.showToast(
                               msg: "Item removed from cart 🛒",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
                               backgroundColor: black,
-                              textColor: Colors.white,
+                              textColor: white,
                               fontSize: 15.0,
                             );
                           },

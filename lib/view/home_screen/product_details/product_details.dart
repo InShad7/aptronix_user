@@ -16,10 +16,11 @@ class ProductDetailsScreen extends StatelessWidget {
       Navigator.pop(context, 'refresh');
       return true;
     }
+
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        appBar: MyAppBar(title: '${product['name']}'),
+        appBar: MyAppBar(title: 'aptronix.'),
         body: ListView(
             // shrinkWrap: true,
             physics: const BouncingScrollPhysics(),

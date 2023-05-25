@@ -69,7 +69,7 @@ class OrderedItemTile extends StatelessWidget {
                                       ? blue1
                                       : data['status'] == 'Cancelled'
                                           ? red
-                                          : data['status'] == 'Out of Delivery'
+                                          : data['status'] == 'Out Of Delivery'
                                               ? yellow
                                               : Colors.green),
                         ),

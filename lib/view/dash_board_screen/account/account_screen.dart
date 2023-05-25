@@ -4,7 +4,6 @@ import 'package:aaptronix/view/order_summary_screen/add_address_screen/widget/cu
 import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
-import 'package:aaptronix/view/widget/text_filed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

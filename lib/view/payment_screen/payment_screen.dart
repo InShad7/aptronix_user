@@ -93,7 +93,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   String? selectedMode;
-  // List modes = ['Pre-paid Online', 'Cash On Delivery'];
+  
   List img = ['assets/online.png', 'assets/cod.png'];
   @override
   Widget build(BuildContext context) {

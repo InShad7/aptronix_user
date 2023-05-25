@@ -36,14 +36,9 @@ class CustomBtn extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            // logout?
+           
             alertBox(context: context);
-            // : Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => navigateTo,
-            //     ),
-            //     (route) => false);
+          
           },
           child: Text(
             title,

@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
-List orderItem = ['iPhone 12', 'iPad Pro', 'Mac air', 'iWatch 7'];
 
 class OrderListScreen extends StatefulWidget {
   const OrderListScreen({super.key});
@@ -82,7 +81,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
                         });
               }
             }
-            return Text('Cant fetch data');
+            return const Text('Cant fetch data');
           }),
     );
   }

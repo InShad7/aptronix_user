@@ -72,8 +72,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           ),
           kHeight,
           StatusPage(data: widget.data, a: a),
-          (widget.data['status'] == 'Cancelled' || a == true)
-              ? Text('')
+          (widget.data['status'] == 'Cancelled' ||
+                  a == true ||
+                  widget.data['status'] == 'Delivered')
+              ? const Text('')
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
@@ -89,16 +91,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         ),
                       ),
                       onPressed: () {
-                        
                         alertBox(
                           context: context,
                           cancel: true,
                           data: widget.data,
                           product: widget.product,
-                          refresh:refresh,
+                          refresh: refresh,
                         );
-
-                        // updateStatus(widget.data, widget.product, 'Cancelled');
                       },
                       child: Text(
                         'Cancel',

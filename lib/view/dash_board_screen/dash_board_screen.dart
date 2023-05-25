@@ -27,26 +27,26 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return Scaffold(
       appBar: NavScreenAppBar(title: 'Dashboard'),
       body: ListView(children: [
-        UserImgAndName(),
-        DashboardList(
+       const UserImgAndName(),
+       const DashboardList(
           label: 'Your Order',
           navigateTo: OrderListScreen(),
         ),
         DashboardList(
           label: "Your Account",
-          navigateTo: AccountScreen(),
+          navigateTo:const AccountScreen(),
           refresh: refresh,
         ),
-        DashboardList(
+       const DashboardList(
           label: "Privacy Policy",
           privacy: true,
         ),
-        DashboardList(
+       const DashboardList(
           label: "Terms and Conditions",
           terms: true,
         ),
         kHeight100,
-        CustomBtn(
+       const CustomBtn(
           title: 'Log Out',
           // navigateTo: LoginScreen(),
         ),
