@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkLogin() async {
-    await Future. delayed(const Duration(seconds: 3)
+    await Future.delayed(const Duration(seconds: 5)
         // [GetImages().first, getProducts().first],
         );
     Navigator.pushReplacement(

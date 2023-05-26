@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/dash_board_screen/orders/widget/ordered_Item_tile.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-
+import 'package:rxdart/rxdart.dart';
 
 class OrderListScreen extends StatefulWidget {
   const OrderListScreen({super.key});
@@ -28,7 +32,13 @@ class _OrderListScreenState extends State<OrderListScreen> {
       backgroundColor: orderClr,
       appBar: MyAppBar(title: "Orders"),
       body: StreamBuilder(
-          stream: getOrder(),
+          stream: Rx.combineLatest2(getOrder(), getProducts(),
+              (orderSnapshot, productSnapshot) {
+            return {
+              'order': orderSnapshot,
+              'product': productSnapshot,
+            };
+          }),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -45,12 +55,33 @@ class _OrderListScreenState extends State<OrderListScreen> {
             if (snapshot.connectionState == ConnectionState.done ||
                 snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                final data = snapshot.data;
-                List filteredList1 = data
+                final data = snapshot.data as Map<String, dynamic>;
+                final orderSnapshot = data['order'];
+                final productSnapshot = data['product'];
+
+                // final data = snapshot.data;
+                List filteredList1 = orderSnapshot
                     .where((item) =>
                         item['username'] ==
                         FirebaseAuth.instance.currentUser!.email)
                     .toList();
+                iphoneList = productSnapshot
+                    .where((item) => 'iPhone' == item['category'])
+                    .toList();
+                ipadList = productSnapshot
+                    .where((item) => 'iPad' == item['category'])
+                    .toList();
+                watchList = productSnapshot
+                    .where((item) => 'iWatch' == item['category'])
+                    .toList();
+                macList = productSnapshot
+                    .where((item) => 'MacBook' == item['category'])
+                    .toList();
+                buyNow = myProduct
+                    .where((item) => buyNowItem == item['id'])
+                    .toList();
+                log('buy from home ${buyNow}');
+                categoryList = myProduct = productSnapshot;
 
                 return filteredList1.isEmpty
                     ? Center(
@@ -62,12 +93,13 @@ class _OrderListScreenState extends State<OrderListScreen> {
                         itemBuilder: (context, index) {
                           final filteredList = filteredList1
                               .expand((item) => myProduct
-                                  .where((product) =>
-                                      item['products'].contains(product['id']))
+                                  .where((product) => item['products']
+                                      .contains(product['id']))
                                   .toList()
                                 ..sort((a, b) => filteredList1
                                     .indexOf(a['id'])
-                                    .compareTo(filteredList1.indexOf(b['id']))))
+                                    .compareTo(
+                                        filteredList1.indexOf(b['id']))))
                               .toList();
 
                           final product = filteredList[index];

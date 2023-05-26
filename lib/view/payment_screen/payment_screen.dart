@@ -93,7 +93,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   String? selectedMode;
-  
+
   List img = ['assets/online.png', 'assets/cod.png'];
   @override
   Widget build(BuildContext context) {
@@ -221,7 +221,9 @@ void success({fail = false, response, context, payment}) {
                           ),
                           kHeight20,
                           Text(
-                            fail ? 'Order cancelled' : 'Order confirmed',
+                            fail
+                                ? 'Your order has been cancelled'
+                                : 'Order confirmed',
                             style: GoogleFonts.roboto(
                               textStyle: TextStyle(fontSize: 22),
                             ),

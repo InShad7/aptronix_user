@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -60,7 +61,7 @@ class _HomeItemCardsState extends State<HomeItemCards> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
-                    childAspectRatio: (2 / 2.6),
+                    childAspectRatio: 0.74,
                   ),
                   itemCount:
                       widget.search ? searchList.length : myProduct.length,
@@ -106,7 +107,7 @@ class _HomeItemCardsState extends State<HomeItemCards> {
                         ),
                         kHeight15,
                         Container(
-                          height: 60,
+                          height: mHeight! / 12,
                           width: 170,
                           decoration: BoxDecoration(
                             color: white,
@@ -150,6 +151,7 @@ class _HomeItemCardsState extends State<HomeItemCards> {
                                     FavIcon(product: product['id'])
                                   ],
                                 ),
+                                kHeight5,
                                 InkWell(
                                   child: Text(
                                     '₹ ${product['price']}',

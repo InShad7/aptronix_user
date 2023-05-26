@@ -62,7 +62,7 @@ class CartCard1 extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 250,
+                      width: 220,
                       child: Text(
                         product['name'],
                         overflow: TextOverflow.ellipsis,
