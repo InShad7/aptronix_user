@@ -70,7 +70,7 @@ Future<void> signUp(BuildContext context) async {
 
     userNameController.clear();
     passwordController.clear();
-    nameController.clear();
+    nameController1.clear();
   } on FirebaseAuthException catch (e) {
     Navigator.pop(context);
     String errorMessage = 'Enter valid Credentials';
@@ -98,18 +98,34 @@ Future<void> signUp(BuildContext context) async {
 }
 
 Stream getProducts() async* {
-  final QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection('products').get();
-  final List<DocumentSnapshot> docs = querySnapshot.docs;
-  yield docs;
+  try {
+    final QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+    final List<DocumentSnapshot> docs = querySnapshot.docs;
+    yield docs;
+  } catch (e) {
+    print(e);
+  }
 }
 
-Stream GetImages() async* {
-  log('getimg');
-  final QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection('FeatureImage').get();
-  final List<DocumentSnapshot> docs = querySnapshot.docs;
-  yield docs;
+// Stream GetImages() async* {
+//   log('getimg');
+//   final QuerySnapshot querySnapshot =
+//       await FirebaseFirestore.instance.collection('FeatureImage').get();
+//   final List<DocumentSnapshot> docs = querySnapshot.docs;
+//   yield docs;
+// }
+
+Stream<List<DocumentSnapshot>> getImages() async* {
+  try {
+    final QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('FeatureImage').get();
+    final List<DocumentSnapshot> docs = querySnapshot.docs;
+    // log(docs.toString());
+    yield docs;
+  } catch (e) {
+    print(e);
+  }
 }
 
 Stream getOrder() async* {
@@ -146,7 +162,7 @@ bool updateList() {
     log('buy from refresh ${myProduct}');
   });
   log('updatelist');
-  GetImages().listen((data) {
+  getImages().listen((data) {
     curoselImg = data;
     log('buy from refresh ${curoselImg}');
   });
@@ -223,7 +239,7 @@ String buyNowItem = ' ';
 int buyNowTotals = 1;
 int buyNowCount = 1;
 List buyNow = [];
-List curoselImg = [];
+dynamic curoselImg;
 dynamic selectedAddress;
 List orderedItems = [];
 List orderedCount = [];

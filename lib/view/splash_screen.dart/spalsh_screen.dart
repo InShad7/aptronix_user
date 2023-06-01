@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/login_screen/login_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
@@ -21,7 +19,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool isLoading = true;
   @override
   void initState() {
     checkLogin();
@@ -32,9 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> initialize() async {
     if (FirebaseAuth.instance.currentUser != null) {
       await getWishList();
-      setState(() {
-        isLoading = false;
-      });
     }
   }
 
@@ -43,24 +37,22 @@ class _SplashScreenState extends State<SplashScreen> {
     mHeight = MediaQuery.of(context).size.height;
     mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: ListView(
-      // mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
       children: [
         StreamBuilder(
-            stream: getProducts(),
-            builder: (context, AsyncSnapshot snapshot) {
+            stream: getImages(),
+            builder: (context, snapshot) {
+              curoselImg = snapshot.data;
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return SizedBox(
-                  height: 850,
+                Container(
+                  height: mHeight,
                   width: mWidth,
                   child: Center(
-                    child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: LoadingIndicator(
-                        indicatorType: Indicator.ballPulse,
-                        colors: [black],
-                        strokeWidth: 1,
+                    child: Text(
+                      'aptronix.',
+                      style: GoogleFonts.roboto(
+                        textStyle:
+                            TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -69,68 +61,72 @@ class _SplashScreenState extends State<SplashScreen> {
               if (snapshot.connectionState == ConnectionState.done ||
                   snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
-                  final data = snapshot.data;
-                  iphoneList = data
-                      .where((item) => 'iPhone' == item['category'])
-                      .toList();
-                  ipadList =
-                      data.where((item) => 'iPad' == item['category']).toList();
-                  watchList = data
-                      .where((item) => 'iWatch' == item['category'])
-                      .toList();
-                  macList = data
-                      .where((item) => 'MacBook' == item['category'])
-                      .toList();
-                  buyNow = myProduct
-                      .where((item) => buyNowItem == item['id'])
-                      .toList();
-                  log('buy from home ${buyNow}');
-                  categoryList = myProduct = data;
-
-                  return SizedBox(
-                    height: 850,
-                    width: mWidth,
-                    child: Center(
-                      child: Text(
-                        'aptronix.',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                              fontSize: 55, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  );
+                  // return Text('list empty');
                 }
               }
-              return Text('Cant fetch data');
+              return SizedBox();
             }),
         StreamBuilder(
-            stream: GetImages(),
-            builder: (context, AsyncSnapshot snapshot) {
-              // curoselImg = snapshot.data;
+            stream: getProducts(),
+            builder: (context, snapshot) {
+              final data = snapshot.data;
+
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox();
+                return Container(
+                  height: mHeight,
+                  width: mWidth,
+                  child: Center(
+                    child: Text(
+                      'aptronix.',
+                      style: GoogleFonts.roboto(
+                        textStyle:
+                            TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                );
               }
               if (snapshot.connectionState == ConnectionState.done ||
                   snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
-                  var data = snapshot.data;
-                  curoselImg = data;
-                  return snapshot.data!.isEmpty
-                      ? const Center(child: Text('List empty'))
-                      : SizedBox();
+                  iphoneList = data
+                      .where((element) => "iPhone" == element["category"])
+                      .toList();
+                  ipadList = data
+                      .where((element) => "iPad" == element["category"])
+                      .toList();
+                  watchList = data
+                      .where((element) => 'iWatch' == element["category"])
+                      .toList();
+                  macList = data
+                      .where((element) => 'MacBook' == element["category"])
+                      .toList();
+
+                  categoryList = myProduct = data;
                 }
               }
-              return Text('Cant fetch data');
-            })
+              return Container(
+                height: mHeight,
+                width: mWidth,
+                child: Center(
+                  child: Text(
+                    'aptronix.',
+                    style: GoogleFonts.roboto(
+                      textStyle:
+                          TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              );
+            }),
       ],
     ));
   }
 
   void checkLogin() async {
-    await Future.delayed(const Duration(seconds: 5)
-        // [GetImages().first, getProducts().first],
-        );
+    await Future.wait(
+      [getProducts().first, getImages().first],
+    );
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -166,8 +162,11 @@ class CheckUserLogin extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            getWishList();
-            return BottomNavBar(state: false);
+            // return BottomNavbar(
+            //   cart: false,
+            // );
+            // getwish();
+            return BottomNavBar();
           } else {
             return LoginScreen();
           }

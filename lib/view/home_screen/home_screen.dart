@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
             kHeight20,
             const CategoryItemCard(),
             kHeight5,
-            const HomeItemCards(), 
+            HomeItemCards(), 
           ],
         ),
       ),

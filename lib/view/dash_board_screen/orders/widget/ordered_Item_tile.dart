@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/dash_board_screen/orders/order_details_screen/order_details_screen.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,6 +20,7 @@ class OrderedItemTile extends StatelessWidget {
       child: InkWell(
           child: Container(
             height: 110,
+            width: mWidth! / 1.1,
             decoration: BoxDecoration(
               color: cardClr,
               borderRadius: BorderRadius.circular(18),
@@ -46,7 +48,7 @@ class OrderedItemTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 280,
+                        width: mWidth! / 1.7,
                         child: Text(
                           product['name'],
                           overflow: TextOverflow.ellipsis,

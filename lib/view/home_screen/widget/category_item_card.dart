@@ -60,7 +60,7 @@ class CategoryItemCard extends StatelessWidget {
                     title[index],
                     style: GoogleFonts.roboto(
                       textStyle: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500),
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                   ),
                   kWidth

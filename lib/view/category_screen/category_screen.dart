@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/category_screen/widget/item_card.dart';
 import 'package:aaptronix/view/home_screen/widget/category_item_card.dart';
+import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
@@ -81,7 +82,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ),
           ),
-          ItemCards(),
+          HomeItemCards(category: true),
+          // ItemCards()
         ],
       ),
     );
@@ -126,6 +128,4 @@ class _CategoryScreenState extends State<CategoryScreen> {
     }
     return chips;
   }
-
- 
 }

@@ -35,7 +35,7 @@ class SignInText extends StatelessWidget {
             ),
           ),
           kHeight20,
-          kHeight20
+          // kHeight20
         ],
       ),
     );

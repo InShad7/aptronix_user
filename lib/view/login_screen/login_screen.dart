@@ -41,6 +41,9 @@ class LoginScreen extends StatelessWidget {
         kHeight20,
         kHeight,
         SignUpTxtBtn(navigateTo: SignUpScreen()),
+        kHeight20,
+        kHeight20,
+        kHeight20
       ]),
     );
   }

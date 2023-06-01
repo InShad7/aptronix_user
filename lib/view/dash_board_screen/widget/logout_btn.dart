@@ -36,14 +36,12 @@ class CustomBtn extends StatelessWidget {
             ),
           ),
           onPressed: () {
-           
             alertBox(context: context);
-          
           },
           child: Text(
             title,
             style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 24, color: white),
+              textStyle: TextStyle(fontSize: 20, color: white),
             ),
           ),
         ),
@@ -98,6 +96,7 @@ void alertBox({
                   getWishList();
                 }
                 log(addressList.length.toString());
+                Navigator.pop(context);
               } else {
                 if (flag == 1) {
                   final provider =

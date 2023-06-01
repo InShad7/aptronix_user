@@ -10,9 +10,11 @@ import '../../dash_board_screen/account/widget/update_btn.dart';
 final formKey = GlobalKey<FormState>();
 
 class AddAddressScreen extends StatelessWidget {
-  const AddAddressScreen({super.key, this.editAdd = false, this.index});
+  const AddAddressScreen(
+      {super.key, this.editAdd = false, this.index, this.refrsh});
   final index;
   final editAdd;
+  final refrsh;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class AddAddressScreen extends StatelessWidget {
                   width: mWidth!,
                   num: false,
                   max: 3,
-                  house:true,
+                  house: true,
                   controller: editAdd
                       ? houseController = TextEditingController(
                           text: addressList[index]['houseNumber'])
@@ -156,7 +158,11 @@ class AddAddressScreen extends StatelessWidget {
               kHeight100,
               kHeight20,
               UpdateBtn(
-                  title: 'Save ', index: index, update: editAdd ? true : false),
+                  title: 'Save ',
+                  index: index,
+                  update: editAdd ? true : false,
+                  refresh: refrsh
+                  ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:aaptronix/view/home_screen/product_details/product_details.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:aaptronix/view/wish_list_screen/widget/remove_btn.dart';
@@ -19,6 +20,7 @@ class WishListCard extends StatelessWidget {
       child: InkWell(
           child: Container(
             height: 110,
+            width: mWidth! / 1.1,
             decoration: BoxDecoration(
               color: cardClr,
               borderRadius: BorderRadius.circular(18),
@@ -46,27 +48,21 @@ class WishListCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 230,
+                        width: mWidth! / 2,
                         child: Text(
                           product['name'],
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w500),
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            '${product['size'].toString()} GB',
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(fontSize: 17)),
-                          ),
-                          // const Spacer(),
-                          // FavIcon()
-                        ],
+                      Text(
+                        '${product['size'].toString()} GB',
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(fontSize: 17)),
                       ),
                       Text(
                         '₹ ${product['price'].toString()}',

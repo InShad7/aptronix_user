@@ -1,3 +1,4 @@
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,6 +19,7 @@ class CartCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: Container(
         height: 110,
+        width: mWidth! / 1.1,
         decoration: BoxDecoration(
           color: cardClr,
           borderRadius: BorderRadius.circular(18),
@@ -47,7 +49,7 @@ class CartCard extends StatelessWidget {
                   Row(
                     children: [
                       SizedBox(
-                        width: 280,
+                        width: mWidth! / 1.7,
                         child: Text(
                           product['name'],
                           overflow: TextOverflow.ellipsis,
@@ -64,17 +66,18 @@ class CartCard extends StatelessWidget {
                     style: GoogleFonts.roboto(
                         textStyle: const TextStyle(fontSize: 17)),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '₹ ${product['price']} ',
-                        style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(fontSize: 20),
+                  SizedBox(
+                    width: mWidth! / 1.6,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '₹ ${product['price']} ',
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 150),
-                        child: Row(
+                        Row(
                           children: [
                             Text(
                               'Qty:',
@@ -101,9 +104,9 @@ class CartCard extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               )

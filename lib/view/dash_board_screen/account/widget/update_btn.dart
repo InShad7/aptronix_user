@@ -17,11 +17,13 @@ class UpdateBtn extends StatelessWidget {
       required this.title,
       this.index,
       this.update = false,
-      this.updateProfile = false});
+      this.updateProfile = false,
+      this.refresh});
   final String title;
   final index;
   final update;
   final updateProfile;
+  final refresh;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,8 +60,8 @@ class UpdateBtn extends StatelessWidget {
                 update ? updateAddress() : addAddress();
                 log(addressList.length.toString());
                 clear();
-
                 Navigator.pop(context, 'refresh');
+                // refresh();
               }
             }
           },

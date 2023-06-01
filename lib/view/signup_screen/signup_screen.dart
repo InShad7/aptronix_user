@@ -12,45 +12,47 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(physics: const BouncingScrollPhysics(), children: [
-        const SignInText(title: 'Sign Up'),
-        kHeight20,
-        kHeight,
-        MyTextField(
-          ht: 60,
-          border: 20,
-          title: 'Name',
-          icon: Icons.abc,
-          myControler: nameController1,
-          passChar: false,
-        ),
-        kHeight,
-        MyTextField(
-          ht: 60,
-          border: 20,
-          title: 'Email',
-          icon: Icons.mail,
-          myControler: userNameController,
-          passChar: false,
-        ),
-        kHeight,
-        MyTextField(
-          ht: 60,
-          border: 20,
-          title: 'Password',
-          icon: Icons.lock,
-          myControler: passwordController,
-          passChar: true,
-        ),
-        kHeight,
-        kHeight20,
-        SignUpBtn(),
-        kHeight20,
-        SignUpTxtBtn(
-          signUp: false,
-          navigateTo: LoginScreen(),
-        )
-      ]),
+      body: Column(
+          // physics: const BouncingScrollPhysics(),
+          children: [
+            const SignInText(title: 'Sign Up'),
+            kHeight20,
+            kHeight,
+            MyTextField(
+              ht: 60,
+              border: 20,
+              title: 'Name',
+              icon: Icons.abc,
+              myControler: nameController1,
+              passChar: false,
+            ),
+            kHeight,
+            MyTextField(
+              ht: 60,
+              border: 20,
+              title: 'Email',
+              icon: Icons.mail,
+              myControler: userNameController,
+              passChar: false,
+            ),
+            kHeight,
+            MyTextField(
+              ht: 60,
+              border: 20,
+              title: 'Password',
+              icon: Icons.lock,
+              myControler: passwordController,
+              passChar: true,
+            ),
+            kHeight,
+            kHeight20,
+            SignUpBtn(),
+            kHeight20,
+            SignUpTxtBtn(
+              signUp: false,
+              navigateTo: LoginScreen(),
+            )
+          ]),
     );
   }
 }

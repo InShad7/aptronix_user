@@ -1,5 +1,6 @@
 import 'package:aaptronix/view/home_screen/widget/fav_icon.dart';
 import 'package:aaptronix/view/home_screen/widget/home_item_card.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class ProductNamePrice extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 340,
+                width: mWidth! / 1.3,
                 child: Text(
                   product['name'],
                   // overflow: TextOverflow.ellipsis,

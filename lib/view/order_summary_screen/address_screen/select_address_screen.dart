@@ -36,12 +36,11 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
   }
 
   bool a = false;
-  getRefresh(String refresh) {
-    if (refresh == 'refresh') {
+  getRefresh() {
+    
       setState(() {
         a = true;
       });
-    }
   }
 
   void deleteAddress(int index) {
@@ -126,10 +125,12 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                                             builder: (context) =>
                                                 AddAddressScreen(
                                                     editAdd: true,
-                                                    index: index),
+                                                    index: index,
+                                                   
+                                                    ),
                                           ));
                                       if (result == 'refresh') {
-                                        getRefresh('refresh');
+                                        getRefresh();
                                       }
                                     },
                                     icon: const Icon(Icons.edit_outlined),

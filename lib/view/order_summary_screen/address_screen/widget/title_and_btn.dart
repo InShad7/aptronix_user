@@ -36,10 +36,11 @@ class TitleAndBtn extends StatelessWidget {
               final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddAddressScreen(editAdd: false),
+                    builder: (context) =>
+                        AddAddressScreen(editAdd: false, refrsh: refresh),
                   ));
               if (result == 'refresh') {
-                refresh('refresh');
+                refresh();
               }
             },
             child: Text(

@@ -4,7 +4,6 @@ import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:aaptronix/view/wish_list_screen/widget/wish_list_card.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({super.key});

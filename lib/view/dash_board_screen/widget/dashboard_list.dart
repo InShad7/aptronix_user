@@ -33,7 +33,7 @@ class DashboardList extends StatelessWidget {
             child: Text(
               label,
               style: GoogleFonts.roboto(
-                textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
           ),

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:aaptronix/controller/controller.dart';
 import 'package:aaptronix/view/cart_screen/widget/checout_btn.dart';
 import 'package:aaptronix/view/cart_screen/widget/my_cart_card.dart';
+import 'package:aaptronix/view/splash_screen.dart/spalsh_screen.dart';
 import 'package:aaptronix/view/utils/colors.dart';
 import 'package:aaptronix/view/widget/bottom_nav_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             if (myCart.isEmpty || myCart[0] == 'no data')
               SizedBox(
-                height: 750,
+                height: mHeight! / 1.2,
                 child: Center(
                   child: Image.asset(
                     'assets/cartempty.jpeg',

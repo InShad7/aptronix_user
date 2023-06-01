@@ -29,7 +29,7 @@ class CartCard1 extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16.0, right: 16, top: 5),
       child: InkWell(
         child: Container(
-          height: 118,
+          height: (mHeight! > 925) ? 119 : 123,
           width: mWidth! / 1.1,
           decoration: BoxDecoration(
             color: white,
@@ -62,13 +62,13 @@ class CartCard1 extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 220,
+                      width: mWidth! / 1.7,
                       child: Text(
                         product['name'],
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w500)),
+                                fontSize: 20, fontWeight: FontWeight.w500)),
                       ),
                     ),
                     kHeight,
@@ -78,13 +78,13 @@ class CartCard1 extends StatelessWidget {
                           textStyle: const TextStyle(fontSize: 17)),
                     ),
                     SizedBox(
-                      width: 268,
+                      width: mWidth! / 1.7,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            width: 60,
+                            width: mWidth! / 6,
                             child: Text(
                               '₹ ${product['price']}',
                               style: GoogleFonts.roboto(

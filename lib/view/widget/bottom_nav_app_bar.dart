@@ -14,6 +14,7 @@ class NavScreenAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: white,
       elevation: 0,
       centerTitle: true,
+      automaticallyImplyLeading: false,
       title: Text(
         title,
         style: GoogleFonts.roboto(
