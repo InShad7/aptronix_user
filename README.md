@@ -1,16 +1,13 @@
 # aaptronix
 
-A new Flutter project.
+an E-commerce application 
 
-## Getting Started
+Aptronix is a new Flutter project that aims to be the ultimate destination for Apple products. It offers features like secure authentication, an extensive Apple product catalog, cart and wishlist functionality, personalized dashboards, transparent order details, powerful search, seamless payments, and an admin module for businesses.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+https://github.com/InShad7/aptronix_user/assets/86614144/2addecdd-8285-4d05-bcd9-f2271033484b
+
